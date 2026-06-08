@@ -90,7 +90,7 @@
 .shop-window > .tab-rail .rail-tab {
   width: calc(100% - 2px);
   margin-left: 2px;
-  min-height: 64px;
+  min-height: 72px;
   padding: 8px 10px;
   border-radius: 12px 0 0 12px;
   display: grid;
@@ -138,7 +138,8 @@
   background: var(--active-accent);
   color: var(--text-strong);
   /* Use a colored glow similar to the stripe to avoid perceived mismatch */
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--active-accent) 20%, transparent);
+  box-shadow: 0 6px 18px
+    color-mix(in srgb, var(--active-accent) 20%, transparent);
 }
 
 .shop-window > .tab-rail .rail-tab__marker {
@@ -172,8 +173,7 @@
 }
 
 .shop-window > .tab-rail .rail-tab.active {
-  min-height: 96px;
-  transform: translateX(2px);
+  min-height: 156px;
 }
 
 .shop-window > .tab-rail .rail-tab.active .rail-tab__marker {
