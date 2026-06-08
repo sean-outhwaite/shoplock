@@ -380,12 +380,7 @@ function App() {
                     <header className="category-header">
                       <div className="category-header-top">
                         <span className="category-cost">
-                          {formatCost(
-                            groupedItems[itemCategory][tier].reduce(
-                              (sum, item) => sum + item.cost,
-                              0,
-                            ),
-                          )}
+                          {formatCost(tierPrices[tier])}
                         </span>
                         <strong>
                           {groupedItems[itemCategory][tier].length} items
