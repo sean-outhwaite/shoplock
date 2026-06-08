@@ -152,8 +152,8 @@ const items: ShopItem[] = [
 
 const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'Weapon',
-  'Spirit',
   'Vitality',
+  'Spirit',
   'All',
 ]
 
@@ -179,13 +179,13 @@ function formatCost(cost: number) {
 function categoryAccent(category: ItemCategory) {
   switch (category) {
     case 'Weapon':
-      return '#f97316'
+      return '#DCA50F'
     case 'Spirit':
-      return '#22d3ee'
+      return '#AA62CD'
     case 'Vitality':
-      return '#34d399'
+      return '#9BC636'
     case 'All':
-      return '#94a3b8'
+      return '#8C897A'
   }
 }
 
