@@ -1,1 +1,1 @@
-Vibe coding a react version of an item shop.
+Getting some practice with agentic coding.

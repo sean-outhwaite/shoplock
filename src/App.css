@@ -81,14 +81,15 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 12px 6px;
-  margin: 8px 0 8px 6px; /* bring the rail closer to the stripe */
+  padding: 12px 4px 12px 10px;
+  margin: 8px 0 8px 0;
   align-items: stretch;
   grid-column: 1 / 2;
 }
 
 .shop-window > .tab-rail .rail-tab {
-  width: 100%;
+  width: calc(100% - 2px);
+  margin-left: 2px;
   min-height: 64px;
   padding: 8px 10px;
   border-radius: 12px;
@@ -100,7 +101,7 @@
 /* Make rail tabs visually flush with the stripe */
 .shop-window > .tab-rail .rail-tab {
   border-left: none;
-  padding-left: 6px;
+  padding-left: 8px;
   position: relative;
   z-index: 2;
 }
@@ -119,13 +120,18 @@
   width: 8px;
   background: var(--active-accent, #94a3b8);
   border-radius: 0 6px 6px 0;
-  box-shadow: 0 6px 18px color-mix(in srgb, var(--active-accent, #94a3b8) 20%, transparent);
+  box-shadow: 0 6px 18px
+    color-mix(in srgb, var(--active-accent, #94a3b8) 20%, transparent);
   z-index: 1;
 }
 
 /* Slightly darken active tab background so it reads as selected */
 .shop-window > .tab-rail .rail-tab.active {
-  background: linear-gradient(180deg, color-mix(in srgb, var(--tab-accent) 22%, rgba(10,14,26,0.9)), rgba(8,11,20,0.94));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--tab-accent) 22%, rgba(10, 14, 26, 0.9)),
+    rgba(8, 11, 20, 0.94)
+  );
 }
 
 .shop-window > .tab-rail .rail-tab__marker {
@@ -199,7 +205,6 @@
   color: var(--text-strong);
 }
 
-.rail-tab:hover,
 .rail-tab:focus-visible {
   transform: translateX(2px);
 }

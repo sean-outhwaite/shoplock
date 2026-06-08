@@ -322,7 +322,11 @@ function App() {
       <main className="layout">
         <section
           className="shop-window"
-          style={{ '--active-accent': categoryAccent(selectedCategory) } as CSSProperties}
+          style={
+            {
+              '--active-accent': categoryAccent(selectedCategory),
+            } as CSSProperties
+          }
         >
           <nav className="tab-rail" aria-label="Shop item types">
             {categories.map((itemCategory) => (
