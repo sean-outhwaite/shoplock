@@ -405,9 +405,6 @@ function App() {
                           >
                             <ItemIconBadge item={item} />
                             <span className="grid-item-name">{item.name}</span>
-                            <span className="grid-item-tier">
-                              {formatCost(item.cost)}
-                            </span>
                           </button>
                         ))}
                       </div>
