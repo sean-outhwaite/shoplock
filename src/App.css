@@ -368,11 +368,6 @@
   color: rgba(226, 232, 240, 0.74);
 }
 
-.tier-board {
-  display: grid;
-  gap: 10px;
-}
-
 .tier-section {
   position: relative;
   padding: 12px;
@@ -561,6 +556,7 @@
 
   .shop-window {
     border-radius: 22px;
+    row-gap: 24px;
   }
 
   .category-grid {
