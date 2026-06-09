@@ -353,67 +353,69 @@ function App() {
             ))}
           </nav>
 
-          <header className="window-header">
-            <div>
-              <p className="eyebrow">Fairfax item shop</p>
-              <h1>
-                {selectedCategory === 'All'
-                  ? 'All items'
-                  : categoryTitle(selectedCategory)}
-              </h1>
-            </div>
-          </header>
-
-          <div className="shop-body">
-            {visibleCategories.map((itemCategory) => (
-              <div key={itemCategory} className="category-collection">
-                {tiers.map((tier) => (
-                  <section
-                    key={`${itemCategory}-${tier}`}
-                    className="tier-section"
-                    style={
-                      {
-                        '--category-accent': categoryAccent(itemCategory),
-                      } as CSSProperties
-                    }
-                  >
-                    <header className="category-header">
-                      <div className="category-header-top">
-                        <span className="category-cost">
-                          {formatCost(tierPrices[tier])}
-                        </span>
-                        <strong>
-                          {groupedItems[itemCategory][tier].length} items
-                        </strong>
-                      </div>
-
-                      <div className="category-title-row">
-                        <h2>{itemCategory}</h2>
-                        <span>
-                          {tier} · {formatCost(tierPrices[tier])}
-                        </span>
-                      </div>
-                    </header>
-
-                    <div className="category-grid">
-                      {groupedItems[itemCategory][tier].map((item) => (
-                        <button
-                          key={item.id}
-                          type="button"
-                          className="grid-item"
-                        >
-                          <ItemIconBadge item={item} />
-                          <span className="grid-item-name">{item.name}</span>
-                          <span className="grid-item-tier">
-                            {formatCost(item.cost)}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </section>
-                ))}
+          <div className="full-shop">
+            <header className="window-header">
+              <div>
+                <p className="eyebrow">Fairfax item shop</p>
+                <h1>
+                  {selectedCategory === 'All'
+                    ? 'All items'
+                    : categoryTitle(selectedCategory)}
+                </h1>
               </div>
-            ))}
+            </header>
+
+            <div className="shop-body">
+              {visibleCategories.map((itemCategory) => (
+                <div key={itemCategory} className="category-collection">
+                  {tiers.map((tier) => (
+                    <section
+                      key={`${itemCategory}-${tier}`}
+                      className="tier-section"
+                      style={
+                        {
+                          '--category-accent': categoryAccent(itemCategory),
+                        } as CSSProperties
+                      }
+                    >
+                      <header className="category-header">
+                        <div className="category-header-top">
+                          <span className="category-cost">
+                            {formatCost(tierPrices[tier])}
+                          </span>
+                          <strong>
+                            {groupedItems[itemCategory][tier].length} items
+                          </strong>
+                        </div>
+
+                        <div className="category-title-row">
+                          <h2>{itemCategory}</h2>
+                          <span>
+                            {tier} · {formatCost(tierPrices[tier])}
+                          </span>
+                        </div>
+                      </header>
+
+                      <div className="category-grid">
+                        {groupedItems[itemCategory][tier].map((item) => (
+                          <button
+                            key={item.id}
+                            type="button"
+                            className="grid-item"
+                          >
+                            <ItemIconBadge item={item} />
+                            <span className="grid-item-name">{item.name}</span>
+                            <span className="grid-item-tier">
+                              {formatCost(item.cost)}
+                            </span>
+                          </button>
+                        ))}
+                      </div>
+                    </section>
+                  ))}
+                </div>
+              ))}
+            </div>
           </div>
         </section>
       </main>
