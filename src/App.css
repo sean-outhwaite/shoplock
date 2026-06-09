@@ -385,10 +385,6 @@
   margin-bottom: 12px;
 }
 
-.tier-section + .tier-section {
-  margin-top: 12px;
-}
-
 .tier-section__header,
 .tier-panel__header {
   display: flex;
