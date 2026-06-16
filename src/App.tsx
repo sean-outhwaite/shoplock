@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react'
-import type { CSSProperties } from 'react'
+import { useMemo, useRef, useState } from 'react'
+import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
 
 type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
@@ -25,6 +25,11 @@ type ShopItem = {
   tags: string[]
   accent: string
   icon: ItemIcon
+}
+
+type PopoverPosition = {
+  x: number
+  y: number
 }
 
 const items: ShopItem[] = [
@@ -266,9 +271,72 @@ function ItemIconBadge({ item }: { item: ShopItem }) {
   )
 }
 
+function ItemPreviewPopover({
+  item,
+  position,
+}: {
+  item: ShopItem
+  position: PopoverPosition
+}) {
+  return (
+    <aside
+      className="item-popover"
+      style={
+        {
+          '--popover-x': `${position.x}px`,
+          '--popover-y': `${position.y}px`,
+          '--popover-accent': item.accent,
+        } as CSSProperties
+      }
+      role="presentation"
+      aria-hidden="true"
+    >
+      <header className="item-popover__header">
+        <div>
+          <p className="item-popover__eyebrow">
+            {item.category} · {item.tier}
+          </p>
+          <h3>{item.name}</h3>
+        </div>
+        <strong>${formatCost(item.cost)}</strong>
+      </header>
+
+      <div className="item-popover__body">
+        <p className="item-popover__lead">
+          Damage from your ultimate applies a stun and deals bonus spirit damage
+          after a short delay.
+        </p>
+
+        <div className="item-popover__stats" aria-hidden="true">
+          <div>
+            <span>Stun</span>
+            <strong>{item.category}</strong>
+          </div>
+          <div>
+            <span>Duration</span>
+            <strong>{(1 + item.tags.length * 0.25).toFixed(2)}s</strong>
+          </div>
+          <div>
+            <span>Damage</span>
+            <strong>{item.cost / 10}</strong>
+          </div>
+        </div>
+
+        <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
+      </div>
+    </aside>
+  )
+}
+
 function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ItemCategory>('Weapon')
+  const [hoveredItem, setHoveredItem] = useState<ShopItem | null>(null)
+  const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>({
+    x: 0,
+    y: 0,
+  })
+  const shopWindowRef = useRef<HTMLElement | null>(null)
 
   const groupedItems = useMemo(
     () =>
@@ -313,6 +381,24 @@ function App() {
   const visibleCategories =
     selectedCategory === 'All' ? categoryOrder : [selectedCategory]
 
+  function positionPopover(
+    event: MouseEvent<HTMLButtonElement> | FocusEvent<HTMLButtonElement>,
+  ) {
+    const bounds = shopWindowRef.current?.getBoundingClientRect()
+
+    if (!bounds) {
+      return
+    }
+
+    const clientX = 'clientX' in event ? event.clientX : bounds.left + 120
+    const clientY = 'clientY' in event ? event.clientY : bounds.top + 60
+
+    setPopoverPosition({
+      x: clientX - bounds.left + 18,
+      y: clientY - bounds.top - 18,
+    })
+  }
+
   return (
     <div className="shop-app">
       <div className="orb orb-a" />
@@ -321,6 +407,7 @@ function App() {
 
       <main className="layout">
         <section
+          ref={shopWindowRef}
           className="shop-window"
           style={
             {
@@ -402,6 +489,17 @@ function App() {
                             key={item.id}
                             type="button"
                             className="grid-item"
+                            onMouseEnter={(event) => {
+                              setHoveredItem(item)
+                              positionPopover(event)
+                            }}
+                            onMouseMove={positionPopover}
+                            onFocus={(event) => {
+                              setHoveredItem(item)
+                              positionPopover(event)
+                            }}
+                            onBlur={() => setHoveredItem(null)}
+                            onMouseLeave={() => setHoveredItem(null)}
                           >
                             <ItemIconBadge item={item} />
                             <span className="grid-item-name">{item.name}</span>
@@ -414,6 +512,10 @@ function App() {
               ))}
             </div>
           </div>
+
+          {hoveredItem ? (
+            <ItemPreviewPopover item={hoveredItem} position={popoverPosition} />
+          ) : null}
         </section>
       </main>
     </div>
