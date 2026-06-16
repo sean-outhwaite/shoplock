@@ -285,7 +285,7 @@ function ItemPreviewPopover({
         {
           '--popover-x': `${position.x}px`,
           '--popover-y': `${position.y}px`,
-          '--popover-accent': item.accent,
+          '--popover-accent': categoryAccent(item.category),
         } as CSSProperties
       }
       role="presentation"
@@ -293,15 +293,19 @@ function ItemPreviewPopover({
     >
       <header className="item-popover__header">
         <div>
-          <p className="item-popover__eyebrow">
-            {item.category} · {item.tier}
-          </p>
           <h3>{item.name}</h3>
         </div>
-        <strong>${formatCost(item.cost)}</strong>
+        <div>
+          <strong>${formatCost(item.cost)}</strong>
+        </div>
       </header>
 
       <div className="item-popover__body">
+        <p className="item-popover__lead">
+          Damage from your ultimate applies a stun and deals bonus spirit damage
+          after a short delay.
+        </p>
+        <div className="item-popover__eyebrow">Passive</div>
         <p className="item-popover__lead">
           Damage from your ultimate applies a stun and deals bonus spirit damage
           after a short delay.
@@ -498,8 +502,8 @@ function App() {
                               setHoveredItem(item)
                               positionPopover(event)
                             }}
-                            onBlur={() => setHoveredItem(null)}
-                            onMouseLeave={() => setHoveredItem(null)}
+                            // onBlur={() => setHoveredItem(null)}
+                            // onMouseLeave={() => setHoveredItem(null)}
                           >
                             <ItemIconBadge item={item} />
                             <span className="grid-item-name">{item.name}</span>

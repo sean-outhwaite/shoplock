@@ -496,19 +496,15 @@
   top: clamp(18px, var(--popover-y), calc(100% - 220px));
   z-index: 30;
   width: min(320px, calc(100% - 24px));
-  padding: 14px;
-  border: 1px solid color-mix(in srgb, var(--popover-accent) 42%, white 10%);
-  border-radius: 20px;
-  background:
-    radial-gradient(
-      circle at top left,
-      color-mix(in srgb, var(--popover-accent) 35%, transparent),
-      transparent 44%
-    ),
-    linear-gradient(180deg, rgba(17, 24, 39, 0.98), rgba(7, 10, 18, 0.98));
+  border-radius: 6px;
   box-shadow: 0 20px 60px rgba(2, 6, 23, 0.58);
   pointer-events: none;
   backdrop-filter: blur(14px);
+  background: color-mix(
+    in srgb,
+    var(--popover-accent) 30%,
+    rgba(10, 14, 26, 0.92)
+  );
 }
 
 .item-popover::before {
@@ -516,7 +512,6 @@
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  padding: 1px;
   background: linear-gradient(
     135deg,
     color-mix(in srgb, var(--popover-accent) 70%, white),
@@ -532,10 +527,13 @@
 
 .item-popover__header {
   display: flex;
+  flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
+  background: var(--popover-accent);
+  border-radius: 6px 6px 0 0;
+  padding: 14px 18px;
 }
 
 .item-popover__header h3 {
@@ -547,7 +545,7 @@
 }
 
 .item-popover__header strong {
-  color: color-mix(in srgb, var(--popover-accent) 55%, white);
+  color: #9ef6dd;
   font-size: 1rem;
   letter-spacing: 0.08em;
 }
@@ -562,9 +560,17 @@
   letter-spacing: 0.18em;
 }
 
+.item-popover__eyebrow {
+  background: color-mix(in srgb, black 20%, transparent);
+  padding: 8px;
+  font-weight: 600;
+  margin: 0 -14px 0 -14px;
+}
+
 .item-popover__body {
   display: grid;
   gap: 14px;
+  padding: 14px;
 }
 
 .item-popover__lead {
@@ -577,13 +583,13 @@
 .item-popover__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  gap: 1px;
 }
 
 .item-popover__stats div {
   padding: 10px 8px;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.04);
+  border-radius: 6px;
+  background: color-mix(in srgb, black 12%, transparent);
   border: 1px solid rgba(148, 163, 184, 0.12);
   display: grid;
   gap: 6px;
