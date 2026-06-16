@@ -269,7 +269,7 @@
 .window-header h1,
 .detail-head h2 {
   margin: 0;
-  color: var(--text-strong);
+  color: #1f1c1c;
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.05em;
@@ -309,7 +309,7 @@
 }
 
 .category-header {
-  display: grid;
+  display: flex;
   gap: 6px;
   padding: 0 6px 12px;
 }
@@ -344,14 +344,8 @@
 .tier-section {
   position: relative;
   padding: 12px;
-  border: 1px solid
-    color-mix(in srgb, var(--category-accent) 30%, rgba(148, 163, 184, 0.12));
-  border-radius: 18px;
-  background: linear-gradient(
-    180deg,
-    color-mix(in srgb, var(--category-accent) 12%, rgba(8, 11, 20, 0.9)),
-    rgba(8, 11, 20, 0.96)
-  );
+  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   margin-bottom: 12px;
 }
@@ -364,21 +358,6 @@
   gap: 10px;
   margin-bottom: 10px;
   padding: 0 2px;
-}
-
-.tier-panel__header span,
-.tier-panel__header strong {
-  font-size: 0.68rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-
-.tier-panel__header span {
-  color: rgba(226, 232, 240, 0.7);
-}
-
-.tier-panel__header strong {
-  color: color-mix(in srgb, var(--category-accent) 62%, white);
 }
 
 .category-grid {
