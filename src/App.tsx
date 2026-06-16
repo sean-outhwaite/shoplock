@@ -3,31 +3,7 @@ import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
 import { items } from './items.tsx'
 import { ItemGlyph } from './utils.tsx'
-
-type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
-
-type ItemTier = 'T1' | 'T2' | 'T3' | 'T4'
-
-type ItemIcon =
-  | 'blade'
-  | 'spark'
-  | 'shield'
-  | 'gear'
-  | 'pulse'
-  | 'hex'
-  | 'bolt'
-  | 'wave'
-
-type ShopItem = {
-  id: string
-  name: string
-  category: ItemCategory
-  tier: ItemTier
-  cost: number
-  tags: string[]
-  accent: string
-  icon: ItemIcon
-}
+import type { ShopItem, ItemCategory, ItemTier } from './types.ts'
 
 type PopoverPosition = {
   x: number
