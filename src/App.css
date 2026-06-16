@@ -219,11 +219,6 @@
 }
 
 .shop-window {
-  border: 1px solid var(--panel-border);
-  border-radius: 26px;
-  background:
-    linear-gradient(180deg, rgba(10, 14, 26, 0.92), rgba(6, 9, 18, 0.97)),
-    rgba(10, 14, 26, 0.92);
   box-shadow: var(--shadow-soft);
   overflow: visible;
 }
@@ -233,8 +228,17 @@
   --rail-width: 72px;
   display: grid;
   grid-template-columns: var(--rail-width) minmax(0, 1fr);
-  gap: 12px;
+
   align-items: start;
+}
+
+.full-shop {
+  background: color-mix(
+    in srgb,
+    var(--active-accent) 30%,
+    rgba(255, 248, 206, 0.799)
+  );
+  height: 100%;
 }
 
 /* Make header and body occupy the main column */

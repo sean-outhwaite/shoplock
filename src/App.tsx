@@ -298,8 +298,8 @@ function App() {
                               setHoveredItem(item)
                               positionPopover(event)
                             }}
-                            // onBlur={() => setHoveredItem(null)}
-                            // onMouseLeave={() => setHoveredItem(null)}
+                            onBlur={() => setHoveredItem(null)}
+                            onMouseLeave={() => setHoveredItem(null)}
                           >
                             <ItemIconBadge item={item} />
                             <span className="grid-item-name">{item.name}</span>
