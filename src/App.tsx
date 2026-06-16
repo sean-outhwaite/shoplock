@@ -17,13 +17,13 @@ const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'All',
 ]
 
-const tiers: ItemTier[] = ['T1', 'T2', 'T3', 'T4']
+const tiers: ItemTier[] = ['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4']
 
 const tierPrices: Record<ItemTier, number> = {
-  T1: 800,
-  T2: 1600,
-  T3: 3200,
-  T4: 6400,
+  'Tier 1': 800,
+  'Tier 2': 1600,
+  'Tier 3': 3200,
+  'Tier 4': 6400,
 }
 
 const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
@@ -159,15 +159,15 @@ function App() {
               )
               return tierAccumulator
             },
-            { T1: [], T2: [], T3: [], T4: [] },
+            { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
           )
 
           return categoryAccumulator
         },
         {
-          Weapon: { T1: [], T2: [], T3: [], T4: [] },
-          Spirit: { T1: [], T2: [], T3: [], T4: [] },
-          Vitality: { T1: [], T2: [], T3: [], T4: [] },
+          Weapon: { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
+          Spirit: { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
+          Vitality: { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
         },
       ),
     [],
@@ -274,18 +274,12 @@ function App() {
                       <header className="category-header">
                         <div className="category-header-top">
                           <span className="category-cost">
-                            {formatCost(tierPrices[tier])}
+                            ${formatCost(tierPrices[tier])}
                           </span>
-                          <strong>
-                            {groupedItems[itemCategory][tier].length} items
-                          </strong>
                         </div>
 
                         <div className="category-title-row">
-                          <h2>{itemCategory}</h2>
-                          <span>
-                            {tier} · {formatCost(tierPrices[tier])}
-                          </span>
+                          <h2>{tier}</h2>
                         </div>
                       </header>
 

@@ -350,14 +350,13 @@
   gap: 12px;
 }
 
-.category-header-top strong,
-.category-title-row span,
-.category-cost span {
-  color: color-mix(in srgb, var(--category-accent) 58%, white);
-  text-shadow: 0 0 12px
-    color-mix(in srgb, var(--category-accent) 28%, transparent);
+.category-cost {
+  color: #74c397;
+  background: black;
+  font-weight: 600;
+  padding: 2px 4px;
+  rotate: -6deg;
 }
-
 .category-title-row h2 {
   margin: 0;
   color: var(--text-strong);

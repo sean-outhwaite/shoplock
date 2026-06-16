@@ -11,7 +11,7 @@ export type ShopItem = {
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
 
-export type ItemTier = 'T1' | 'T2' | 'T3' | 'T4'
+export type ItemTier = 'Tier 1' | 'Tier 2' | 'Tier 3' | 'Tier 4'
 
 export type ItemIcon =
   | 'blade'
