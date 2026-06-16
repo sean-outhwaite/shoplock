@@ -17,13 +17,13 @@ const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'All',
 ]
 
-const tiers: ItemTier[] = ['Tier 1', 'Tier 2', 'Tier 3', 'Tier 4']
+const tiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
 
 const tierPrices: Record<ItemTier, number> = {
-  'Tier 1': 800,
-  'Tier 2': 1600,
-  'Tier 3': 3200,
-  'Tier 4': 6400,
+  'TIER 1': 800,
+  'TIER 2': 1600,
+  'TIER 3': 3200,
+  'TIER 4': 6400,
 }
 
 const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
@@ -159,15 +159,15 @@ function App() {
               )
               return tierAccumulator
             },
-            { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
+            { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
           )
 
           return categoryAccumulator
         },
         {
-          Weapon: { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
-          Spirit: { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
-          Vitality: { 'Tier 1': [], 'Tier 2': [], 'Tier 3': [], 'Tier 4': [] },
+          Weapon: { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
+          Spirit: { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
+          Vitality: { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
         },
       ),
     [],
