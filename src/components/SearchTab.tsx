@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import ItemCard from './ItemCard.tsx'
 import { items } from '../items.tsx'
 import type { ShopItem } from '../types.ts'
@@ -11,18 +12,36 @@ interface props {
 const sortedItems = items.sort((a, b) => a.name.localeCompare(b.name))
 
 const SearchTab = ({ hoveredItem, setHoveredItem, positionPopover }: props) => {
+  const [searchTerm, setSearchTerm] = useState('')
+
+  const filteredItems = sortedItems.filter((item) =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  )
+
   return (
-    <div className="search-grid">
-      {sortedItems.map((item: ShopItem) => (
-        <ItemCard
-          key={item.id}
-          item={item}
-          hoveredItem={hoveredItem}
-          setHoveredItem={setHoveredItem}
-          positionPopover={positionPopover}
+    <>
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search items..."
+          className="search-input"
+          aria-label="Search items"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
         />
-      ))}
-    </div>
+      </div>
+      <div className="search-grid">
+        {filteredItems.map((item: ShopItem) => (
+          <ItemCard
+            key={item.id}
+            item={item}
+            hoveredItem={hoveredItem}
+            setHoveredItem={setHoveredItem}
+            positionPopover={positionPopover}
+          />
+        ))}
+      </div>
+    </>
   )
 }
 
