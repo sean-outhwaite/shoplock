@@ -1,6 +1,7 @@
 import { ItemGlyph } from './ItemGlyph.tsx'
 import type { CSSProperties } from 'react'
 import type { ShopItem } from '../types.ts'
+import { categoryAccent } from '../utils.tsx'
 
 function ItemIconBadge({ item }: { item: ShopItem }) {
   return (
@@ -43,6 +44,11 @@ const ItemCard = ({
       }}
       onMouseMove={positionPopover}
       onMouseLeave={() => setHoveredItem(null)}
+      style={
+        {
+          '--category-accent': categoryAccent(item.category),
+        } as CSSProperties
+      }
     >
       <ItemIconBadge item={item} />
       <span className="grid-item-name">{item.name}</span>
