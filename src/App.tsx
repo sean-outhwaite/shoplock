@@ -207,10 +207,6 @@ function App() {
 
   return (
     <div className="shop-app">
-      <div className="orb orb-a" />
-      <div className="orb orb-b" />
-      <div className="orb orb-c" />
-
       <main className="layout">
         <section
           ref={shopWindowRef}

@@ -5,38 +5,6 @@
   overflow: hidden;
 }
 
-.orb {
-  position: absolute;
-  border-radius: 999px;
-  filter: blur(90px);
-  opacity: 0.42;
-  pointer-events: none;
-}
-
-.orb-a {
-  top: -120px;
-  left: -60px;
-  width: 300px;
-  height: 300px;
-  background: rgba(56, 189, 248, 0.28);
-}
-
-.orb-b {
-  top: 120px;
-  right: -80px;
-  width: 360px;
-  height: 360px;
-  background: rgba(244, 114, 182, 0.22);
-}
-
-.orb-c {
-  left: 20%;
-  bottom: -140px;
-  width: 420px;
-  height: 420px;
-  background: rgba(34, 197, 94, 0.12);
-}
-
 .layout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
