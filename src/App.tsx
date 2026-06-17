@@ -2,7 +2,6 @@ import { useMemo, useRef, useState } from 'react'
 import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
 import { items } from './items.tsx'
-import { ItemGlyph } from './components/ItemGlyph.tsx'
 import type {
   ShopItem,
   ItemCategory,
@@ -11,6 +10,7 @@ import type {
 } from './types.ts'
 import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
+import ItemCard from './components/ItemCard.tsx'
 import weaponIcon from './assets/Weapon.svg'
 import spiritIcon from './assets/Spirit.svg'
 import vitalityIcon from './assets/Vitality.svg'
@@ -54,19 +54,6 @@ function categoryTitle(category: Exclude<ItemCategory, 'All'>) {
     case 'Vitality':
       return 'Vitality'
   }
-}
-
-function ItemIconBadge({ item }: { item: ShopItem }) {
-  return (
-    <span
-      className="item-icon"
-      style={{ '--accent': item.accent } as CSSProperties}
-    >
-      <span className="item-icon-inner">
-        <ItemGlyph icon={item.icon} />
-      </span>
-    </span>
-  )
 }
 
 function App() {
@@ -193,7 +180,9 @@ function App() {
             </header>
 
             <div className="shop-body">
-              {selectedCategory !== 'All' &&
+              {selectedCategory === 'All' ? (
+                <div></div>
+              ) : (
                 visibleCategories.map((itemCategory) => (
                   <div key={itemCategory} className="category-collection">
                     {tiers.map((tier) => (
@@ -217,36 +206,23 @@ function App() {
                             <h2>{tier}</h2>
                           </div>
                         </header>
-                        (
+
                         <div className="category-grid">
                           {groupedItems[itemCategory][tier].map((item) => (
-                            <button
+                            <ItemCard
                               key={item.id}
-                              type="button"
-                              className={
-                                hoveredItem && hoveredItem.id !== item.id
-                                  ? 'grid-item grid-item--dimmed'
-                                  : 'grid-item'
-                              }
-                              onMouseEnter={(event) => {
-                                setHoveredItem(item)
-                                positionPopover(event)
-                              }}
-                              onMouseMove={positionPopover}
-                              onMouseLeave={() => setHoveredItem(null)}
-                            >
-                              <ItemIconBadge item={item} />
-                              <span className="grid-item-name">
-                                {item.name}
-                              </span>
-                            </button>
+                              item={item}
+                              hoveredItem={hoveredItem}
+                              setHoveredItem={setHoveredItem}
+                              positionPopover={positionPopover}
+                            />
                           ))}
                         </div>
-                        )
                       </section>
                     ))}
                   </div>
-                ))}
+                ))
+              )}
             </div>
           </div>
 
