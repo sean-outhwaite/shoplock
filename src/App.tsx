@@ -2,13 +2,15 @@ import { useMemo, useRef, useState } from 'react'
 import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
 import { items } from './items.tsx'
-import { ItemGlyph } from './utils.tsx'
-import type { ShopItem, ItemCategory, ItemTier } from './types.ts'
-
-type PopoverPosition = {
-  x: number
-  y: number
-}
+import { ItemGlyph } from './components/ItemGlyph.tsx'
+import type {
+  ShopItem,
+  ItemCategory,
+  ItemTier,
+  PopoverPosition,
+} from './types.ts'
+import { formatCost, categoryAccent } from './utils.tsx'
+import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 
 const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'Weapon',
@@ -31,23 +33,6 @@ const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
   'Spirit',
   'Vitality',
 ]
-
-function formatCost(cost: number) {
-  return cost.toLocaleString('en-US')
-}
-
-function categoryAccent(category: ItemCategory) {
-  switch (category) {
-    case 'Weapon':
-      return '#DCA50F'
-    case 'Spirit':
-      return '#AA62CD'
-    case 'Vitality':
-      return '#9BC636'
-    case 'All':
-      return '#8C897A'
-  }
-}
 
 function categoryTitle(category: Exclude<ItemCategory, 'All'>) {
   switch (category) {
@@ -73,66 +58,66 @@ function ItemIconBadge({ item }: { item: ShopItem }) {
   )
 }
 
-function ItemPreviewPopover({
-  item,
-  position,
-}: {
-  item: ShopItem
-  position: PopoverPosition
-}) {
-  return (
-    <aside
-      className="item-popover"
-      style={
-        {
-          '--popover-x': `${position.x}px`,
-          '--popover-y': `${position.y}px`,
-          '--popover-accent': categoryAccent(item.category),
-        } as CSSProperties
-      }
-      role="presentation"
-      aria-hidden="true"
-    >
-      <header className="item-popover__header">
-        <div>
-          <h3>{item.name}</h3>
-        </div>
-        <div>
-          <strong>${formatCost(item.cost)}</strong>
-        </div>
-      </header>
+// function ItemPreviewPopover({
+//   item,
+//   position,
+// }: {
+//   item: ShopItem
+//   position: PopoverPosition
+// }) {
+//   return (
+//     <aside
+//       className="item-popover"
+//       style={
+//         {
+//           '--popover-x': `${position.x}px`,
+//           '--popover-y': `${position.y}px`,
+//           '--popover-accent': categoryAccent(item.category),
+//         } as CSSProperties
+//       }
+//       role="presentation"
+//       aria-hidden="true"
+//     >
+//       <header className="item-popover__header">
+//         <div>
+//           <h3>{item.name}</h3>
+//         </div>
+//         <div>
+//           <strong>${formatCost(item.cost)}</strong>
+//         </div>
+//       </header>
 
-      <div className="item-popover__body">
-        <p className="item-popover__lead">
-          Damage from your ultimate applies a stun and deals bonus spirit damage
-          after a short delay.
-        </p>
-        <div className="item-popover__eyebrow">Passive</div>
-        <p className="item-popover__lead">
-          Damage from your ultimate applies a stun and deals bonus spirit damage
-          after a short delay.
-        </p>
+//       <div className="item-popover__body">
+//         <p className="item-popover__lead">
+//           Damage from your ultimate applies a stun and deals bonus spirit damage
+//           after a short delay.
+//         </p>
+//         <div className="item-popover__eyebrow">Passive</div>
+//         <p className="item-popover__lead">
+//           Damage from your ultimate applies a stun and deals bonus spirit damage
+//           after a short delay.
+//         </p>
 
-        <div className="item-popover__stats" aria-hidden="true">
-          <div>
-            <span>Stun</span>
-            <strong>{item.category}</strong>
-          </div>
-          <div>
-            <span>Duration</span>
-            <strong>{(1 + item.tags.length * 0.25).toFixed(2)}s</strong>
-          </div>
-          <div>
-            <span>Damage</span>
-            <strong>{item.cost / 10}</strong>
-          </div>
-        </div>
+//         <div className="item-popover__stats" aria-hidden="true">
+//           <div>
+//             <span>Stun</span>
+//             <strong>{item.category}</strong>
+//           </div>
+//           <div>
+//             <span>Duration</span>
+//             <strong>{(1 + item.tags.length * 0.25).toFixed(2)}s</strong>
+//           </div>
+//           <div>
+//             <span>Damage</span>
+//             <strong>{item.cost / 10}</strong>
+//           </div>
+//         </div>
 
-        <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
-      </div>
-    </aside>
-  )
-}
+//         <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
+//       </div>
+//     </aside>
+//   )
+// }
 
 function App() {
   const [selectedCategory, setSelectedCategory] =

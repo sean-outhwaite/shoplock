@@ -22,3 +22,8 @@ export type ItemIcon =
   | 'hex'
   | 'bolt'
   | 'wave'
+
+export type PopoverPosition = {
+  x: number
+  y: number
+}
