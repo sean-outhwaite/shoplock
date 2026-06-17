@@ -11,6 +11,7 @@ import type {
 } from './types.ts'
 import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
+import weaponIcon from './assets/Weapon.svg'
 
 const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'Weapon',
@@ -159,7 +160,7 @@ function App() {
                 }
                 onClick={() => setSelectedCategory(itemCategory)}
               >
-                <span className="rail-tab__marker" aria-hidden="true" />
+                <img src={weaponIcon} alt="" className="rail-tab__marker" />
                 <span className="rail-tab__label">{itemCategory}</span>
                 <strong>{tabCounts[itemCategory]}</strong>
               </button>
