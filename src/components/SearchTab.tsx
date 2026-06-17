@@ -8,10 +8,12 @@ interface props {
   positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
+const sortedItems = items.sort((a, b) => a.name.localeCompare(b.name))
+
 const SearchTab = ({ hoveredItem, setHoveredItem, positionPopover }: props) => {
   return (
     <div className="search-grid">
-      {items.map((item: ShopItem) => (
+      {sortedItems.map((item: ShopItem) => (
         <ItemCard
           key={item.id}
           item={item}
