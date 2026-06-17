@@ -263,7 +263,7 @@ function App() {
                   {tiers.map((tier) => (
                     <section
                       key={`${itemCategory}-${tier}`}
-                      className="tier-section"
+                      className={`tier-section-${tier.replace(/\s+/g, '_')}`}
                       style={
                         {
                           '--category-accent': categoryAccent(itemCategory),
