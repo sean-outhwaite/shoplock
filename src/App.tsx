@@ -293,11 +293,6 @@ function App() {
                               positionPopover(event)
                             }}
                             onMouseMove={positionPopover}
-                            onFocus={(event) => {
-                              setHoveredItem(item)
-                              positionPopover(event)
-                            }}
-                            onBlur={() => setHoveredItem(null)}
                             onMouseLeave={() => setHoveredItem(null)}
                           >
                             <ItemIconBadge item={item} />
