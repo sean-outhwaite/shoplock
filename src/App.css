@@ -573,6 +573,16 @@
   gap: 12px;
 }
 
+.search-bar {
+  padding: 8px 0px;
+}
+
+.search-bar > input {
+  padding: 10px;
+  width: 20svw;
+  opacity: 0.8;
+}
+
 @media (max-width: 1180px) {
   .layout {
     grid-template-columns: 68px minmax(0, 1fr);
