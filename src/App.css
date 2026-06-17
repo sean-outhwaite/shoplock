@@ -567,6 +567,12 @@
   letter-spacing: 0.14em;
 }
 
+.search-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 12px;
+}
+
 @media (max-width: 1180px) {
   .layout {
     grid-template-columns: 68px minmax(0, 1fr);

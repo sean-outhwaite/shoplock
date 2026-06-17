@@ -22,8 +22,12 @@ interface props {
   positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-const ItemCard = (props: props) => {
-  const { item, hoveredItem, setHoveredItem, positionPopover } = props
+const ItemCard = ({
+  item,
+  hoveredItem,
+  setHoveredItem,
+  positionPopover,
+}: props) => {
   return (
     <button
       key={item.id}

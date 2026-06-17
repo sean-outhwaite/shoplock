@@ -10,6 +10,7 @@ import type {
 } from './types.ts'
 import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
+import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
 import weaponIcon from './assets/Weapon.svg'
 import spiritIcon from './assets/Spirit.svg'
@@ -181,7 +182,11 @@ function App() {
 
             <div className="shop-body">
               {selectedCategory === 'All' ? (
-                <div></div>
+                <SearchTab
+                  hoveredItem={hoveredItem}
+                  setHoveredItem={setHoveredItem}
+                  positionPopover={positionPopover}
+                />
               ) : (
                 visibleCategories.map((itemCategory) => (
                   <div key={itemCategory} className="category-collection">
