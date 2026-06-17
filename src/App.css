@@ -324,11 +324,14 @@
 }
 
 .category-cost {
+  position: relative;
   color: #74c397;
   background: black;
   font-weight: 600;
   padding: 2px 4px;
   rotate: -6deg;
+  bottom: 15px;
+  right: 25px;
 }
 .category-title-row h2 {
   margin: 0;
