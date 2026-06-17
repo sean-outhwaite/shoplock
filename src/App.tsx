@@ -249,7 +249,6 @@ function App() {
           <div className="full-shop">
             <header className="window-header">
               <div>
-                <p className="eyebrow">Fairfax item shop</p>
                 <h1>
                   {selectedCategory === 'All'
                     ? 'All items'
@@ -288,7 +287,11 @@ function App() {
                           <button
                             key={item.id}
                             type="button"
-                            className="grid-item"
+                            className={
+                              hoveredItem && hoveredItem.id !== item.id
+                                ? 'grid-item grid-item--dimmed'
+                                : 'grid-item'
+                            }
                             onMouseEnter={(event) => {
                               setHoveredItem(item)
                               positionPopover(event)
