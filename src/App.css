@@ -143,12 +143,6 @@
   min-height: 156px;
 }
 
-/* .shop-window > .tab-rail .rail-tab.active .rail-tab__marker {
-  width: 22px;
-  height: 22px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.36);
-} */
-
 .rail-tab__label {
   font-size: 0.72rem;
   letter-spacing: 0.12em;
