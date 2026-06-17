@@ -193,56 +193,60 @@ function App() {
             </header>
 
             <div className="shop-body">
-              {visibleCategories.map((itemCategory) => (
-                <div key={itemCategory} className="category-collection">
-                  {tiers.map((tier) => (
-                    <section
-                      key={`${itemCategory}-${tier}`}
-                      className={`tier-section-${tier.replace(/\s+/g, '_')}`}
-                      style={
-                        {
-                          '--category-accent': categoryAccent(itemCategory),
-                        } as CSSProperties
-                      }
-                    >
-                      <header className="category-header">
-                        <div className="category-header-top">
-                          <span className="category-cost">
-                            ${formatCost(tierPrices[tier])}
-                          </span>
-                        </div>
+              {selectedCategory !== 'All' &&
+                visibleCategories.map((itemCategory) => (
+                  <div key={itemCategory} className="category-collection">
+                    {tiers.map((tier) => (
+                      <section
+                        key={`${itemCategory}-${tier}`}
+                        className={`tier-section-${tier.replace(/\s+/g, '_')}`}
+                        style={
+                          {
+                            '--category-accent': categoryAccent(itemCategory),
+                          } as CSSProperties
+                        }
+                      >
+                        <header className="category-header">
+                          <div className="category-header-top">
+                            <span className="category-cost">
+                              ${formatCost(tierPrices[tier])}
+                            </span>
+                          </div>
 
-                        <div className="category-title-row">
-                          <h2>{tier}</h2>
+                          <div className="category-title-row">
+                            <h2>{tier}</h2>
+                          </div>
+                        </header>
+                        (
+                        <div className="category-grid">
+                          {groupedItems[itemCategory][tier].map((item) => (
+                            <button
+                              key={item.id}
+                              type="button"
+                              className={
+                                hoveredItem && hoveredItem.id !== item.id
+                                  ? 'grid-item grid-item--dimmed'
+                                  : 'grid-item'
+                              }
+                              onMouseEnter={(event) => {
+                                setHoveredItem(item)
+                                positionPopover(event)
+                              }}
+                              onMouseMove={positionPopover}
+                              onMouseLeave={() => setHoveredItem(null)}
+                            >
+                              <ItemIconBadge item={item} />
+                              <span className="grid-item-name">
+                                {item.name}
+                              </span>
+                            </button>
+                          ))}
                         </div>
-                      </header>
-
-                      <div className="category-grid">
-                        {groupedItems[itemCategory][tier].map((item) => (
-                          <button
-                            key={item.id}
-                            type="button"
-                            className={
-                              hoveredItem && hoveredItem.id !== item.id
-                                ? 'grid-item grid-item--dimmed'
-                                : 'grid-item'
-                            }
-                            onMouseEnter={(event) => {
-                              setHoveredItem(item)
-                              positionPopover(event)
-                            }}
-                            onMouseMove={positionPopover}
-                            onMouseLeave={() => setHoveredItem(null)}
-                          >
-                            <ItemIconBadge item={item} />
-                            <span className="grid-item-name">{item.name}</span>
-                          </button>
-                        ))}
-                      </div>
-                    </section>
-                  ))}
-                </div>
-              ))}
+                        )
+                      </section>
+                    ))}
+                  </div>
+                ))}
             </div>
           </div>
 

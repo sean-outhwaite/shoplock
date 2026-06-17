@@ -233,6 +233,7 @@
   max-width: 11ch;
 }
 
+/* think these 2 sections can be deleted */
 .window-summary span,
 .detail-list dt,
 .detail-tags span,
