@@ -113,7 +113,7 @@ export const items: ShopItem[] = [
   },
   {
     id: 'storm-coil6',
-    name: 'Storm Coil',
+    name: 'Storm Coils',
     category: 'Weapon',
     tier: 'TIER 2',
     cost: 2400,

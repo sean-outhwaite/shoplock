@@ -368,13 +368,16 @@
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 2px;
+  justify-items: center;
 }
 
 .tier-section-TIER_2 .category-grid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-items: center;
 }
 .tier-section-TIER_3 .category-grid {
   grid-template-columns: repeat(6, minmax(0, 1fr));
+  justify-items: center;
 }
 
 /* Arrange tier boxes in a 2x2 grid inside a category collection */
@@ -388,7 +391,7 @@
 
 .grid-item {
   height: 130px;
-  width: 90px;
+  width: 85px;
   display: grid;
   justify-items: center;
   gap: 2px;
@@ -430,7 +433,7 @@
 
 .grid-item-name {
   text-align: center;
-  font-size: 0.875rem;
+  font-size: 0.78rem;
   line-height: 1.05;
   color: black;
   font-weight: 600;
