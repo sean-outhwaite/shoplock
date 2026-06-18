@@ -195,15 +195,6 @@
   margin-bottom: 18px;
 }
 
-.eyebrow,
-.section-label {
-  margin: 0 0 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.72rem;
-  color: rgba(226, 232, 240, 0.7);
-}
-
 .window-header h1,
 .detail-head h2 {
   margin: 0;
