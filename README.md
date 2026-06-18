@@ -1,1 +1,1 @@
-Getting some practice with agentic coding.
+A React Native implementation of the Deadlock item shop. Built with some AI assistance.
