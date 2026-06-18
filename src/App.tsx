@@ -96,17 +96,6 @@ function App() {
     [],
   )
 
-  const tabCounts = categories.reduce(
-    (accumulator, itemCategory) => {
-      accumulator[itemCategory] =
-        itemCategory === 'All'
-          ? items.length
-          : items.filter((item) => item.category === itemCategory).length
-      return accumulator
-    },
-    {} as Record<'Weapon' | 'Spirit' | 'Vitality' | 'All', number>,
-  )
-
   const visibleCategories =
     selectedCategory === 'All' ? categoryOrder : [selectedCategory]
 
@@ -150,7 +139,6 @@ function App() {
                     ? 'rail-tab active'
                     : 'rail-tab'
                 }
-                aria-label={`${itemCategory} — ${tabCounts[itemCategory]} items`}
                 style={
                   {
                     '--tab-accent': categoryAccent(itemCategory),
@@ -163,8 +151,6 @@ function App() {
                   alt=""
                   className="rail-tab__marker"
                 />
-                <span className="rail-tab__label">{itemCategory}</span>
-                <strong>{tabCounts[itemCategory]}</strong>
               </button>
             ))}
           </nav>
