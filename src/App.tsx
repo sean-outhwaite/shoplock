@@ -46,17 +46,6 @@ const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
   'Vitality',
 ]
 
-function categoryTitle(category: Exclude<ItemCategory, 'All'>) {
-  switch (category) {
-    case 'Weapon':
-      return 'Weapon'
-    case 'Spirit':
-      return 'Spirit'
-    case 'Vitality':
-      return 'Vitality'
-  }
-}
-
 function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ItemCategory>('Weapon')
@@ -159,9 +148,7 @@ function App() {
             <header className="window-header">
               <div>
                 <h1>
-                  {selectedCategory === 'All'
-                    ? 'All items'
-                    : categoryTitle(selectedCategory)}
+                  {selectedCategory === 'All' ? 'All items' : selectedCategory}
                 </h1>
               </div>
             </header>
