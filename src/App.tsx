@@ -197,6 +197,7 @@ function App() {
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}
                   positionPopover={positionPopover}
+                  itemData={itemData}
                 />
               ) : (
                 visibleCategories.map((itemCategory) => (

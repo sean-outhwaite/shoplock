@@ -1,18 +1,23 @@
 import { useState } from 'react'
 import ItemCard from './ItemCard.tsx'
-import { items } from '../items.tsx'
 import type { ShopItem } from '../types.ts'
 
 interface props {
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
   positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  itemData: ShopItem[]
 }
 
-const sortedItems = items.sort((a, b) => a.name.localeCompare(b.name))
-
-const SearchTab = ({ hoveredItem, setHoveredItem, positionPopover }: props) => {
+const SearchTab = ({
+  hoveredItem,
+  setHoveredItem,
+  positionPopover,
+  itemData,
+}: props) => {
   const [searchTerm, setSearchTerm] = useState('')
+
+  const sortedItems = itemData.sort((a, b) => a.name.localeCompare(b.name))
 
   const filteredItems = sortedItems.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()),
