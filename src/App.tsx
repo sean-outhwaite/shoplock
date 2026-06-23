@@ -18,7 +18,7 @@ import vitalityIcon from './assets/Vitality.svg'
 import allIcon from './assets/All.svg'
 
 const results = await fetch(
-  'https://api.deadlock-api.com/v1/assets/items',
+  'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
 ).then((res) => res.json())
 
 console.log(results)
@@ -32,7 +32,7 @@ console.log(results)
 // -
 
 const itemData: ShopItem[] = results
-  .filter((item: any) => item.item_slot_type && item.description.desc)
+  .filter((item: any) => item.item_slot_type && !item.name.includes('upgrade_'))
   .map((item: any) => ({
     id: item.id,
     name: item.name,
@@ -115,7 +115,6 @@ function App() {
       ),
     [],
   )
-  console.log(groupedItems)
 
   const visibleCategories =
     selectedCategory === 'All' ? categoryOrder : [selectedCategory]
