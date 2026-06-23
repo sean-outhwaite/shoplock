@@ -6,6 +6,7 @@ import type {
   ItemCategory,
   ItemTier,
   PopoverPosition,
+  ItemData,
 } from './types.ts'
 import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
@@ -16,7 +17,7 @@ import spiritIcon from './assets/Spirit.svg'
 import vitalityIcon from './assets/Vitality.svg'
 import allIcon from './assets/All.svg'
 
-const results = await fetch(
+const results: ItemData[] = await fetch(
   'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
 ).then((res) => res.json())
 
@@ -27,23 +28,32 @@ console.log(results)
 // - filter out items that aren't currently in game
 // - Use actual images instead of icon SVGs
 // - Update popover to use actual descriptions
-// - Update types and handle property name mismatches better
+// - Handle property name mismatches better
 // - Update layout to fit all items
 
 const itemData: ShopItem[] = results
-  .filter((item: any) => item.item_slot_type && !item.name.includes('upgrade_'))
-  .map((item: any) => ({
-    id: item.id,
-    name: item.name,
-    category: (item.item_slot_type.charAt(0).toUpperCase() +
-      item.item_slot_type.slice(1)) as ItemCategory,
-    tier: `TIER ${item.item_tier}` as ItemTier,
-    cost: item.cost,
-    tags: ['imported'],
-    accent: '#f8a51c',
-    icon: 'wave',
-    description: item.description,
-  }))
+  .filter(
+    (item: ItemData) =>
+      item.item_slot_type &&
+      !item.name.includes('upgrade_') &&
+      item.shop_image_webp &&
+      item.shop_image_webp.includes('.webp'),
+  )
+  .map(
+    (item: ItemData): ShopItem => ({
+      id: item.id,
+      name: item.name,
+      category: (item.item_slot_type.charAt(0).toUpperCase() +
+        item.item_slot_type.slice(1)) as ItemCategory,
+      tier: `TIER ${item.item_tier}` as ItemTier,
+      cost: item.cost,
+      tags: ['imported'],
+      accent: '#f8a51c',
+      icon: 'wave',
+      description: item.description.desc,
+      imageURL: item.shop_image_webp,
+    }),
+  )
 
 console.log(itemData)
 

@@ -1,5 +1,5 @@
 export interface ShopItem {
-  id: string
+  id: number
   name: string
   category: ItemCategory
   tier: ItemTier
@@ -7,6 +7,8 @@ export interface ShopItem {
   tags: string[]
   accent: string
   icon: ItemIcon
+  description: string
+  imageURL: string
 }
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'

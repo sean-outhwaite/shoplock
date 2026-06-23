@@ -5,14 +5,15 @@ import { categoryAccent } from '../utils.tsx'
 
 function ItemIconBadge({ item }: { item: ShopItem }) {
   return (
-    <span
-      className="item-icon"
-      style={{ '--accent': item.accent } as CSSProperties}
-    >
-      <span className="item-icon-inner">
-        <ItemGlyph icon={item.icon} />
-      </span>
-    </span>
+    // <span
+    //   className="item-icon"
+    //   style={{ '--accent': item.accent } as CSSProperties}
+    // >
+    //   <span className="item-icon-inner">
+    //     <ItemGlyph icon={item.icon} />
+    //   </span>
+    // </span>
+    <img src={item.imageURL} alt="" className="item-icon" />
   )
 }
 
