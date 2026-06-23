@@ -1,19 +1,15 @@
-import { ItemGlyph } from './ItemGlyph.tsx'
 import type { CSSProperties } from 'react'
 import type { ShopItem } from '../types.ts'
 import { categoryAccent } from '../utils.tsx'
 
 function ItemIconBadge({ item }: { item: ShopItem }) {
   return (
-    // <span
-    //   className="item-icon"
-    //   style={{ '--accent': item.accent } as CSSProperties}
-    // >
-    //   <span className="item-icon-inner">
-    //     <ItemGlyph icon={item.icon} />
-    //   </span>
-    // </span>
-    <img src={item.imageURL} alt="" className="item-icon" />
+    <span
+      className="item-icon"
+      style={{ '--accent': item.accent } as CSSProperties}
+    >
+      <img src={item.imageURL} alt="" className="item-icon" />
+    </span>
   )
 }
 

@@ -25,8 +25,6 @@ console.log(results)
 
 // There are lots of junk items returned by the API
 // TODO:
-// - filter out items that aren't currently in game
-// - Use actual images instead of icon SVGs
 // - Update popover to use actual descriptions
 // - Handle property name mismatches better
 // - Update layout to fit all items
