@@ -17,6 +17,37 @@ import spiritIcon from './assets/Spirit.svg'
 import vitalityIcon from './assets/Vitality.svg'
 import allIcon from './assets/All.svg'
 
+const results = await fetch(
+  'https://api.deadlock-api.com/v1/assets/items',
+).then((res) => res.json())
+
+console.log(results)
+
+// There are lots of junk items returned by the API
+// TODO:
+// - filter out items that aren't currently in game
+// - Use actual images instead of icon SVGs
+// - Update popover to use actual descriptions
+// - Update types and handle property name mismatches better
+// -
+
+const itemData: ShopItem[] = results
+  .filter((item: any) => item.item_slot_type && item.description.desc)
+  .map((item: any) => ({
+    id: item.id,
+    name: item.name,
+    category: (item.item_slot_type.charAt(0).toUpperCase() +
+      item.item_slot_type.slice(1)) as ItemCategory,
+    tier: `TIER ${item.item_tier}` as ItemTier,
+    cost: item.cost,
+    tags: ['imported'],
+    accent: '#f8a51c',
+    icon: 'wave',
+    description: item.description,
+  }))
+
+console.log(itemData)
+
 const itemIcons: Record<ItemCategory, string> = {
   Weapon: weaponIcon,
   Spirit: spiritIcon,
@@ -66,7 +97,7 @@ function App() {
             Record<ItemTier, ShopItem[]>
           >(
             (tierAccumulator, tier) => {
-              tierAccumulator[tier] = items.filter(
+              tierAccumulator[tier] = itemData.filter(
                 (item) => item.category === itemCategory && item.tier === tier,
               )
               return tierAccumulator
@@ -84,6 +115,7 @@ function App() {
       ),
     [],
   )
+  console.log(groupedItems)
 
   const visibleCategories =
     selectedCategory === 'All' ? categoryOrder : [selectedCategory]
