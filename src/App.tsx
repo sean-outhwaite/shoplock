@@ -1,7 +1,6 @@
 import { useMemo, useRef, useState } from 'react'
 import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
-import { items } from './items.tsx'
 import type {
   ShopItem,
   ItemCategory,
@@ -29,7 +28,7 @@ console.log(results)
 // - Use actual images instead of icon SVGs
 // - Update popover to use actual descriptions
 // - Update types and handle property name mismatches better
-// -
+// - Update layout to fit all items
 
 const itemData: ShopItem[] = results
   .filter((item: any) => item.item_slot_type && !item.name.includes('upgrade_'))
