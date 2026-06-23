@@ -502,6 +502,17 @@
   font-size: 0.92rem;
   line-height: 1.5;
 }
+.item-popover__lead > svg {
+  width: 18px;
+  height: 18px;
+  margin-left: 4px;
+  vertical-align: text-bottom;
+}
+.highlight,
+.inline-attribute-label {
+  font-weight: 800;
+  color: #fff;
+}
 
 .item-popover__stats {
   display: grid;

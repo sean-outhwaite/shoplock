@@ -32,15 +32,15 @@ export function ItemPreviewPopover({
       </header>
 
       <div className="item-popover__body">
-        <p className="item-popover__lead">
-          Damage from your ultimate applies a stun and deals bonus spirit damage
-          after a short delay.
-        </p>
+        <div
+          className="item-popover__lead"
+          dangerouslySetInnerHTML={{ __html: item.description }}
+        ></div>
         <div className="item-popover__eyebrow">Passive</div>
-        <p className="item-popover__lead">
-          Damage from your ultimate applies a stun and deals bonus spirit damage
-          after a short delay.
-        </p>
+        <div
+          className="item-popover__lead"
+          dangerouslySetInnerHTML={{ __html: item.description }}
+        ></div>
 
         <div className="item-popover__stats" aria-hidden="true">
           <div>
