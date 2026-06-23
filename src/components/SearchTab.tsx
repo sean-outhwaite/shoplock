@@ -17,7 +17,9 @@ const SearchTab = ({
 }: props) => {
   const [searchTerm, setSearchTerm] = useState('')
 
-  const sortedItems = itemData.sort((a, b) => a.name.localeCompare(b.name))
+  const sortedItems = itemData
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .filter((item) => item.tier !== 'TIER 5')
 
   const filteredItems = sortedItems.filter((item) =>
     item.name.toLowerCase().includes(searchTerm.toLowerCase()),

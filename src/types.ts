@@ -13,7 +13,7 @@ export interface ShopItem {
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
 
-export type ItemTier = 'TIER 1' | 'TIER 2' | 'TIER 3' | 'TIER 4'
+export type ItemTier = 'TIER 1' | 'TIER 2' | 'TIER 3' | 'TIER 4' | 'TIER 5'
 
 export type ItemIcon =
   | 'blade'
