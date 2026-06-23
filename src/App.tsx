@@ -69,13 +69,14 @@ const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'All',
 ]
 
-const tiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
+const tiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4', 'TIER 5']
 
 const tierPrices: Record<ItemTier, number> = {
   'TIER 1': 800,
   'TIER 2': 1600,
   'TIER 3': 3200,
   'TIER 4': 6400,
+  'TIER 5': 0,
 }
 
 const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
@@ -109,15 +110,39 @@ function App() {
               )
               return tierAccumulator
             },
-            { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
+            {
+              'TIER 1': [],
+              'TIER 2': [],
+              'TIER 3': [],
+              'TIER 4': [],
+              'TIER 5': [],
+            },
           )
 
           return categoryAccumulator
         },
         {
-          Weapon: { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
-          Spirit: { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
-          Vitality: { 'TIER 1': [], 'TIER 2': [], 'TIER 3': [], 'TIER 4': [] },
+          Weapon: {
+            'TIER 1': [],
+            'TIER 2': [],
+            'TIER 3': [],
+            'TIER 4': [],
+            'TIER 5': [],
+          },
+          Spirit: {
+            'TIER 1': [],
+            'TIER 2': [],
+            'TIER 3': [],
+            'TIER 4': [],
+            'TIER 5': [],
+          },
+          Vitality: {
+            'TIER 1': [],
+            'TIER 2': [],
+            'TIER 3': [],
+            'TIER 4': [],
+            'TIER 5': [],
+          },
         },
       ),
     [],
@@ -202,41 +227,45 @@ function App() {
               ) : (
                 visibleCategories.map((itemCategory) => (
                   <div key={itemCategory} className="category-collection">
-                    {tiers.map((tier) => (
-                      <section
-                        key={`${itemCategory}-${tier}`}
-                        className={`tier-section-${tier.replace(/\s+/g, '_')}`}
-                        style={
-                          {
-                            '--category-accent': categoryAccent(itemCategory),
-                          } as CSSProperties
-                        }
-                      >
-                        <header className="category-header">
-                          <div className="category-header-top">
-                            <span className="category-cost">
-                              ${formatCost(tierPrices[tier])}
-                            </span>
-                          </div>
+                    {tiers.map(
+                      (tier) =>
+                        tier !== 'TIER 5' && (
+                          <section
+                            key={`${itemCategory}-${tier}`}
+                            className={`tier-section-${tier.replace(/\s+/g, '_')}`}
+                            style={
+                              {
+                                '--category-accent':
+                                  categoryAccent(itemCategory),
+                              } as CSSProperties
+                            }
+                          >
+                            <header className="category-header">
+                              <div className="category-header-top">
+                                <span className="category-cost">
+                                  ${formatCost(tierPrices[tier])}
+                                </span>
+                              </div>
 
-                          <div className="category-title-row">
-                            <h2>{tier}</h2>
-                          </div>
-                        </header>
+                              <div className="category-title-row">
+                                <h2>{tier}</h2>
+                              </div>
+                            </header>
 
-                        <div className="category-grid">
-                          {groupedItems[itemCategory][tier].map((item) => (
-                            <ItemCard
-                              key={item.id}
-                              item={item}
-                              hoveredItem={hoveredItem}
-                              setHoveredItem={setHoveredItem}
-                              positionPopover={positionPopover}
-                            />
-                          ))}
-                        </div>
-                      </section>
-                    ))}
+                            <div className="category-grid">
+                              {groupedItems[itemCategory][tier].map((item) => (
+                                <ItemCard
+                                  key={item.id}
+                                  item={item}
+                                  hoveredItem={hoveredItem}
+                                  setHoveredItem={setHoveredItem}
+                                  positionPopover={positionPopover}
+                                />
+                              ))}
+                            </div>
+                          </section>
+                        ),
+                    )}
                   </div>
                 ))
               )}
