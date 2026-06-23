@@ -32,10 +32,11 @@ export function ItemPreviewPopover({
       </header>
 
       <div className="item-popover__body">
-        <div
-          className="item-popover__lead"
-          dangerouslySetInnerHTML={{ __html: item.description }}
-        ></div>
+        {item.upgrades[0].property_upgrades.map((upgrade, index) => (
+          <div key={index} className="item-popover__upgrade">
+            {upgrade.name}:{upgrade.bonus}
+          </div>
+        ))}
         <div className="item-popover__eyebrow">Passive</div>
         <div
           className="item-popover__lead"

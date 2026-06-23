@@ -50,6 +50,7 @@ const itemData: ShopItem[] = results
       icon: 'wave',
       description: item.description.desc,
       imageURL: item.shop_image_webp,
+      upgrades: item.upgrades,
     }),
   )
 

@@ -9,6 +9,7 @@ export interface ShopItem {
   icon: ItemIcon
   description: string
   imageURL: string
+  upgrades: Upgrade[]
 }
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
