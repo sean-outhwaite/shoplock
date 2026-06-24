@@ -502,7 +502,8 @@
   font-size: 0.92rem;
   line-height: 1.5;
 }
-.item-popover__lead > svg {
+.item-popover__body svg,
+.item-popover__body img {
   width: 18px;
   height: 18px;
   margin-left: 4px;

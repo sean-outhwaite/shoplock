@@ -86,6 +86,8 @@ export interface Properties {
   WeaponPower: AbilityCastDelay
 }
 
+export type PropertyNames = keyof Properties
+
 export interface AbilityCastDelay {
   value: string
   can_set_token_override: boolean
@@ -102,6 +104,8 @@ export interface AbilityCastDelay {
 }
 
 export interface AbilityCastDelayScaleFunction {
+  label: string
+  postfix?: string
   class_name: string
   subclass_name: string
   specific_stat_scale_type?: string
@@ -124,6 +128,8 @@ export interface AbilityChargeUpTime {
 }
 
 export interface AbilityChargeUpTimeScaleFunction {
+  label: string
+  postfix?: string
   class_name: string
   subclass_name: string
   specific_stat_scale_type: string
@@ -131,11 +137,15 @@ export interface AbilityChargeUpTimeScaleFunction {
 }
 
 export interface AbilityPostCastDuration {
+  label: string
+  postfix?: string
   value: string
   disable_value: string
 }
 
 export interface AbilityResourceCost {
+  label: string
+  postfix?: string
   value: string
   can_set_token_override: boolean
   css_class: string
@@ -144,6 +154,8 @@ export interface AbilityResourceCost {
 }
 
 export interface AbilityUnitTargetLimit {
+  label: string
+  postfix?: string
   value: string
   can_set_token_override: boolean
 }
@@ -178,6 +190,7 @@ export interface ChannelMoveSpeed {
   display_units: string
   postfix: string
   icon: string
+  label: string
 }
 
 export interface TooltipSection {
@@ -186,10 +199,10 @@ export interface TooltipSection {
 }
 
 export interface SectionAttribute {
-  properties: string[]
-  elevated_properties?: string[]
+  properties: PropertyNames[]
+  elevated_properties?: PropertyNames[]
   loc_string?: string
-  important_properties?: string[]
+  important_properties?: PropertyNames[]
 }
 
 export interface Upgrade {

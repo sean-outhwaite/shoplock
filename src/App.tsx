@@ -25,9 +25,10 @@ console.log(results)
 
 // There are lots of junk items returned by the API
 // TODO:
-// - Update popover to use actual descriptions
 // - Handle property name mismatches better
 // - Update layout to fit all items
+// - Consolidate types
+// - Display active upgrades on popover
 
 const itemData: ShopItem[] = results
   .filter(
