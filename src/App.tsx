@@ -51,6 +51,8 @@ const itemData: ShopItem[] = results
       description: item.description.desc,
       imageURL: item.shop_image_webp,
       upgrades: item.upgrades,
+      tooltipSections: item.tooltip_sections,
+      properties: item.properties,
     }),
   )
 

@@ -32,11 +32,27 @@ export function ItemPreviewPopover({
       </header>
 
       <div className="item-popover__body">
-        {item.upgrades[0].property_upgrades.map((upgrade, index) => (
+        {/* {item.upgrades[0].property_upgrades.map((upgrade, index) => (
           <div key={index} className="item-popover__upgrade">
-            {upgrade.name}:{upgrade.bonus}
+            {upgrade.bonus} {upgrade.name}
           </div>
-        ))}
+        ))} */}
+
+        {item.tooltipSections[0].section_attributes[0].elevated_properties?.map(
+          (prop, index) => (
+            <div key={index} className="item-popover__upgrade">
+              {`${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
+            </div>
+          ),
+        )}
+        {item.tooltipSections[0].section_attributes[0].properties?.map(
+          (prop, index) =>
+            item.properties[prop].value && (
+              <div key={index} className="item-popover__upgrade">
+                {`${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
+              </div>
+            ),
+        )}
         <div className="item-popover__eyebrow">Passive</div>
         <div
           className="item-popover__lead"

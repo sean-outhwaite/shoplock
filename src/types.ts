@@ -10,6 +10,8 @@ export interface ShopItem {
   description: string
   imageURL: string
   upgrades: Upgrade[]
+  tooltipSections: TooltipSection[]
+  properties: Properties
 }
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
@@ -185,6 +187,7 @@ export interface TooltipSection {
 
 export interface SectionAttribute {
   properties: string[]
+  elevated_properties?: string[]
   loc_string?: string
   important_properties?: string[]
 }
