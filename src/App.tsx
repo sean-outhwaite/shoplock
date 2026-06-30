@@ -21,14 +21,12 @@ const results: ItemData[] = await fetch(
   'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
 ).then((res) => res.json())
 
-console.log(results)
-
-// There are lots of junk items returned by the API
 // TODO:
 // - Handle property name mismatches better
 // - Update layout to fit all items
 // - Consolidate types
 // - Display active upgrades on popover
+// - Sanitize HTML in popover, or find better way to display it
 
 const itemData: ShopItem[] = results
   .filter(
@@ -36,7 +34,8 @@ const itemData: ShopItem[] = results
       item.item_slot_type &&
       !item.name.includes('upgrade_') &&
       item.shop_image_webp &&
-      item.shop_image_webp.includes('.webp'),
+      item.shop_image_webp.includes('.webp') &&
+      item.id !== 3133167885,
   )
   .map(
     (item: ItemData): ShopItem => ({
