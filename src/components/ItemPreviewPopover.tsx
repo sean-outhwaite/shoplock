@@ -46,17 +46,31 @@ export function ItemPreviewPopover({
                     </div>
                   )),
               )}
+            {(section.section_type === 'passive' ||
+              section.section_type === undefined) && (
+              <>
+                <div className="item-popover__eyebrow">Passive</div>
+                <div
+                  className="item-popover__lead"
+                  dangerouslySetInnerHTML={{
+                    __html: section.section_attributes[0].loc_string || '',
+                  }}
+                ></div>
+              </>
+            )}
+            {section.section_type === 'active' && (
+              <>
+                <div className="item-popover__eyebrow">Active</div>
+                <div
+                  className="item-popover__lead"
+                  dangerouslySetInnerHTML={{
+                    __html: section.section_attributes[0].loc_string || '',
+                  }}
+                ></div>
+              </>
+            )}
           </div>
         ))}
-        {item.description && (
-          <>
-            <div className="item-popover__eyebrow">Passive</div>
-            <div
-              className="item-popover__lead"
-              dangerouslySetInnerHTML={{ __html: item.description }}
-            ></div>
-          </>
-        )}
 
         <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
       </div>
