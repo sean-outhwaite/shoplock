@@ -58,21 +58,6 @@ export function ItemPreviewPopover({
           </>
         )}
 
-        {item.tooltipSections[1] && (
-          <>
-            <div className="item-popover__eyebrow">Active</div>
-            <div className="item-popover__stats" aria-hidden="true">
-              {item.tooltipSections[1].section_attributes[0].important_properties?.map(
-                (prop, index) => (
-                  <div key={index}>
-                    <strong>{item.properties[prop].value}</strong>
-                    <span>{item.properties[prop].label}</span>
-                  </div>
-                ),
-              )}
-            </div>
-          </>
-        )}
         <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
       </div>
     </aside>
