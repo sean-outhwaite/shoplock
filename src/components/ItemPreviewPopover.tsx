@@ -1,6 +1,6 @@
 import { formatCost, categoryAccent } from '../utils.tsx'
 import type { CSSProperties } from 'react'
-import type { ShopItem, PopoverPosition } from '../types.ts'
+import type { ShopItem, PopoverPosition, Properties } from '../types.ts'
 
 export function ItemPreviewPopover({
   item,
@@ -32,48 +32,47 @@ export function ItemPreviewPopover({
       </header>
 
       <div className="item-popover__body">
-        {/* {item.upgrades[0].property_upgrades.map((upgrade, index) => (
-          <div key={index} className="item-popover__upgrade">
-            {upgrade.bonus} {upgrade.name}
+        {item.tooltipSections.map((section, sectionIndex) => (
+          <div key={sectionIndex}>
+            {section.section_type === 'innate' &&
+              Object.entries(section.section_attributes[0]).map(
+                ([key, value]) =>
+                  value.map((prop: keyof Properties, index: number) => (
+                    <div
+                      key={key + value + index}
+                      className="item-popover__upgrade"
+                    >
+                      {`${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
+                    </div>
+                  )),
+              )}
           </div>
-        ))} */}
+        ))}
+        {item.description && (
+          <>
+            <div className="item-popover__eyebrow">Passive</div>
+            <div
+              className="item-popover__lead"
+              dangerouslySetInnerHTML={{ __html: item.description }}
+            ></div>
+          </>
+        )}
 
-        {item.tooltipSections[0].section_attributes[0].elevated_properties?.map(
-          (prop, index) => (
-            <div key={index} className="item-popover__upgrade">
-              {`${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
+        {item.tooltipSections[1] && (
+          <>
+            <div className="item-popover__eyebrow">Active</div>
+            <div className="item-popover__stats" aria-hidden="true">
+              {item.tooltipSections[1].section_attributes[0].important_properties?.map(
+                (prop, index) => (
+                  <div key={index}>
+                    <strong>{item.properties[prop].value}</strong>
+                    <span>{item.properties[prop].label}</span>
+                  </div>
+                ),
+              )}
             </div>
-          ),
+          </>
         )}
-        {item.tooltipSections[0].section_attributes[0].properties?.map(
-          (prop, index) =>
-            item.properties[prop].value && (
-              <div key={index} className="item-popover__upgrade">
-                {`${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
-              </div>
-            ),
-        )}
-        <div className="item-popover__eyebrow">Passive</div>
-        <div
-          className="item-popover__lead"
-          dangerouslySetInnerHTML={{ __html: item.description }}
-        ></div>
-
-        <div className="item-popover__stats" aria-hidden="true">
-          <div>
-            <span>Stun</span>
-            <strong>{item.category}</strong>
-          </div>
-          <div>
-            <span>Duration</span>
-            <strong>{(1 + item.tags.length * 0.25).toFixed(2)}s</strong>
-          </div>
-          <div>
-            <span>Damage</span>
-            <strong>{item.cost / 10}</strong>
-          </div>
-        </div>
-
         <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
       </div>
     </aside>
