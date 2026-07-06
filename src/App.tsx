@@ -55,6 +55,7 @@ const itemData: ShopItem[] = results
       properties: item.properties,
     }),
   )
+  .sort((a, b) => a.name.localeCompare(b.name))
 
 console.log(itemData)
 
