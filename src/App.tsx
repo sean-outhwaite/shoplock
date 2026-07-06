@@ -235,7 +235,7 @@ function App() {
                         tier !== 'TIER 5' && (
                           <section
                             key={`${itemCategory}-${tier}`}
-                            className={`tier-section-${tier.replace(/\s+/g, '_')} `}
+                            className={`tier-section-${tier.replace(/\s+/g, '_')} ${itemCategory.toLowerCase()}`}
                             style={
                               {
                                 '--category-accent':
