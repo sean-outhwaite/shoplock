@@ -311,17 +311,28 @@
 
 .category-grid {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(6, minmax(0, 1fr));
   gap: 2px;
   justify-items: center;
 }
 
-.tier-section-TIER_2 .category-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+.tier-section-TIER_1 .category-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   justify-items: center;
 }
+
 .tier-section-TIER_3 .category-grid {
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  justify-items: center;
+}
+
+.tier-section-TIER_3 .category-grid.weapon {
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  justify-items: center;
+}
+
+.tier-section-TIER_4 .category-grid.weapon {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   justify-items: center;
 }
 

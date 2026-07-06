@@ -235,7 +235,7 @@ function App() {
                         tier !== 'TIER 5' && (
                           <section
                             key={`${itemCategory}-${tier}`}
-                            className={`tier-section-${tier.replace(/\s+/g, '_')}`}
+                            className={`tier-section-${tier.replace(/\s+/g, '_')} `}
                             style={
                               {
                                 '--category-accent':
@@ -255,7 +255,9 @@ function App() {
                               </div>
                             </header>
 
-                            <div className="category-grid">
+                            <div
+                              className={`category-grid ${itemCategory.toLowerCase()}`}
+                            >
                               {groupedItems[itemCategory][tier].map((item) => (
                                 <ItemCard
                                   key={item.id}
