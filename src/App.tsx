@@ -23,7 +23,6 @@ const results: ItemData[] = await fetch(
 
 // TODO:
 // - Handle property name mismatches better
-// - Update layout to fit all items
 // - Consolidate types
 // - Display active upgrades on popover
 // - Sanitize HTML in popover, or find better way to display it

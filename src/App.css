@@ -368,7 +368,7 @@
 
 .grid-item {
   height: 130px;
-  width: 85px;
+  width: 90px;
   display: grid;
   justify-items: center;
   gap: 2px;
@@ -410,7 +410,7 @@
 
 .grid-item-name {
   text-align: center;
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   line-height: 1.05;
   color: black;
   font-weight: 600;
