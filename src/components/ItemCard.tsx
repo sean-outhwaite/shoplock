@@ -25,18 +25,26 @@ const ItemCard = ({
   hoveredItem,
   setHoveredItem,
   positionPopover,
-}: props) => {
+  hoverUpgrades,
+  setHoverUpgrades,
+}: props & {
+  hoverUpgrades: string[] | null
+  setHoverUpgrades: (upgrades: string[] | null) => void
+}) => {
   return (
     <button
       key={item.id}
       type="button"
       className={
-        hoveredItem && hoveredItem.id !== item.id
+        hoveredItem &&
+        hoveredItem.id !== item.id &&
+        !hoverUpgrades?.includes(item.class_name)
           ? 'grid-item grid-item--dimmed'
           : 'grid-item'
       }
       onMouseEnter={(event) => {
         setHoveredItem(item)
+        setHoverUpgrades(item.upgradesFrom)
         positionPopover(event)
       }}
       onMouseMove={positionPopover}

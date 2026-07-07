@@ -21,6 +21,8 @@ const results: ItemData[] = await fetch(
   'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
 ).then((res) => res.json())
 
+console.log(results)
+
 // TODO:
 // - Handle property name mismatches better
 // - Consolidate types
@@ -52,6 +54,8 @@ const itemData: ShopItem[] = results
       upgrades: item.upgrades,
       tooltipSections: item.tooltip_sections,
       properties: item.properties,
+      upgradesFrom: item.component_items,
+      class_name: item.class_name,
     }),
   )
   .sort((a, b) => a.name.localeCompare(b.name))
@@ -92,6 +96,7 @@ function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ItemCategory>('Weapon')
   const [hoveredItem, setHoveredItem] = useState<ShopItem | null>(null)
+  const [hoverUpgrades, setHoverUpgrades] = useState<string[] | null>(null)
   const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>({
     x: 0,
     y: 0,
@@ -265,6 +270,8 @@ function App() {
                                   hoveredItem={hoveredItem}
                                   setHoveredItem={setHoveredItem}
                                   positionPopover={positionPopover}
+                                  hoverUpgrades={hoverUpgrades}
+                                  setHoverUpgrades={setHoverUpgrades}
                                 />
                               ))}
                             </div>

@@ -12,6 +12,8 @@ export interface ShopItem {
   upgrades: Upgrade[]
   tooltipSections: TooltipSection[]
   properties: Properties
+  upgradesFrom: string[]
+  class_name: string
 }
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
