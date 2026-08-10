@@ -171,11 +171,7 @@
 }
 
 .full-shop {
-  background: color-mix(
-    in srgb,
-    var(--active-accent) 30%,
-    rgba(189, 183, 152, 0.799)
-  );
+  background: color-mix(in srgb, var(--active-accent) 26%, #a49b89);
   height: 95%;
 }
 
@@ -186,19 +182,21 @@
 }
 
 .window-header {
-  display: flex;
+  display: inline-flex;
+  width: fit-content;
   align-items: flex-start;
   justify-content: space-between;
   gap: 20px;
-  padding: 22px 22px 14px;
-  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
-  margin-bottom: 18px;
+  padding: 16px 20px;
+  background: rgba(15, 12, 10, 0.92);
+  border-radius: 4px;
+  margin: 14px 18px 18px;
 }
 
 .window-header h1,
 .detail-head h2 {
   margin: 0;
-  color: #1f1c1c;
+  color: var(--text-strong);
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: -0.05em;
@@ -238,7 +236,7 @@
 
 .category-cost {
   position: relative;
-  color: #74c397;
+  color: var(--cost-green);
   background: black;
   font-weight: 600;
   padding: 2px 4px;
@@ -261,7 +259,7 @@
 .tier-section-TIER_1 {
   position: relative;
   padding: 12px;
-  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   margin-bottom: 12px;
@@ -272,7 +270,7 @@
 .tier-section-TIER_2 {
   position: relative;
   padding: 12px;
-  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   margin-bottom: 12px;
@@ -282,7 +280,7 @@
 .tier-section-TIER_3 {
   position: relative;
   padding: 12px;
-  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   margin-bottom: 12px;
@@ -291,9 +289,10 @@
 .tier-section-TIER_4 {
   position: relative;
   padding: 12px;
-  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  background: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
   margin-bottom: 12px;
   height: 30rem;
   width: 36rem;
@@ -302,7 +301,7 @@
 .tier-section-TIER_3.weapon {
   position: relative;
   padding: 12px;
-  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
   margin-bottom: 12px;
@@ -311,9 +310,10 @@
 .tier-section-TIER_4.weapon {
   position: relative;
   padding: 12px;
-  border: 3px solid color-mix(in srgb, var(--category-accent) 80%, rgb(0, 0, 0));
+  border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  background: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
   margin-bottom: 12px;
   height: 30rem;
   width: 25rem;
@@ -373,9 +373,9 @@
   justify-items: center;
   gap: 2px;
   padding: 0px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
+  border: 1px solid rgba(20, 14, 8, 0.2);
   border-radius: 5px;
-  background: color-mix(in srgb, var(--category-accent) 30%, #eee9d8);
+  background: color-mix(in srgb, var(--category-accent) 22%, #efe6d0);
   color: inherit;
   cursor: pointer;
   transition:
@@ -435,7 +435,7 @@
   background: color-mix(
     in srgb,
     var(--popover-accent) 30%,
-    rgba(10, 14, 26, 0.92)
+    rgba(24, 18, 14, 0.94)
   );
 }
 
@@ -477,7 +477,7 @@
 }
 
 .item-popover__header strong {
-  color: #9ef6dd;
+  color: var(--cost-green);
   font-size: 1rem;
   letter-spacing: 0.08em;
 }
@@ -533,7 +533,7 @@
 .item-popover__stats div {
   padding: 10px 8px;
   border-radius: 6px;
-  background: color-mix(in srgb, black 12%, transparent);
+  background: color-mix(in srgb, #1a120c 55%, transparent);
   border: 1px solid rgba(148, 163, 184, 0.12);
   display: grid;
   gap: 6px;
