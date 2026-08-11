@@ -7,6 +7,8 @@ interface props {
   setHoveredItem: (item: ShopItem | null) => void
   positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
   itemData: ShopItem[]
+  hoverUpgrades: string[] | null
+  setHoverUpgrades: (upgrades: string[] | null) => void
 }
 
 const SearchTab = ({
@@ -14,6 +16,8 @@ const SearchTab = ({
   setHoveredItem,
   positionPopover,
   itemData,
+  hoverUpgrades,
+  setHoverUpgrades,
 }: props) => {
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -45,6 +49,8 @@ const SearchTab = ({
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
             positionPopover={positionPopover}
+            hoverUpgrades={hoverUpgrades}
+            setHoverUpgrades={setHoverUpgrades}
           />
         ))}
       </div>

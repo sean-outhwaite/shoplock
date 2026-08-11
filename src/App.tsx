@@ -231,6 +231,8 @@ function App() {
                   setHoveredItem={setHoveredItem}
                   positionPopover={positionPopover}
                   itemData={itemData}
+                  hoverUpgrades={hoverUpgrades}
+                  setHoverUpgrades={setHoverUpgrades}
                 />
               ) : (
                 visibleCategories.map((itemCategory) => (

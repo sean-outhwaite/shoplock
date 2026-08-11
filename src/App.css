@@ -171,8 +171,43 @@
 }
 
 .full-shop {
+  position: relative;
   background: color-mix(in srgb, var(--active-accent) 26%, #a49b89);
   height: 95%;
+}
+
+/* Faint radiating sunburst behind the header banner, like the shop-sign
+   backdrops in the reference screenshots */
+.full-shop::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: repeating-conic-gradient(
+    from 0deg at 15% 12%,
+    rgba(255, 255, 255, 0.08) 0deg 1.2deg,
+    transparent 1.2deg 9deg
+  );
+  mask-image: radial-gradient(circle at 15% 12%, black, transparent 55%);
+  -webkit-mask-image: radial-gradient(
+    circle at 15% 12%,
+    black,
+    transparent 55%
+  );
+}
+
+/* Subtle paper grain overlay across the panel */
+.full-shop::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.1;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
 }
 
 /* Make header and body occupy the main column */
@@ -182,6 +217,8 @@
 }
 
 .window-header {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   width: fit-content;
   align-items: flex-start;
@@ -191,6 +228,12 @@
   background: rgba(15, 12, 10, 0.92);
   border-radius: 4px;
   margin: 14px 18px 18px;
+  clip-path: polygon(
+    0% 15%, 1.5% 4%, 3% 15%, 4% 2%, 6% 18%,
+    94% 18%, 96% 2%, 97% 15%, 98.5% 4%, 100% 15%,
+    100% 85%, 98.5% 96%, 97% 85%, 96% 98%, 94% 82%,
+    6% 82%, 4% 98%, 3% 85%, 1.5% 96%, 0% 85%
+  );
 }
 
 .window-header h1,
@@ -217,6 +260,8 @@
 }
 
 .shop-body {
+  position: relative;
+  z-index: 1;
   padding: 16px 16px 18px;
 }
 
@@ -256,16 +301,94 @@
   color: rgba(226, 232, 240, 0.74);
 }
 
+:root {
+  --corner-brackets-size: 14px 3px, 3px 14px, 14px 3px, 3px 14px, 14px 3px,
+    3px 14px, 14px 3px, 3px 14px;
+  --corner-brackets-position: top 3px left 3px, top 3px left 3px,
+    top 3px right 3px, top 3px right 3px, bottom 3px right 3px,
+    bottom 3px right 3px, bottom 3px left 3px, bottom 3px left 3px;
+}
+
+/* Small L-shaped ink corner brackets, layered as 8 background-image strokes.
+   Declared directly on the tier-section elements (not :root) so that
+   var(--category-accent) — set inline per-element by App.tsx — resolves
+   correctly; a custom property's var() references are substituted where the
+   property is declared, not re-resolved per descendant on inheritance. */
+.tier-section-TIER_1,
+.tier-section-TIER_2,
+.tier-section-TIER_3,
+.tier-section-TIER_4,
+.tier-section-TIER_3.weapon,
+.tier-section-TIER_4.weapon {
+  --corner-brackets: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to left,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to left,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
+      transparent 12px
+    );
+}
+
 .tier-section-TIER_1 {
   position: relative;
   padding: 12px;
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  background-image: var(--corner-brackets);
+  background-repeat: no-repeat;
+  background-size: var(--corner-brackets-size);
+  background-position: var(--corner-brackets-position);
   margin-bottom: 12px;
   height: 20rem;
   align-self: end;
   width: 30rem;
+}
+.tier-section-TIER_1.weapon {
+  background-image:
+    repeating-linear-gradient(
+      135deg,
+      color-mix(in srgb, var(--category-accent) 22%, transparent) 0 8px,
+      transparent 8px 16px
+    ),
+    var(--corner-brackets);
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: auto, var(--corner-brackets-size);
+  background-position: 0 0, var(--corner-brackets-position);
 }
 .tier-section-TIER_2 {
   position: relative;
@@ -273,6 +396,10 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  background-image: var(--corner-brackets);
+  background-repeat: no-repeat;
+  background-size: var(--corner-brackets-size);
+  background-position: var(--corner-brackets-position);
   margin-bottom: 12px;
   height: 30rem;
   width: 37rem;
@@ -283,6 +410,10 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  background-image: var(--corner-brackets);
+  background-repeat: no-repeat;
+  background-size: var(--corner-brackets-size);
+  background-position: var(--corner-brackets-position);
   margin-bottom: 12px;
   width: 31rem;
 }
@@ -292,7 +423,11 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
+  background-color: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
+  background-image: var(--corner-brackets);
+  background-repeat: no-repeat;
+  background-size: var(--corner-brackets-size);
+  background-position: var(--corner-brackets-position);
   margin-bottom: 12px;
   height: 30rem;
   width: 36rem;
@@ -304,6 +439,10 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  background-image: var(--corner-brackets);
+  background-repeat: no-repeat;
+  background-size: var(--corner-brackets-size);
+  background-position: var(--corner-brackets-position);
   margin-bottom: 12px;
   width: 42rem;
 }
@@ -313,7 +452,11 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
+  background-color: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
+  background-image: var(--corner-brackets);
+  background-repeat: no-repeat;
+  background-size: var(--corner-brackets-size);
+  background-position: var(--corner-brackets-position);
   margin-bottom: 12px;
   height: 30rem;
   width: 25rem;
