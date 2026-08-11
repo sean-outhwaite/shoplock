@@ -54,7 +54,7 @@ const itemData: ShopItem[] = results
       upgrades: item.upgrades,
       tooltipSections: item.tooltip_sections,
       properties: item.properties,
-      upgradesFrom: item.component_items,
+      upgradesFrom: item.component_items ?? [],
       class_name: item.class_name,
     }),
   )
@@ -285,7 +285,11 @@ function App() {
           </div>
 
           {hoveredItem ? (
-            <ItemPreviewPopover item={hoveredItem} position={popoverPosition} />
+            <ItemPreviewPopover
+              item={hoveredItem}
+              position={popoverPosition}
+              itemData={itemData}
+            />
           ) : null}
         </section>
       </main>

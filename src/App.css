@@ -550,6 +550,38 @@
   letter-spacing: 0.14em;
 }
 
+.item-popover__upgrades-from {
+  display: grid;
+  gap: 8px;
+}
+
+.item-popover__upgrades-from-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.item-popover__upgrade-source {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: color-mix(in srgb, #1a120c 55%, transparent);
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  font-size: 0.78rem;
+  color: var(--text-body);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.item-popover__upgrade-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 4px;
+  flex: 0 0 auto;
+}
+
 .search-grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));

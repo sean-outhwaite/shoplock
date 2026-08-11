@@ -5,10 +5,16 @@ import type { ShopItem, PopoverPosition, Properties } from '../types.ts'
 export function ItemPreviewPopover({
   item,
   position,
+  itemData,
 }: {
   item: ShopItem
   position: PopoverPosition
+  itemData: ShopItem[]
 }) {
+  const upgradeSources = item.upgradesFrom
+    .map((className) => itemData.find((i) => i.class_name === className))
+    .filter((sourceItem): sourceItem is ShopItem => sourceItem !== undefined)
+
   return (
     <aside
       className="item-popover"
@@ -71,6 +77,24 @@ export function ItemPreviewPopover({
             )}
           </div>
         ))}
+
+        {upgradeSources.length > 0 && (
+          <div className="item-popover__upgrades-from">
+            <div className="item-popover__eyebrow">Upgrades From</div>
+            <div className="item-popover__upgrades-from-list">
+              {upgradeSources.map((sourceItem) => (
+                <div key={sourceItem.id} className="item-popover__upgrade-source">
+                  <img
+                    src={sourceItem.imageURL}
+                    alt=""
+                    className="item-popover__upgrade-icon"
+                  />
+                  <span>{sourceItem.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
 
         <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
       </div>
