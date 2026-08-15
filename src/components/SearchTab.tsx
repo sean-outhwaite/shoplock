@@ -9,6 +9,7 @@ interface props {
   itemData: ShopItem[]
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
+  onAddToBuild?: (itemId: number) => void
 }
 
 const SearchTab = ({
@@ -18,6 +19,7 @@ const SearchTab = ({
   itemData,
   hoverUpgrades,
   setHoverUpgrades,
+  onAddToBuild,
 }: props) => {
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -51,6 +53,7 @@ const SearchTab = ({
             positionPopover={positionPopover}
             hoverUpgrades={hoverUpgrades}
             setHoverUpgrades={setHoverUpgrades}
+            onAddToBuild={onAddToBuild}
           />
         ))}
       </div>

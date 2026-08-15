@@ -12,6 +12,8 @@ import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
+import BuildDrawer from './components/BuildDrawer.tsx'
+import { useBuild } from './hooks/useBuild.ts'
 import weaponIcon from './assets/Weapon.svg'
 import spiritIcon from './assets/Spirit.svg'
 import vitalityIcon from './assets/Vitality.svg'
@@ -62,6 +64,8 @@ const itemData: ShopItem[] = results
 
 console.log(itemData)
 
+const itemsById = new Map(itemData.map((item) => [item.id, item]))
+
 const itemIcons: Record<ItemCategory, string> = {
   Weapon: weaponIcon,
   Spirit: spiritIcon,
@@ -102,6 +106,7 @@ function App() {
     y: 0,
   })
   const shopWindowRef = useRef<HTMLElement | null>(null)
+  const build = useBuild()
 
   const groupedItems = useMemo(
     () =>
@@ -233,6 +238,7 @@ function App() {
                   itemData={itemData}
                   hoverUpgrades={hoverUpgrades}
                   setHoverUpgrades={setHoverUpgrades}
+                  onAddToBuild={build.addItemToActiveSection}
                 />
               ) : (
                 visibleCategories.map((itemCategory) => (
@@ -274,6 +280,7 @@ function App() {
                                   positionPopover={positionPopover}
                                   hoverUpgrades={hoverUpgrades}
                                   setHoverUpgrades={setHoverUpgrades}
+                                  onAddToBuild={build.addItemToActiveSection}
                                 />
                               ))}
                             </div>
@@ -295,6 +302,20 @@ function App() {
           ) : null}
         </section>
       </main>
+
+      <BuildDrawer
+        sections={build.sections}
+        activeSectionId={build.activeSectionId}
+        drawerOpen={build.drawerOpen}
+        itemsById={itemsById}
+        onToggleDrawer={build.toggleDrawer}
+        onAddSection={build.addSection}
+        onDeleteSection={build.deleteSection}
+        onRenameSection={build.renameSection}
+        onSetActiveSection={build.setActiveSection}
+        onRemoveItem={build.removeItem}
+        onMoveItem={build.moveItem}
+      />
     </div>
   )
 }

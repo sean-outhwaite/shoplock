@@ -2,7 +2,7 @@ import type { CSSProperties } from 'react'
 import type { ShopItem } from '../types.ts'
 import { categoryAccent } from '../utils.tsx'
 
-function ItemIconBadge({ item }: { item: ShopItem }) {
+export function ItemIconBadge({ item }: { item: ShopItem }) {
   return (
     <span
       className="item-icon"
@@ -18,6 +18,7 @@ interface props {
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
   positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  onAddToBuild?: (itemId: number) => void
 }
 
 const ItemCard = ({
@@ -27,6 +28,7 @@ const ItemCard = ({
   positionPopover,
   hoverUpgrades,
   setHoverUpgrades,
+  onAddToBuild,
 }: props & {
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
@@ -49,6 +51,7 @@ const ItemCard = ({
       }}
       onMouseMove={positionPopover}
       onMouseLeave={() => setHoveredItem(null)}
+      onClick={() => onAddToBuild?.(item.id)}
       style={
         {
           '--category-accent': categoryAccent(item.category),

@@ -16,6 +16,12 @@ export interface ShopItem {
   class_name: string
 }
 
+export interface BuildSection {
+  id: string
+  name: string
+  itemIds: number[]
+}
+
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
 
 export type ItemTier = 'TIER 1' | 'TIER 2' | 'TIER 3' | 'TIER 4' | 'TIER 5'
