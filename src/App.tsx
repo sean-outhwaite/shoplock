@@ -169,16 +169,18 @@ function App() {
   ) {
     const bounds = shopWindowRef.current?.getBoundingClientRect()
 
-    if (!bounds) {
-      return
-    }
-
-    const clientX = 'clientX' in event ? event.clientX : bounds.left + 120
-    const clientY = 'clientY' in event ? event.clientY : bounds.top + 60
+    const clientX =
+      'clientX' in event
+        ? event.clientX
+        : (bounds?.left ?? 0) + 120
+    const clientY =
+      'clientY' in event
+        ? event.clientY
+        : (bounds?.top ?? 0) + 60
 
     setPopoverPosition({
-      x: clientX - bounds.left + 18,
-      y: clientY - bounds.top - 18,
+      x: clientX + 18,
+      y: clientY - 18,
     })
   }
 
@@ -292,22 +294,27 @@ function App() {
               )}
             </div>
           </div>
-
-          {hoveredItem ? (
-            <ItemPreviewPopover
-              item={hoveredItem}
-              position={popoverPosition}
-              itemData={itemData}
-            />
-          ) : null}
         </section>
       </main>
+
+      {hoveredItem ? (
+        <ItemPreviewPopover
+          item={hoveredItem}
+          position={popoverPosition}
+          itemData={itemData}
+        />
+      ) : null}
 
       <BuildDrawer
         sections={build.sections}
         activeSectionId={build.activeSectionId}
         drawerOpen={build.drawerOpen}
         itemsById={itemsById}
+        hoveredItem={hoveredItem}
+        setHoveredItem={setHoveredItem}
+        positionPopover={positionPopover}
+        hoverUpgrades={hoverUpgrades}
+        setHoverUpgrades={setHoverUpgrades}
         onToggleDrawer={build.toggleDrawer}
         onAddSection={build.addSection}
         onDeleteSection={build.deleteSection}

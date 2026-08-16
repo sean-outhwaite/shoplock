@@ -566,10 +566,10 @@
 }
 
 .item-popover {
-  position: absolute;
-  left: clamp(18px, var(--popover-x), calc(100% - 320px));
-  top: clamp(18px, var(--popover-y), calc(100% - 220px));
-  z-index: 30;
+  position: fixed;
+  left: clamp(18px, var(--popover-x), calc(100vw - 320px));
+  top: clamp(18px, var(--popover-y), calc(100vh - 220px));
+  z-index: 50;
   width: min(320px, calc(100% - 24px));
   border-radius: 6px;
   box-shadow: 0 20px 60px rgba(2, 6, 23, 0.58);
@@ -795,11 +795,6 @@
   .build-drawer__panel {
     max-height: min(60svh, 480px);
   }
-
-  .build-slot {
-    width: 52px;
-    height: 52px;
-  }
 }
 
 .build-drawer {
@@ -851,9 +846,23 @@
   letter-spacing: 0.04em;
 }
 
+.build-drawer__handle-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .build-drawer__handle-count {
   font-size: 0.8rem;
   opacity: 0.8;
+}
+
+.build-drawer__chevron {
+  transition: transform 220ms ease;
+}
+
+.build-drawer__panel[data-open='true'] .build-drawer__chevron {
+  transform: rotate(180deg);
 }
 
 .build-drawer__body {
@@ -931,8 +940,8 @@
 .build-section__slots {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
-  min-height: 64px;
+  gap: 10px;
+  min-height: 130px;
 }
 
 .build-section__empty {
@@ -945,34 +954,27 @@
 
 .build-slot {
   position: relative;
-  width: 64px;
-  height: 64px;
+}
+
+.build-slot__handle {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  display: grid;
+  place-items: center;
   border-radius: 5px;
-  border: 1px solid rgba(148, 163, 184, 0.18);
-  background: rgba(148, 163, 184, 0.08);
+  background: rgba(10, 9, 8, 0.55);
+  color: var(--text-strong);
+  font-size: 0.9rem;
+  line-height: 1;
   cursor: grab;
 }
 
-.build-slot .item-icon {
-  width: 100%;
-  height: 100%;
-}
-
-.build-slot__remove {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 18px;
-  height: 18px;
-  border-radius: 999px;
-  border: none;
-  background: rgba(10, 9, 8, 0.9);
-  color: var(--text-strong);
-  font-size: 0.7rem;
-  line-height: 1;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
+.build-slot__handle:active {
+  cursor: grabbing;
 }
 
 .build-drawer__add-section {

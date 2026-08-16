@@ -8,6 +8,11 @@ interface props {
   activeSectionId: string | null
   drawerOpen: boolean
   itemsById: Map<number, ShopItem>
+  hoveredItem: ShopItem | null
+  setHoveredItem: (item: ShopItem | null) => void
+  positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  hoverUpgrades: string[] | null
+  setHoverUpgrades: (upgrades: string[] | null) => void
   onToggleDrawer: () => void
   onAddSection: (name: string) => void
   onDeleteSection: (sectionId: string) => void
@@ -25,6 +30,11 @@ const BuildDrawer = ({
   activeSectionId,
   drawerOpen,
   itemsById,
+  hoveredItem,
+  setHoveredItem,
+  positionPopover,
+  hoverUpgrades,
+  setHoverUpgrades,
   onToggleDrawer,
   onAddSection,
   onDeleteSection,
@@ -55,7 +65,23 @@ const BuildDrawer = ({
           aria-expanded={drawerOpen}
         >
           <span className="build-drawer__handle-title">Build</span>
-          <span className="build-drawer__handle-count">{itemCount} items</span>
+          <span className="build-drawer__handle-right">
+            <span className="build-drawer__handle-count">{itemCount} items</span>
+            <svg
+              className="build-drawer__chevron"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <polyline points="6 15 12 9 18 15" />
+            </svg>
+          </span>
         </button>
 
         <div className="build-drawer__body">
@@ -66,6 +92,11 @@ const BuildDrawer = ({
                 section={section}
                 isActive={section.id === activeSectionId}
                 itemsById={itemsById}
+                hoveredItem={hoveredItem}
+                setHoveredItem={setHoveredItem}
+                positionPopover={positionPopover}
+                hoverUpgrades={hoverUpgrades}
+                setHoverUpgrades={setHoverUpgrades}
                 onSetActive={onSetActiveSection}
                 onDelete={onDeleteSection}
                 onRename={onRenameSection}

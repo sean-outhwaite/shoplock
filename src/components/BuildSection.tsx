@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { DragEvent, FormEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
-import { ItemIconBadge } from './ItemCard.tsx'
+import ItemCard from './ItemCard.tsx'
 
 interface DragPayload {
   sectionId: string
@@ -12,6 +12,11 @@ interface props {
   section: BuildSectionData
   isActive: boolean
   itemsById: Map<number, ShopItem>
+  hoveredItem: ShopItem | null
+  setHoveredItem: (item: ShopItem | null) => void
+  positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  hoverUpgrades: string[] | null
+  setHoverUpgrades: (upgrades: string[] | null) => void
   onSetActive: (sectionId: string) => void
   onDelete: (sectionId: string) => void
   onRename: (sectionId: string, name: string) => void
@@ -32,6 +37,11 @@ const BuildSection = ({
   section,
   isActive,
   itemsById,
+  hoveredItem,
+  setHoveredItem,
+  positionPopover,
+  hoverUpgrades,
+  setHoverUpgrades,
   onSetActive,
   onDelete,
   onRename,
@@ -118,29 +128,32 @@ const BuildSection = ({
             <div
               key={`${itemId}-${index}`}
               className="build-slot"
-              draggable
-              onDragStart={(e) => {
-                e.dataTransfer.effectAllowed = 'move'
-                e.dataTransfer.setData(
-                  'application/json',
-                  JSON.stringify({ sectionId: section.id, index }),
-                )
-              }}
               onDragOver={(e) => e.preventDefault()}
               onDrop={(e) => dropOnSlot(e, index)}
             >
-              <ItemIconBadge item={item} />
-              <button
-                type="button"
-                className="build-slot__remove"
-                aria-label={`Remove ${item.name}`}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onRemoveItem(section.id, index)
+              <span
+                className="build-slot__handle"
+                draggable
+                aria-label={`Drag to reorder ${item.name}`}
+                onDragStart={(e) => {
+                  e.dataTransfer.effectAllowed = 'move'
+                  e.dataTransfer.setData(
+                    'application/json',
+                    JSON.stringify({ sectionId: section.id, index }),
+                  )
                 }}
               >
-                ×
-              </button>
+                ⠿
+              </span>
+              <ItemCard
+                item={item}
+                hoveredItem={hoveredItem}
+                setHoveredItem={setHoveredItem}
+                positionPopover={positionPopover}
+                hoverUpgrades={hoverUpgrades}
+                setHoverUpgrades={setHoverUpgrades}
+                onAddToBuild={() => onRemoveItem(section.id, index)}
+              />
             </div>
           )
         })}
