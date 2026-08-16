@@ -835,7 +835,7 @@
   border: none;
   border-radius: 16px 16px 0 0;
   background: var(--build-accent);
-  color: #1a1305;
+  color: var(--text-strong);
   font-weight: 600;
   cursor: pointer;
 }
