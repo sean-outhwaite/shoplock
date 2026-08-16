@@ -227,7 +227,7 @@
   padding: 16px 20px;
   background: rgba(15, 12, 10, 0.92);
   border-radius: 4px;
-  margin: 14px 18px 18px;
+  margin: 34px 18px 18px 42px;
   clip-path: polygon(
     0% 15%, 1.5% 4%, 3% 15%, 4% 2%, 6% 18%,
     94% 18%, 96% 2%, 97% 15%, 98.5% 4%, 100% 15%,
@@ -249,6 +249,67 @@
 .window-header h1 {
   font-size: clamp(2.2rem, 4vw, 4.6rem);
   max-width: 11ch;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Weapon: plain black plaque, white text with an orange rule beneath it */
+.window-header.weapon {
+  clip-path: none;
+  background: #0a0908;
+  border: 2px solid var(--active-accent);
+}
+
+.window-header.weapon h1 {
+  display: inline-block;
+  border-bottom: 3px solid var(--active-accent);
+  padding-bottom: 6px;
+}
+
+/* Vitality: rounded plaque filled with the category green, black text */
+.window-header.vitality {
+  clip-path: none;
+  background: var(--active-accent);
+  border: none;
+  border-radius: 20px;
+}
+
+.window-header.vitality h1 {
+  color: #14150f;
+}
+
+/* Spirit: no plaque at all, just dark purple text arched like a rune */
+.window-header.spirit {
+  clip-path: none;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 4px 6px;
+}
+
+.spirit-title {
+  display: block;
+  width: clamp(190px, 24vw, 320px);
+  height: auto;
+  overflow: visible;
+}
+
+.spirit-title text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 42px;
+  letter-spacing: -0.02em;
+  fill: color-mix(in srgb, var(--active-accent) 38%, black 62%);
 }
 
 .rail-tab strong,
