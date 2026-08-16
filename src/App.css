@@ -368,27 +368,21 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image: var(--corner-brackets);
-  background-repeat: no-repeat;
-  background-size: var(--corner-brackets-size);
-  background-position: var(--corner-brackets-position);
-  margin-bottom: 12px;
-  height: 20rem;
-  align-self: end;
-  width: 30rem;
-}
-.tier-section-TIER_1.weapon {
   background-image:
     repeating-linear-gradient(
       135deg,
-      color-mix(in srgb, var(--category-accent) 22%, transparent) 0 8px,
-      transparent 8px 16px
+      color-mix(in srgb, var(--category-accent) 28%, transparent) 0 2px,
+      transparent 2px 10px
     ),
     var(--corner-brackets);
   background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat,
     no-repeat, no-repeat, no-repeat, no-repeat;
   background-size: auto, var(--corner-brackets-size);
   background-position: 0 0, var(--corner-brackets-position);
+  margin-bottom: 12px;
+  height: 20rem;
+  align-self: end;
+  width: 30rem;
 }
 .tier-section-TIER_2 {
   position: relative;
@@ -396,10 +390,17 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image: var(--corner-brackets);
-  background-repeat: no-repeat;
-  background-size: var(--corner-brackets-size);
-  background-position: var(--corner-brackets-position);
+  background-image:
+    repeating-radial-gradient(
+      circle at 50% 50%,
+      color-mix(in srgb, var(--category-accent) 22%, transparent) 0 10px,
+      transparent 10px 50px
+    ),
+    var(--corner-brackets);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: auto, var(--corner-brackets-size);
+  background-position: center, var(--corner-brackets-position);
   margin-bottom: 12px;
   height: 30rem;
   width: 37rem;
@@ -410,10 +411,17 @@
   border: 1.5px solid rgba(20, 14, 8, 0.55);
   border-radius: 2px;
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image: var(--corner-brackets);
-  background-repeat: no-repeat;
-  background-size: var(--corner-brackets-size);
-  background-position: var(--corner-brackets-position);
+  background-image:
+    radial-gradient(
+      circle,
+      color-mix(in srgb, var(--category-accent) 35%, transparent) 1.8px,
+      transparent 2px
+    ),
+    var(--corner-brackets);
+  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 14px 14px, var(--corner-brackets-size);
+  background-position: 0 0, var(--corner-brackets-position);
   margin-bottom: 12px;
   width: 31rem;
 }
@@ -434,16 +442,6 @@
 }
 
 .tier-section-TIER_3.weapon {
-  position: relative;
-  padding: 12px;
-  border: 1.5px solid rgba(20, 14, 8, 0.55);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image: var(--corner-brackets);
-  background-repeat: no-repeat;
-  background-size: var(--corner-brackets-size);
-  background-position: var(--corner-brackets-position);
-  margin-bottom: 12px;
   width: 42rem;
 }
 .tier-section-TIER_4.weapon {
