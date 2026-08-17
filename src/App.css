@@ -172,7 +172,7 @@
 
 .full-shop {
   position: relative;
-  background: color-mix(in srgb, var(--active-accent) 26%, #a49b89);
+  background: color-mix(in srgb, var(--active-accent) 15%, #706c64);
   height: 95%;
 }
 
@@ -229,10 +229,26 @@
   border-radius: 4px;
   margin: 34px 18px 18px 42px;
   clip-path: polygon(
-    0% 15%, 1.5% 4%, 3% 15%, 4% 2%, 6% 18%,
-    94% 18%, 96% 2%, 97% 15%, 98.5% 4%, 100% 15%,
-    100% 85%, 98.5% 96%, 97% 85%, 96% 98%, 94% 82%,
-    6% 82%, 4% 98%, 3% 85%, 1.5% 96%, 0% 85%
+    0% 15%,
+    1.5% 4%,
+    3% 15%,
+    4% 2%,
+    6% 18%,
+    94% 18%,
+    96% 2%,
+    97% 15%,
+    98.5% 4%,
+    100% 15%,
+    100% 85%,
+    98.5% 96%,
+    97% 85%,
+    96% 98%,
+    94% 82%,
+    6% 82%,
+    4% 98%,
+    3% 85%,
+    1.5% 96%,
+    0% 85%
   );
 }
 
@@ -363,11 +379,13 @@
 }
 
 :root {
-  --corner-brackets-size: 14px 3px, 3px 14px, 14px 3px, 3px 14px, 14px 3px,
-    3px 14px, 14px 3px, 3px 14px;
-  --corner-brackets-position: top 3px left 3px, top 3px left 3px,
-    top 3px right 3px, top 3px right 3px, bottom 3px right 3px,
-    bottom 3px right 3px, bottom 3px left 3px, bottom 3px left 3px;
+  --corner-brackets-size:
+    14px 3px, 3px 14px, 14px 3px, 3px 14px, 14px 3px, 3px 14px, 14px 3px,
+    3px 14px;
+  --corner-brackets-position:
+    top 3px left 3px, top 3px left 3px, top 3px right 3px, top 3px right 3px,
+    bottom 3px right 3px, bottom 3px right 3px, bottom 3px left 3px,
+    bottom 3px left 3px;
 }
 
 /* Small L-shaped ink corner brackets, layered as 8 background-image strokes.
@@ -381,7 +399,8 @@
 .tier-section-TIER_4,
 .tier-section-TIER_3.weapon,
 .tier-section-TIER_4.weapon {
-  --corner-brackets: linear-gradient(
+  --corner-brackets:
+    linear-gradient(
       to right,
       color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
       transparent 12px
@@ -436,10 +455,13 @@
       transparent 2px 10px
     ),
     var(--corner-brackets);
-  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-    no-repeat, no-repeat, no-repeat, no-repeat;
+  background-repeat:
+    repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat;
   background-size: auto, var(--corner-brackets-size);
-  background-position: 0 0, var(--corner-brackets-position);
+  background-position:
+    0 0,
+    var(--corner-brackets-position);
   margin-bottom: 12px;
   height: 20rem;
   align-self: end;
@@ -458,8 +480,9 @@
       transparent 10px 50px
     ),
     var(--corner-brackets);
-  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-    no-repeat, no-repeat, no-repeat, no-repeat;
+  background-repeat:
+    no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat;
   background-size: auto, var(--corner-brackets-size);
   background-position: center, var(--corner-brackets-position);
   margin-bottom: 12px;
@@ -479,10 +502,15 @@
       transparent 2px
     ),
     var(--corner-brackets);
-  background-repeat: repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-    no-repeat, no-repeat, no-repeat, no-repeat;
-  background-size: 14px 14px, var(--corner-brackets-size);
-  background-position: 0 0, var(--corner-brackets-position);
+  background-repeat:
+    repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
+    no-repeat, no-repeat;
+  background-size:
+    14px 14px,
+    var(--corner-brackets-size);
+  background-position:
+    0 0,
+    var(--corner-brackets-position);
   margin-bottom: 12px;
   width: 31rem;
 }
