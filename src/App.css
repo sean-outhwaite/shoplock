@@ -653,11 +653,19 @@
 }
 
 .item-popover {
+  --popover-width: 400px;
+  --popover-max-height: min(60vh, 520px);
   position: fixed;
-  left: clamp(18px, var(--popover-x), calc(100vw - 320px));
-  top: clamp(18px, var(--popover-y), calc(100vh - 220px));
+  left: clamp(18px, var(--popover-x), calc(100vw - var(--popover-width)));
+  top: clamp(
+    18px,
+    var(--popover-y),
+    calc(100vh - var(--popover-max-height) - 64px)
+  );
   z-index: 50;
-  width: min(320px, calc(100% - 24px));
+  width: min(var(--popover-width), calc(100% - 24px));
+  max-height: var(--popover-max-height);
+  overflow-y: hidden;
   border-radius: 6px;
   box-shadow: 0 20px 60px rgba(2, 6, 23, 0.58);
   pointer-events: none;
