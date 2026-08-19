@@ -48,7 +48,7 @@ export function ItemPreviewPopover({
                       key={key + value + index}
                       className="item-popover__upgrade"
                     >
-                      {`${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
+                      {`${(item.properties[prop].prefix === '{s:sign}' ? '+' : item.properties[prop].prefix) ?? ''}${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
                     </div>
                   )),
               )}
@@ -83,7 +83,10 @@ export function ItemPreviewPopover({
             <div className="item-popover__eyebrow">Upgrades From</div>
             <div className="item-popover__upgrades-from-list">
               {upgradeSources.map((sourceItem) => (
-                <div key={sourceItem.id} className="item-popover__upgrade-source">
+                <div
+                  key={sourceItem.id}
+                  className="item-popover__upgrade-source"
+                >
                   <img
                     src={sourceItem.imageURL}
                     alt=""

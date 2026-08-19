@@ -170,13 +170,8 @@ function App() {
     const bounds = shopWindowRef.current?.getBoundingClientRect()
 
     const clientX =
-      'clientX' in event
-        ? event.clientX
-        : (bounds?.left ?? 0) + 120
-    const clientY =
-      'clientY' in event
-        ? event.clientY
-        : (bounds?.top ?? 0) + 60
+      'clientX' in event ? event.clientX : (bounds?.left ?? 0) + 120
+    const clientY = 'clientY' in event ? event.clientY : (bounds?.top ?? 0) + 60
 
     setPopoverPosition({
       x: clientX + 18,
@@ -223,40 +218,10 @@ function App() {
           </nav>
 
           <div className="full-shop">
-            <header
-              className={`window-header ${selectedCategory.toLowerCase()}`}
-            >
+            <header className="window-header">
               <div>
                 <h1>
-                  {selectedCategory === 'Spirit' ? (
-                    <>
-                      <svg
-                        className="spirit-title"
-                        viewBox="0 0 260 92"
-                        aria-hidden="true"
-                      >
-                        <path
-                          id="spirit-title-arc"
-                          d="M 8,76 Q 130,-10 252,76"
-                          fill="none"
-                        />
-                        <text>
-                          <textPath
-                            href="#spirit-title-arc"
-                            startOffset="50%"
-                            textAnchor="middle"
-                          >
-                            Spirit
-                          </textPath>
-                        </text>
-                      </svg>
-                      <span className="sr-only">Spirit</span>
-                    </>
-                  ) : selectedCategory === 'All' ? (
-                    'All items'
-                  ) : (
-                    selectedCategory
-                  )}
+                  {selectedCategory === 'All' ? 'All items' : selectedCategory}
                 </h1>
               </div>
             </header>
@@ -324,16 +289,16 @@ function App() {
               )}
             </div>
           </div>
+
+          {hoveredItem ? (
+            <ItemPreviewPopover
+              item={hoveredItem}
+              position={popoverPosition}
+              itemData={itemData}
+            />
+          ) : null}
         </section>
       </main>
-
-      {hoveredItem ? (
-        <ItemPreviewPopover
-          item={hoveredItem}
-          position={popoverPosition}
-          itemData={itemData}
-        />
-      ) : null}
 
       <BuildDrawer
         sections={build.sections}
