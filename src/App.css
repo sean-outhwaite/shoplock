@@ -790,8 +790,8 @@
 }
 
 .item-popover__stats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-top: 10px;
 }
@@ -801,6 +801,7 @@
 }
 
 .item-popover__stats div {
+  flex: 1 1 30%;
   padding: 10px 8px;
   border-radius: 6px;
   background: color-mix(in srgb, #1a120c 55%, transparent);

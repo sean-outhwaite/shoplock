@@ -17,15 +17,25 @@ function formatPropertyValue(prop: PropertyDescriptor) {
 // Most stat-box entries reference a normal, numeric property. A few (like
 // "StatusEffectStun") describe a status effect instead - they have no entry
 // in item.properties and are only resolved via important_properties_with_icon.
+// Icons are only shown for the primary/important boxes - the secondary row
+// of regular properties stays text-only.
 function renderStatBox(
   propName: string,
   item: ShopItem,
   iconByName?: Map<string, ImportantPropertyIcon>,
+  showIcon = true,
 ) {
   const prop = item.properties[propName]
   if (prop) {
     return (
       <div key={propName}>
+        {showIcon && prop.icon && (
+          <img
+            src={prop.icon}
+            alt=""
+            className="item-popover__stat-icon"
+          />
+        )}
         <strong>{formatPropertyValue(prop)}</strong>
         <span>{prop.label ?? propName}</span>
       </div>
@@ -121,7 +131,9 @@ function renderSectionAttribute(
       )}
       {properties.length > 0 && (
         <div className="item-popover__stats-secondary">
-          {properties.map((propName) => renderStatBox(propName, item))}
+          {properties.map((propName) =>
+            renderStatBox(propName, item, undefined, false),
+          )}
         </div>
       )}
     </div>
