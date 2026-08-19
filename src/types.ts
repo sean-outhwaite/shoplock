@@ -4,7 +4,6 @@ export interface ShopItem {
   category: ItemCategory
   tier: ItemTier
   cost: number
-  tags: string[]
   accent: string
   icon: ItemIcon
   description: string

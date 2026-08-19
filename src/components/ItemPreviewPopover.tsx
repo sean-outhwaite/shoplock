@@ -30,11 +30,7 @@ function renderStatBox(
     return (
       <div key={propName}>
         {showIcon && prop.icon && (
-          <img
-            src={prop.icon}
-            alt=""
-            className="item-popover__stat-icon"
-          />
+          <img src={prop.icon} alt="" className="item-popover__stat-icon" />
         )}
         <strong>{formatPropertyValue(prop)}</strong>
         <span>{prop.label ?? propName}</span>
@@ -226,8 +222,6 @@ export function ItemPreviewPopover({
             </div>
           </div>
         )}
-
-        <p className="item-popover__note">Tags: {item.tags.join(' • ')}</p>
       </div>
     </aside>
   )

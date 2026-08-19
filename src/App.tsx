@@ -48,7 +48,6 @@ const itemData: ShopItem[] = results
         item.item_slot_type.slice(1)) as ItemCategory,
       tier: `TIER ${item.item_tier}` as ItemTier,
       cost: item.cost,
-      tags: ['imported'],
       accent: '#f8a51c',
       icon: 'wave',
       description: item.description.desc,
