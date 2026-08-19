@@ -260,7 +260,7 @@ function App() {
                             startOffset="50%"
                             textAnchor="middle"
                           >
-                            Spirit
+                            SPIRIT
                           </textPath>
                         </text>
                       </svg>

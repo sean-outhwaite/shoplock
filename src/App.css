@@ -176,27 +176,6 @@
   height: 95%;
 }
 
-/* Faint radiating sunburst behind the header banner, like the shop-sign
-   backdrops in the reference screenshots */
-.full-shop::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background: repeating-conic-gradient(
-    from 0deg at 15% 12%,
-    rgba(255, 255, 255, 0.08) 0deg 1.2deg,
-    transparent 1.2deg 9deg
-  );
-  mask-image: radial-gradient(circle at 15% 12%, black, transparent 55%);
-  -webkit-mask-image: radial-gradient(
-    circle at 15% 12%,
-    black,
-    transparent 55%
-  );
-}
-
 /* Subtle paper grain overlay across the panel */
 .full-shop::after {
   content: '';
@@ -217,6 +196,9 @@
 }
 
 .window-header {
+  /* A darker shade of the category accent for the heading itself - the
+     bright accent stays reserved for item cards and the nav rail. */
+  --active-accent-dark: color-mix(in srgb, var(--active-accent) 55%, black 45%);
   position: relative;
   z-index: 1;
   display: inline-flex;
@@ -283,25 +265,32 @@
 .window-header.weapon {
   clip-path: none;
   background: #0a0908;
-  border: 2px solid var(--active-accent);
+  border: 2px solid var(--active-accent-dark);
 }
 
 .window-header.weapon h1 {
   display: inline-block;
-  border-bottom: 3px solid var(--active-accent);
+  font-family: var(--font-weapon);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  border-bottom: 3px solid var(--active-accent-dark);
   padding-bottom: 6px;
 }
 
 /* Vitality: rounded plaque filled with the category green, black text */
 .window-header.vitality {
   clip-path: none;
-  background: var(--active-accent);
+  background: var(--active-accent-dark);
   border: none;
   border-radius: 20px;
 }
 
 .window-header.vitality h1 {
-  color: #14150f;
+  color: var(--text-strong);
+  font-family: var(--font-vitality);
+  font-weight: 800;
+  letter-spacing: 0;
 }
 
 /* Spirit: no plaque at all, just dark purple text arched like a rune */
@@ -321,11 +310,11 @@
 }
 
 .spirit-title text {
-  font-family: var(--font-display);
+  font-family: var(--font-spirit);
   font-weight: 700;
-  font-size: 42px;
-  letter-spacing: -0.02em;
-  fill: color-mix(in srgb, var(--active-accent) 38%, black 62%);
+  font-size: 36px;
+  letter-spacing: 0.05em;
+  fill: var(--active-accent-dark);
 }
 
 .rail-tab strong,
@@ -378,154 +367,62 @@
   color: rgba(226, 232, 240, 0.74);
 }
 
-:root {
-  --corner-brackets-size:
-    14px 3px, 3px 14px, 14px 3px, 3px 14px, 14px 3px, 3px 14px, 14px 3px,
-    3px 14px;
-  --corner-brackets-position:
-    top 3px left 3px, top 3px left 3px, top 3px right 3px, top 3px right 3px,
-    bottom 3px right 3px, bottom 3px right 3px, bottom 3px left 3px,
-    bottom 3px left 3px;
-}
-
-/* Small L-shaped ink corner brackets, layered as 8 background-image strokes.
-   Declared directly on the tier-section elements (not :root) so that
-   var(--category-accent) — set inline per-element by App.tsx — resolves
-   correctly; a custom property's var() references are substituted where the
-   property is declared, not re-resolved per descendant on inheritance. */
+/* Shared tier-box frame: a solid ink border plus an offset outline ring in
+   the category color, giving a double-border look without adding a second
+   nested element. Declared once here so every tier box (and its .weapon
+   width/height overrides) picks it up automatically. */
 .tier-section-TIER_1,
 .tier-section-TIER_2,
 .tier-section-TIER_3,
-.tier-section-TIER_4,
-.tier-section-TIER_3.weapon,
-.tier-section-TIER_4.weapon {
-  --corner-brackets:
-    linear-gradient(
-      to right,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to left,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to bottom,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to left,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to top,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to right,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    ),
-    linear-gradient(
-      to top,
-      color-mix(in srgb, var(--category-accent) 65%, transparent) 12px,
-      transparent 12px
-    );
+.tier-section-TIER_4 {
+  /* A darker shade of the category accent for the frame/background - the
+     bright accent stays reserved for item cards and the nav rail. */
+  --category-accent-dark: color-mix(in srgb, var(--category-accent) 45%, black 55%);
+  position: relative;
+  padding: 12px;
+  border: 2px solid rgba(20, 14, 8, 0.65);
+  outline: 1.5px solid
+    color-mix(in srgb, var(--category-accent-dark) 65%, transparent);
+  outline-offset: 3px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+  margin-bottom: 12px;
 }
 
 .tier-section-TIER_1 {
-  position: relative;
-  padding: 12px;
-  border: 1.5px solid rgba(20, 14, 8, 0.55);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image:
-    repeating-linear-gradient(
-      135deg,
-      color-mix(in srgb, var(--category-accent) 28%, transparent) 0 2px,
-      transparent 2px 10px
-    ),
-    var(--corner-brackets);
-  background-repeat:
-    repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-    no-repeat, no-repeat;
-  background-size: auto, var(--corner-brackets-size);
-  background-position:
-    0 0,
-    var(--corner-brackets-position);
-  margin-bottom: 12px;
+  background-image: repeating-linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--category-accent-dark) 40%, transparent) 0 2px,
+    transparent 2px 10px
+  );
   height: 20rem;
   align-self: end;
   width: 30rem;
 }
 .tier-section-TIER_2 {
-  position: relative;
-  padding: 12px;
-  border: 1.5px solid rgba(20, 14, 8, 0.55);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image:
-    repeating-radial-gradient(
-      circle at 50% 50%,
-      color-mix(in srgb, var(--category-accent) 22%, transparent) 0 10px,
-      transparent 10px 50px
-    ),
-    var(--corner-brackets);
-  background-repeat:
-    no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-    no-repeat, no-repeat;
-  background-size: auto, var(--corner-brackets-size);
-  background-position: center, var(--corner-brackets-position);
-  margin-bottom: 12px;
+  background-image: repeating-radial-gradient(
+    circle at 50% 50%,
+    color-mix(in srgb, var(--category-accent-dark) 32%, transparent) 0 10px,
+    transparent 10px 50px
+  );
   height: 30rem;
   width: 37rem;
 }
 .tier-section-TIER_3 {
-  position: relative;
-  padding: 12px;
-  border: 1.5px solid rgba(20, 14, 8, 0.55);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-image:
-    radial-gradient(
-      circle,
-      color-mix(in srgb, var(--category-accent) 35%, transparent) 1.8px,
-      transparent 2px
-    ),
-    var(--corner-brackets);
-  background-repeat:
-    repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat,
-    no-repeat, no-repeat;
-  background-size:
-    14px 14px,
-    var(--corner-brackets-size);
-  background-position:
-    0 0,
-    var(--corner-brackets-position);
-  margin-bottom: 12px;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--category-accent-dark) 50%, transparent) 1.8px,
+    transparent 2px
+  );
+  background-size: 14px 14px;
   width: 31rem;
 }
 .tier-section-TIER_4 {
-  position: relative;
-  padding: 12px;
-  border: 1.5px solid rgba(20, 14, 8, 0.55);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-color: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
-  background-image: var(--corner-brackets);
-  background-repeat: no-repeat;
-  background-size: var(--corner-brackets-size);
-  background-position: var(--corner-brackets-position);
-  margin-bottom: 12px;
+  background-color: color-mix(
+    in srgb,
+    var(--category-accent-dark) 18%,
+    #120f0c 82%
+  );
   height: 30rem;
   width: 36rem;
 }
@@ -534,18 +431,6 @@
   width: 42rem;
 }
 .tier-section-TIER_4.weapon {
-  position: relative;
-  padding: 12px;
-  border: 1.5px solid rgba(20, 14, 8, 0.55);
-  border-radius: 2px;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
-  background-color: color-mix(in srgb, var(--category-accent) 12%, #120f0c 88%);
-  background-image: var(--corner-brackets);
-  background-repeat: no-repeat;
-  background-size: var(--corner-brackets-size);
-  background-position: var(--corner-brackets-position);
-  margin-bottom: 12px;
-  height: 30rem;
   width: 25rem;
 }
 

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Space+Grotesk:ital,wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Rye&family=Baloo+2:wght@600;700;800&family=Cinzel+Decorative:wght@700;900&family=Space+Grotesk:ital,wght@400;500;700&display=swap');
 
 :root {
   color-scheme: dark;
@@ -9,6 +9,9 @@
   -moz-osx-font-smoothing: grayscale;
   --font-body: 'Space Grotesk', 'Helvetica Neue', sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
+  --font-weapon: 'Rye', 'Fraunces', Georgia, serif;
+  --font-vitality: 'Baloo 2', 'Fraunces', Georgia, serif;
+  --font-spirit: 'Cinzel Decorative', 'Fraunces', Georgia, serif;
   --bg: #0a0908;
   --panel-border: rgba(148, 163, 184, 0.18);
   --shadow-soft: 0 24px 80px rgba(2, 6, 23, 0.42);
