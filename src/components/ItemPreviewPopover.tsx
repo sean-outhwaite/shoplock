@@ -56,12 +56,21 @@ export function ItemPreviewPopover({
               section.section_type === undefined) && (
               <>
                 <div className="item-popover__eyebrow">Passive</div>
-                <div
+                {section.section_attributes.map((attr, index) => (
+                  <div
+                    key={index}
+                    className="item-popover__lead"
+                    dangerouslySetInnerHTML={{
+                      __html: attr.loc_string || '',
+                    }}
+                  />
+                ))}
+                {/* <div
                   className="item-popover__lead"
                   dangerouslySetInnerHTML={{
                     __html: section.section_attributes[0].loc_string || '',
                   }}
-                ></div>
+                ></div> */}
               </>
             )}
             {section.section_type === 'active' && (

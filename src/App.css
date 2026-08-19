@@ -754,6 +754,12 @@
   color: #fff;
 }
 
+.diminish {
+  font-style: italic;
+  font-size: 90%;
+  opacity: 0.9;
+}
+
 .item-popover__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
