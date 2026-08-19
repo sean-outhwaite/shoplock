@@ -49,7 +49,6 @@ const ItemCard = ({
         setHoverUpgrades(item.upgradesFrom)
         positionPopover(event)
       }}
-      onMouseMove={positionPopover}
       onMouseLeave={() => setHoveredItem(null)}
       onClick={() => onAddToBuild?.(item.id)}
       style={
