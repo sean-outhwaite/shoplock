@@ -1,6 +1,132 @@
 import { formatCost, categoryAccent } from '../utils.tsx'
 import type { CSSProperties } from 'react'
-import type { ShopItem, PopoverPosition, Properties } from '../types.ts'
+import type {
+  ShopItem,
+  PopoverPosition,
+  PropertyDescriptor,
+  ImportantPropertyIcon,
+  SectionAttribute,
+  TooltipSection,
+} from '../types.ts'
+
+function formatPropertyValue(prop: PropertyDescriptor) {
+  const prefix = prop.prefix === '{s:sign}' ? '+' : (prop.prefix ?? '')
+  return `${prefix}${prop.value}${prop.postfix ?? ''}`
+}
+
+// Most stat-box entries reference a normal, numeric property. A few (like
+// "StatusEffectStun") describe a status effect instead - they have no entry
+// in item.properties and are only resolved via important_properties_with_icon.
+function renderStatBox(
+  propName: string,
+  item: ShopItem,
+  iconByName?: Map<string, ImportantPropertyIcon>,
+) {
+  const prop = item.properties[propName]
+  if (prop) {
+    return (
+      <div key={propName}>
+        <strong>{formatPropertyValue(prop)}</strong>
+        <span>{prop.label ?? propName}</span>
+      </div>
+    )
+  }
+
+  const iconInfo = iconByName?.get(propName)
+  if (iconInfo) {
+    return (
+      <div key={propName}>
+        <img src={iconInfo.icon} alt="" className="item-popover__stat-icon" />
+        <strong>{iconInfo.localized_name}</strong>
+        <span>Status Effect</span>
+      </div>
+    )
+  }
+
+  return null
+}
+
+// The section's cooldown (AbilityCooldown/ProcCooldown, identified by
+// css_class) reads as a badge next to the "Passive"/"Active" label rather
+// than as its own stat box, matching the in-game tooltip.
+function findCooldownProperty(section: TooltipSection, item: ShopItem) {
+  const keys = section.section_attributes.flatMap(
+    (attr) => attr.properties ?? [],
+  )
+  const cooldownKey = keys.find(
+    (key) => item.properties[key]?.css_class === 'cooldown',
+  )
+  return cooldownKey
+    ? { key: cooldownKey, prop: item.properties[cooldownKey] }
+    : undefined
+}
+
+function renderPassiveActiveSection(section: TooltipSection, item: ShopItem) {
+  const cooldown = findCooldownProperty(section, item)
+
+  return (
+    <>
+      <div className="item-popover__eyebrow">
+        <span>{section.section_type === 'active' ? 'Active' : 'Passive'}</span>
+        {cooldown && (
+          <span className="item-popover__eyebrow-cooldown">
+            {cooldown.prop.icon && <img src={cooldown.prop.icon} alt="" />}
+            {formatPropertyValue(cooldown.prop)}
+          </span>
+        )}
+      </div>
+      {section.section_attributes.map((attr, attrIndex) =>
+        renderSectionAttribute(attr, attrIndex, item, cooldown?.key),
+      )}
+    </>
+  )
+}
+
+function renderSectionAttribute(
+  attr: SectionAttribute,
+  attrIndex: number,
+  item: ShopItem,
+  cooldownKey: string | undefined,
+) {
+  const importantProperties = attr.important_properties ?? []
+  const properties = (attr.properties ?? []).filter(
+    (key) => key !== cooldownKey,
+  )
+  const hasContent =
+    attr.loc_string || importantProperties.length > 0 || properties.length > 0
+  if (!hasContent) {
+    return null
+  }
+
+  const iconByName = new Map(
+    (attr.important_properties_with_icon ?? []).map(
+      (entry) => [entry.name, entry] as const,
+    ),
+  )
+
+  return (
+    <div key={attrIndex}>
+      {attr.loc_string && (
+        <div
+          className="item-popover__lead"
+          dangerouslySetInnerHTML={{ __html: attr.loc_string }}
+        />
+      )}
+      {importantProperties.length > 0 && (
+        <div className="item-popover__stats">
+          {importantProperties.map((propName) =>
+            renderStatBox(propName, item, iconByName),
+          )}
+        </div>
+      )}
+      {properties.length > 0 && (
+        <div className="item-popover__stats-secondary">
+          {properties.map((propName) => renderStatBox(propName, item))}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export function ItemPreviewPopover({
   item,
@@ -41,49 +167,30 @@ export function ItemPreviewPopover({
         {item.tooltipSections.map((section, sectionIndex) => (
           <div key={sectionIndex}>
             {section.section_type === 'innate' &&
-              Object.entries(section.section_attributes[0]).map(
-                ([key, value]) =>
-                  value.map((prop: keyof Properties, index: number) => (
+              section.section_attributes.flatMap((attr, attrIndex) =>
+                [
+                  ...(attr.properties ?? []),
+                  ...(attr.elevated_properties ?? []),
+                ].map((propName, index) => {
+                  const prop = item.properties[propName]
+                  if (!prop) {
+                    return null
+                  }
+                  return (
                     <div
-                      key={key + value + index}
+                      key={`${attrIndex}-${propName}-${index}`}
                       className="item-popover__upgrade"
                     >
-                      {`${(item.properties[prop].prefix === '{s:sign}' ? '+' : item.properties[prop].prefix) ?? ''}${item.properties[prop].value}${item.properties[prop].postfix ?? ''} ${item.properties[prop].label}`}
+                      {formatPropertyValue(prop)} {prop.label}
                     </div>
-                  )),
+                  )
+                }),
               )}
+
             {(section.section_type === 'passive' ||
-              section.section_type === undefined) && (
-              <>
-                <div className="item-popover__eyebrow">Passive</div>
-                {section.section_attributes.map((attr, index) => (
-                  <div
-                    key={index}
-                    className="item-popover__lead"
-                    dangerouslySetInnerHTML={{
-                      __html: attr.loc_string || '',
-                    }}
-                  />
-                ))}
-                {/* <div
-                  className="item-popover__lead"
-                  dangerouslySetInnerHTML={{
-                    __html: section.section_attributes[0].loc_string || '',
-                  }}
-                ></div> */}
-              </>
-            )}
-            {section.section_type === 'active' && (
-              <>
-                <div className="item-popover__eyebrow">Active</div>
-                <div
-                  className="item-popover__lead"
-                  dangerouslySetInnerHTML={{
-                    __html: section.section_attributes[0].loc_string || '',
-                  }}
-                ></div>
-              </>
-            )}
+              section.section_type === 'active' ||
+              section.section_type === undefined) &&
+              renderPassiveActiveSection(section, item)}
           </div>
         ))}
 

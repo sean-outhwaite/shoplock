@@ -654,7 +654,7 @@
 
 .item-popover {
   --popover-width: 400px;
-  --popover-max-height: min(60vh, 520px);
+  --popover-max-height: min(85vh, 760px);
   position: fixed;
   /* positionPopover() in App.tsx already flips/clamps these against the
      viewport and the hovered item's bounds, so just use them directly. */
@@ -720,7 +720,8 @@
 
 .item-popover__eyebrow,
 .item-popover__note,
-.item-popover__stats span {
+.item-popover__stats span,
+.item-popover__stats-secondary span {
   margin: 0;
   color: rgba(203, 213, 225, 0.72);
   font-size: 0.68rem;
@@ -729,10 +730,32 @@
 }
 
 .item-popover__eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
   background: color-mix(in srgb, black 20%, transparent);
   padding: 8px;
   font-weight: 600;
   margin: 0 -14px 0 -14px;
+}
+
+.item-popover__eyebrow-cooldown {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-body);
+  font-weight: 400;
+  font-size: 0.78rem;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.item-popover__eyebrow .item-popover__eyebrow-cooldown img {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+  vertical-align: middle;
 }
 
 .item-popover__body {
@@ -769,7 +792,12 @@
 .item-popover__stats {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1px;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.item-popover__stats + .item-popover__stats {
+  margin-top: 6px;
 }
 
 .item-popover__stats div {
@@ -785,6 +813,40 @@
 .item-popover__stats strong {
   color: var(--text-strong);
   font-size: 1rem;
+  line-height: 1;
+}
+
+.item-popover__stats .item-popover__stat-icon {
+  width: 22px;
+  height: 22px;
+  margin: 0 auto;
+  vertical-align: initial;
+}
+
+.item-popover__stats-secondary {
+  display: flex;
+  margin-top: 6px;
+  border-radius: 6px;
+  background: color-mix(in srgb, #1a120c 30%, transparent);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+  overflow: hidden;
+}
+
+.item-popover__stats-secondary div {
+  flex: 1;
+  padding: 8px 10px;
+  display: grid;
+  gap: 4px;
+  text-align: center;
+}
+
+.item-popover__stats-secondary div + div {
+  border-left: 1px solid rgba(148, 163, 184, 0.12);
+}
+
+.item-popover__stats-secondary strong {
+  font-size: 0.82rem;
+  color: var(--text-body);
   line-height: 1;
 }
 

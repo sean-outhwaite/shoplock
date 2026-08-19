@@ -174,7 +174,7 @@ function App() {
     // never renders behind it.
     const bottomReserve = margin + 64
     const width = 400
-    const maxHeight = Math.min(window.innerHeight * 0.6, 520)
+    const maxHeight = Math.min(window.innerHeight * 0.85, 760)
 
     // Prefer the icon's right side; flip to the left if it wouldn't fit,
     // so the popover never covers the item it's describing.

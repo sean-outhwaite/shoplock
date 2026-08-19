@@ -71,134 +71,40 @@ export interface Description {
   desc: string
 }
 
-export interface Properties {
-  AbilityCastDelay: AbilityCastDelay
-  AbilityCastRange: AbilityCastDelay
-  AbilityChannelTime: AbilityCastDelay
-  AbilityChargeUpTime: AbilityChargeUpTime
-  AbilityCharges: AbilityCastDelay
-  AbilityCooldown: AbilityCastDelay
-  AbilityCooldownBetweenCharge: AbilityCastDelay
-  AbilityDuration: AbilityCastDelay
-  AbilityPostCastDuration: AbilityPostCastDuration
-  AbilityResourceCost: AbilityResourceCost
-  AbilityUnitTargetLimit: AbilityUnitTargetLimit
-  AmmoReloadPercent: AmmoReloadPercent
-  BonusClipSizePercent: AmmoReloadPercent
-  BonusFireRate: AmmoReloadPercent
-  BuffDuration: BuffDuration
-  BulletsBonusMagicDamage: AbilityChargeUpTime
-  ChannelMoveSpeed: ChannelMoveSpeed
-  Damage: AbilityChargeUpTime
-  TechPower: AmmoReloadPercent
-  WeaponPower: AbilityCastDelay
-}
+// Items report dozens of item-specific property keys (StunDuration,
+// DamagePerChain, ChainRadius, ...) beyond the handful of common
+// ability-level ones, so this is modeled as an open dictionary rather than
+// a fixed set of named fields - not every property carries every field.
+export type Properties = Record<string, PropertyDescriptor>
 
-export type PropertyNames = keyof Properties
+export type PropertyNames = string
 
-export interface AbilityCastDelay {
+export interface PropertyDescriptor {
   value: string
-  can_set_token_override: boolean
-  css_class?: string
-  disable_value?: string
-  label: string
-  postfix?: string
-  postvalue_label: string
-  icon?: string
-  display_units?: string
-  scale_function?: AbilityCastDelayScaleFunction
-  provided_property_type?: string
+  label?: string
   prefix?: string
+  postfix?: string
+  postvalue_label?: string
+  icon?: string
+  css_class?: string
+  display_units?: string
+  can_set_token_override?: boolean
+  disable_value?: string
+  provided_property_type?: string
+  tooltip_section?: string
+  tooltip_is_elevated?: boolean
+  tooltip_is_important?: boolean
+  scale_function?: PropertyScaleFunction
 }
 
-export interface AbilityCastDelayScaleFunction {
-  label: string
+export interface PropertyScaleFunction {
+  label?: string
   postfix?: string
   class_name: string
   subclass_name: string
   specific_stat_scale_type?: string
   scaling_stats?: string[]
-}
-
-export interface AbilityChargeUpTime {
-  value: string
-  css_class: string
-  display_units?: string
-  label: string
-  postfix?: string
-  postvalue_label: string
-  icon: string
-  tooltip_section: string
-  tooltip_is_elevated: boolean
-  tooltip_is_important: boolean
-  scale_function?: AbilityChargeUpTimeScaleFunction
-  prefix?: string
-}
-
-export interface AbilityChargeUpTimeScaleFunction {
-  label: string
-  postfix?: string
-  class_name: string
-  subclass_name: string
-  specific_stat_scale_type: string
   stat_scale?: number
-}
-
-export interface AbilityPostCastDuration {
-  label: string
-  postfix?: string
-  value: string
-  disable_value: string
-}
-
-export interface AbilityResourceCost {
-  label: string
-  postfix?: string
-  value: string
-  can_set_token_override: boolean
-  css_class: string
-  disable_value: string
-  icon: string
-}
-
-export interface AbilityUnitTargetLimit {
-  label: string
-  postfix?: string
-  value: string
-  can_set_token_override: boolean
-}
-
-export interface AmmoReloadPercent {
-  value: string
-  label: string
-  postfix: string
-  postvalue_label: string
-  tooltip_section: string
-  tooltip_is_elevated: boolean
-  tooltip_is_important: boolean
-  provided_property_type?: string
-  prefix?: string
-  css_class?: string
-  icon?: string
-  can_set_token_override?: boolean
-  disable_value?: string
-}
-
-export interface BuffDuration {
-  value: string
-  label: string
-  postfix: string
-  postvalue_label: string
-}
-
-export interface ChannelMoveSpeed {
-  value: string
-  can_set_token_override: boolean
-  css_class: string
-  display_units: string
-  postfix: string
-  icon: string
-  label: string
 }
 
 export interface TooltipSection {
@@ -207,10 +113,17 @@ export interface TooltipSection {
 }
 
 export interface SectionAttribute {
-  properties: PropertyNames[]
+  properties?: PropertyNames[]
   elevated_properties?: PropertyNames[]
   loc_string?: string
   important_properties?: PropertyNames[]
+  important_properties_with_icon?: ImportantPropertyIcon[]
+}
+
+export interface ImportantPropertyIcon {
+  name: string
+  icon: string
+  localized_name: string
 }
 
 export interface Upgrade {
