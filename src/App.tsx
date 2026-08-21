@@ -13,6 +13,7 @@ import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
 import BuildDrawer from './components/BuildDrawer.tsx'
+import { ShopSign } from './components/ShopSign.tsx'
 import { useBuild } from './hooks/useBuild.ts'
 import weaponIcon from './assets/Weapon.svg'
 import spiritIcon from './assets/Spirit.svg'
@@ -241,37 +242,14 @@ function App() {
               className={`window-header ${selectedCategory.toLowerCase()}`}
             >
               <div>
-                <h1>
-                  {selectedCategory === 'Spirit' ? (
-                    <>
-                      <svg
-                        className="spirit-title"
-                        viewBox="0 0 260 92"
-                        aria-hidden="true"
-                      >
-                        <path
-                          id="spirit-title-arc"
-                          d="M 8,76 Q 130,-10 252,76"
-                          fill="none"
-                        />
-                        <text>
-                          <textPath
-                            href="#spirit-title-arc"
-                            startOffset="50%"
-                            textAnchor="middle"
-                          >
-                            SPIRIT
-                          </textPath>
-                        </text>
-                      </svg>
-                      <span className="sr-only">Spirit</span>
-                    </>
-                  ) : selectedCategory === 'All' ? (
-                    'All items'
-                  ) : (
-                    selectedCategory
-                  )}
-                </h1>
+                {selectedCategory === 'All' ? (
+                  <h1>All items</h1>
+                ) : (
+                  <h1>
+                    <ShopSign category={selectedCategory} />
+                    <span className="sr-only">{selectedCategory}</span>
+                  </h1>
+                )}
               </div>
             </header>
 

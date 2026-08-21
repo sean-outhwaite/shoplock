@@ -1,17 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Rye&family=Baloo+2:wght@600;700;800&family=Cinzel+Decorative:wght@700;900&family=Space+Grotesk:ital,wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Alfa+Slab+One&family=Baloo+2:wght@600;700;800&family=Space+Grotesk:ital,wght@0,400;0,500;0,700;1,400&display=swap');
 
 :root {
   color-scheme: dark;
   font-family: var(--font-body);
-  font-synthesis: none;
+  /* Space Grotesk has no italic cut on Google Fonts, so italic text (e.g.
+     .diminish) needs the browser to fake a slant - only style synthesis is
+     allowed since every other weight/family in use loads its real face. */
+  font-synthesis: style;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --font-body: 'Space Grotesk', 'Helvetica Neue', sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
-  --font-weapon: 'Rye', 'Fraunces', Georgia, serif;
+  --font-weapon: 'Alfa Slab One', 'Fraunces', Georgia, serif;
   --font-vitality: 'Baloo 2', 'Fraunces', Georgia, serif;
-  --font-spirit: 'Cinzel Decorative', 'Fraunces', Georgia, serif;
   --bg: #0a0908;
   --panel-border: rgba(148, 163, 184, 0.18);
   --shadow-soft: 0 24px 80px rgba(2, 6, 23, 0.42);

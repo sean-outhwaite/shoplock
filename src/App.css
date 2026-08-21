@@ -261,60 +261,87 @@
   border: 0;
 }
 
-/* Weapon: plain black plaque, white text with an orange rule beneath it */
-.window-header.weapon {
-  clip-path: none;
-  background: #0a0908;
-  border: 2px solid var(--active-accent-dark);
-}
-
-.window-header.weapon h1 {
-  display: inline-block;
-  font-family: var(--font-weapon);
-  font-weight: 400;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  border-bottom: 3px solid var(--active-accent-dark);
-  padding-bottom: 6px;
-}
-
-/* Vitality: rounded plaque filled with the category green, black text */
-.window-header.vitality {
-  clip-path: none;
-  background: var(--active-accent-dark);
-  border: none;
-  border-radius: 20px;
-}
-
-.window-header.vitality h1 {
-  color: var(--text-strong);
-  font-family: var(--font-vitality);
-  font-weight: 800;
-  letter-spacing: 0;
-}
-
-/* Spirit: no plaque at all, just dark purple text arched like a rune */
+/* Weapon/Vitality/Spirit now render an illustrated <ShopSign>, which draws
+   its own plaque shape - the header itself just becomes a plain wrapper. */
+.window-header.weapon,
+.window-header.vitality,
 .window-header.spirit {
   clip-path: none;
   background: transparent;
   border: none;
   box-shadow: none;
-  padding: 4px 6px;
+  padding: 0;
 }
 
-.spirit-title {
+.shop-sign {
   display: block;
-  width: clamp(190px, 24vw, 320px);
+  width: clamp(240px, 28vw, 380px);
   height: auto;
   overflow: visible;
 }
 
-.spirit-title text {
-  font-family: var(--font-spirit);
+.shop-sign--weapon {
+  --weapon-sign-accent: #d9720f;
+}
+
+.shop-sign--weapon .shop-sign__title {
+  font-family: var(--font-weapon);
+  font-size: 46px;
+  letter-spacing: 0;
+  fill: var(--text-strong);
+}
+
+.shop-sign--weapon .shop-sign__subtitle {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  fill: var(--weapon-sign-accent);
+}
+
+.shop-sign--vitality .shop-sign__title {
+  font-family: var(--font-vitality);
+  font-weight: 800;
+  font-size: 34px;
+  fill: var(--text-strong);
+}
+
+.shop-sign--vitality .shop-sign__subtitle {
+  font-family: var(--font-body);
+  font-size: 10px;
   font-weight: 700;
-  font-size: 36px;
   letter-spacing: 0.05em;
+  fill: rgba(255, 255, 255, 0.85);
+}
+
+.shop-sign--vitality .shop-sign__tagline {
+  font-family: var(--font-body);
+  font-size: 14px;
+  fill: rgba(255, 255, 255, 0.78);
+  /* This Space Grotesk instance renders its space glyph at ~1/5th the
+     width of a normal letter - barely visible without a nudge. */
+  word-spacing: 0.3em;
+}
+
+.shop-sign--spirit .shop-sign__title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 0;
   fill: var(--active-accent-dark);
+}
+
+.shop-sign--spirit .shop-sign__subtitle-box {
+  fill: var(--active-accent-dark);
+}
+
+.shop-sign--spirit .shop-sign__subtitle {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 14px;
+  letter-spacing: 0.12em;
+  fill: var(--text-strong);
 }
 
 .rail-tab strong,
