@@ -8,7 +8,7 @@ import type {
   PopoverPosition,
   ItemData,
 } from './types.ts'
-import { formatCost, categoryAccent } from './utils.tsx'
+import { formatCost, categoryAccent, tierAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
@@ -277,6 +277,7 @@ function App() {
                               {
                                 '--category-accent':
                                   categoryAccent(itemCategory),
+                                '--tier-accent': tierAccent(itemCategory),
                               } as CSSProperties
                             }
                           >
