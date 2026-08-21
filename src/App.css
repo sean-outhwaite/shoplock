@@ -404,7 +404,7 @@
 .tier-section-TIER_4 {
   /* A darker shade of the category accent for the frame/background - the
      bright accent stays reserved for item cards and the nav rail. */
-  --tier-accent-dark: color-mix(in srgb, var(--tier-accent) 45%, black 55%);
+  --tier-accent-dark: color-mix(in srgb, var(--tier-accent) 90%, black 10%);
   position: relative;
   padding: 12px;
   border: 2px solid rgba(20, 14, 8, 0.65);

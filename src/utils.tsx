@@ -23,11 +23,11 @@ export function categoryAccent(category: ItemCategory) {
 export function tierAccent(category: ItemCategory) {
   switch (category) {
     case 'Weapon':
-      return '#DCA50F'
+      return '#FC8F00'
     case 'Spirit':
-      return '#AA62CD'
+      return '#6D2280'
     case 'Vitality':
-      return '#9BC636'
+      return '#358022'
     case 'All':
       return '#8C897A'
   }
