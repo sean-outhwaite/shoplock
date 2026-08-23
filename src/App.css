@@ -172,7 +172,7 @@
 
 .full-shop {
   position: relative;
-  background: color-mix(in srgb, var(--active-accent) 16%, #8c8779);
+  background: color-mix(in srgb, var(--active-accent) 10%, #8c8779);
   height: 95%;
 }
 
