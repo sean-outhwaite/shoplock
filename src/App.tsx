@@ -27,14 +27,6 @@ const results: ItemData[] = await fetch(
   'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
 ).then((res) => res.json())
 
-console.log(results)
-
-// TODO:
-// - Handle property name mismatches better
-// - Consolidate types
-// - Display active upgrades on popover
-// - Sanitize HTML in popover, or find better way to display it
-
 const itemData: ShopItem[] = results
   .filter(
     (item: ItemData) =>
@@ -292,10 +284,7 @@ function App() {
               >
                 <h1 className="sr-only">{selectedCategory}</h1>
                 {displayTiers.map((tier, index) => (
-                  <div
-                    key={tier}
-                    className={`tier-box tier-box--${index + 1}`}
-                  >
+                  <div key={tier} className={`tier-box tier-box--${index + 1}`}>
                     <span className="tier-price">
                       ${formatCost(tierPrices[tier])}
                     </span>
