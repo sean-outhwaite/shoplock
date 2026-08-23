@@ -6,7 +6,6 @@ import type {
   ItemCategory,
   ItemTier,
   PopoverPosition,
-  ItemData,
 } from './types.ts'
 import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
@@ -14,6 +13,7 @@ import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
 import BuildDrawer from './components/BuildDrawer.tsx'
 import { useBuild } from './hooks/useBuild.ts'
+import { useItemCatalog } from './hooks/useItemCatalog.ts'
 import weaponIcon from './assets/catalog_shop_tab_icon_weapon_psd.png'
 import spiritIcon from './assets/catalog_shop_tab_icon_spirit_psd.png'
 import vitalityIcon from './assets/catalog_shop_tab_icon_vitality_psd.png'
@@ -22,44 +22,6 @@ import weaponBg from './assets/catalog_shop_bg_weapon_psd.png'
 import spiritBg from './assets/catalog_shop_bg_spirit_psd.png'
 import vitalityBg from './assets/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/catalog_shop_generic_bg_psd.png'
-
-const results: ItemData[] = await fetch(
-  'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
-).then((res) => res.json())
-
-const itemData: ShopItem[] = results
-  .filter(
-    (item: ItemData) =>
-      item.item_slot_type &&
-      !item.name.includes('upgrade_') &&
-      item.shop_image_webp &&
-      item.shop_image_webp.includes('.webp') &&
-      item.id !== 3133167885,
-  )
-  .map(
-    (item: ItemData): ShopItem => ({
-      id: item.id,
-      name: item.name,
-      category: (item.item_slot_type.charAt(0).toUpperCase() +
-        item.item_slot_type.slice(1)) as ItemCategory,
-      tier: `TIER ${item.item_tier}` as ItemTier,
-      cost: item.cost,
-      accent: '#f8a51c',
-      icon: 'wave',
-      description: item.description.desc,
-      imageURL: item.shop_image_webp,
-      upgrades: item.upgrades,
-      tooltipSections: item.tooltip_sections,
-      properties: item.properties,
-      upgradesFrom: item.component_items ?? [],
-      class_name: item.class_name,
-    }),
-  )
-  .sort((a, b) => a.name.localeCompare(b.name))
-
-console.log(itemData)
-
-const itemsById = new Map(itemData.map((item) => [item.id, item]))
 
 const itemIcons: Record<ItemCategory, string> = {
   Weapon: weaponIcon,
@@ -111,6 +73,9 @@ function App() {
   })
   const shopWindowRef = useRef<HTMLElement | null>(null)
   const build = useBuild()
+  const catalog = useItemCatalog()
+  const itemData = catalog.status === 'success' ? catalog.items : []
+  const itemsById = new Map(itemData.map((item) => [item.id, item]))
 
   const groupedItems = useMemo(
     () =>
@@ -162,8 +127,11 @@ function App() {
           },
         },
       ),
-    [],
+    [itemData],
   )
+
+  if (catalog.status === 'loading') return <h1>Loading...</h1>
+  if (catalog.status === 'error') return <h1>Error: {catalog.error}</h1>
 
   function positionPopover(
     event: MouseEvent<HTMLButtonElement> | FocusEvent<HTMLButtonElement>,
