@@ -8,17 +8,20 @@ import type {
   PopoverPosition,
   ItemData,
 } from './types.ts'
-import { formatCost, categoryAccent, tierAccent } from './utils.tsx'
+import { formatCost, categoryAccent } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
 import BuildDrawer from './components/BuildDrawer.tsx'
-import { ShopSign } from './components/ShopSign.tsx'
 import { useBuild } from './hooks/useBuild.ts'
-import weaponIcon from './assets/Weapon.svg'
-import spiritIcon from './assets/Spirit.svg'
-import vitalityIcon from './assets/Vitality.svg'
+import weaponIcon from './assets/catalog_shop_tab_icon_weapon_psd.png'
+import spiritIcon from './assets/catalog_shop_tab_icon_spirit_psd.png'
+import vitalityIcon from './assets/catalog_shop_tab_icon_vitality_psd.png'
 import allIcon from './assets/All.svg'
+import weaponBg from './assets/catalog_shop_bg_weapon_psd.png'
+import spiritBg from './assets/catalog_shop_bg_spirit_psd.png'
+import vitalityBg from './assets/catalog_shop_bg_vitality_psd.png'
+import genericBg from './assets/catalog_shop_generic_bg_psd.png'
 
 const results: ItemData[] = await fetch(
   'https://api.deadlock-api.com/v1/assets/items/by-type/upgrade',
@@ -72,6 +75,15 @@ const itemIcons: Record<ItemCategory, string> = {
   Vitality: vitalityIcon,
   All: allIcon,
 }
+
+const catalogBg: Record<ItemCategory, string> = {
+  Weapon: weaponBg,
+  Spirit: spiritBg,
+  Vitality: vitalityBg,
+  All: genericBg,
+}
+
+const displayTiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
 
 const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
   'Weapon',
@@ -161,9 +173,6 @@ function App() {
     [],
   )
 
-  const visibleCategories =
-    selectedCategory === 'All' ? categoryOrder : [selectedCategory]
-
   function positionPopover(
     event: MouseEvent<HTMLButtonElement> | FocusEvent<HTMLButtonElement>,
   ) {
@@ -237,24 +246,22 @@ function App() {
             ))}
           </nav>
 
-          <div className="full-shop">
-            <header
-              className={`window-header ${selectedCategory.toLowerCase()}`}
+          {selectedCategory === 'All' ? (
+            <div
+              className="full-shop"
+              style={
+                {
+                  backgroundImage: `url(${catalogBg.All})`,
+                } as CSSProperties
+              }
             >
-              <div>
-                {selectedCategory === 'All' ? (
+              <header className="window-header">
+                <div>
                   <h1>All items</h1>
-                ) : (
-                  <h1>
-                    <ShopSign category={selectedCategory} />
-                    <span className="sr-only">{selectedCategory}</span>
-                  </h1>
-                )}
-              </div>
-            </header>
+                </div>
+              </header>
 
-            <div className="shop-body">
-              {selectedCategory === 'All' ? (
+              <div className="shop-body">
                 <SearchTab
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}
@@ -264,59 +271,55 @@ function App() {
                   setHoverUpgrades={setHoverUpgrades}
                   onAddToBuild={build.addItemToActiveSection}
                 />
-              ) : (
-                visibleCategories.map((itemCategory) => (
-                  <div key={itemCategory} className="category-collection">
-                    {tiers.map(
-                      (tier) =>
-                        tier !== 'TIER 5' && (
-                          <section
-                            key={`${itemCategory}-${tier}`}
-                            className={`tier-section-${tier.replace(/\s+/g, '_')} ${itemCategory.toLowerCase()}`}
-                            style={
-                              {
-                                '--category-accent':
-                                  categoryAccent(itemCategory),
-                                '--tier-accent': tierAccent(itemCategory),
-                              } as CSSProperties
-                            }
-                          >
-                            <header className="category-header">
-                              <div className="category-header-top">
-                                <span className="category-cost">
-                                  ${formatCost(tierPrices[tier])}
-                                </span>
-                              </div>
-
-                              <div className="category-title-row">
-                                <h2>{tier}</h2>
-                              </div>
-                            </header>
-
-                            <div
-                              className={`category-grid ${itemCategory.toLowerCase()}`}
-                            >
-                              {groupedItems[itemCategory][tier].map((item) => (
-                                <ItemCard
-                                  key={item.id}
-                                  item={item}
-                                  hoveredItem={hoveredItem}
-                                  setHoveredItem={setHoveredItem}
-                                  positionPopover={positionPopover}
-                                  hoverUpgrades={hoverUpgrades}
-                                  setHoverUpgrades={setHoverUpgrades}
-                                  onAddToBuild={build.addItemToActiveSection}
-                                />
-                              ))}
-                            </div>
-                          </section>
-                        ),
-                    )}
-                  </div>
-                ))
-              )}
+              </div>
             </div>
-          </div>
+          ) : (
+            <div
+              className={`tier-showcase ${selectedCategory.toLowerCase()}`}
+              style={
+                {
+                  '--category-accent': categoryAccent(selectedCategory),
+                } as CSSProperties
+              }
+            >
+              <div
+                className="tier-board"
+                style={
+                  {
+                    backgroundImage: `url(${catalogBg[selectedCategory]})`,
+                  } as CSSProperties
+                }
+              >
+                <h1 className="sr-only">{selectedCategory}</h1>
+                {displayTiers.map((tier, index) => (
+                  <div
+                    key={tier}
+                    className={`tier-box tier-box--${index + 1}`}
+                  >
+                    <span className="tier-price">
+                      ${formatCost(tierPrices[tier])}
+                    </span>
+                    <div
+                      className={`category-grid ${selectedCategory.toLowerCase()}`}
+                    >
+                      {groupedItems[selectedCategory][tier].map((item) => (
+                        <ItemCard
+                          key={item.id}
+                          item={item}
+                          hoveredItem={hoveredItem}
+                          setHoveredItem={setHoveredItem}
+                          positionPopover={positionPopover}
+                          hoverUpgrades={hoverUpgrades}
+                          setHoverUpgrades={setHoverUpgrades}
+                          onAddToBuild={build.addItemToActiveSection}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
 
           {hoveredItem ? (
             <ItemPreviewPopover

@@ -17,20 +17,4 @@ export function categoryAccent(category: ItemCategory) {
   }
 }
 
-// Tier-box borders/backgrounds use their own accent, independent of
-// categoryAccent() (which still drives item cards and the nav rail) so the
-// two can be tuned separately.
-export function tierAccent(category: ItemCategory) {
-  switch (category) {
-    case 'Weapon':
-      return '#FC8F00'
-    case 'Spirit':
-      return '#6D2280'
-    case 'Vitality':
-      return '#358022'
-    case 'All':
-      return '#8C897A'
-  }
-}
-
 // export function format
