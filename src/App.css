@@ -979,3 +979,16 @@
   animation: spin 2s linear infinite;
   width: 50%;
 }
+
+.rem-helper {
+  position: fixed;
+  bottom: 30px;
+  right: 8px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.6;
+}
+
+.rem-helper:hover {
+  opacity: 1;
+}

@@ -23,6 +23,7 @@ import spiritBg from './assets/backgrounds/catalog_shop_bg_spirit_psd.png'
 import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
 import loadingSpinner from './assets/Brawl_Revolver.png'
+import remHelper from './assets/rem_helper.mp3'
 
 const itemIcons: Record<ItemCategory, string> = {
   Weapon: weaponIcon,
@@ -192,6 +193,11 @@ function App() {
     setPopoverPosition({ x, y })
   }
 
+  const playAudio = () => {
+    const audio = new Audio(remHelper)
+    audio.play()
+  }
+
   return (
     <div className="shop-app">
       <main className="layout">
@@ -310,6 +316,12 @@ function App() {
             />
           ) : null}
         </section>
+        <img
+          onClick={playAudio}
+          src={'src/assets/rem_helper.png'}
+          alt=""
+          className="rem-helper"
+        />
       </main>
 
       <BuildDrawer
