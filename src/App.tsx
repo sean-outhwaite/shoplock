@@ -86,7 +86,10 @@ function App() {
 
   const isLoading = catalog.status === 'loading' || !minTimeElapsed
 
-  const itemData = catalog.status === 'success' ? catalog.items : []
+  const itemData = useMemo(
+    () => (catalog.status === 'success' ? catalog.items : []),
+    [catalog],
+  )
   const itemsById = new Map(itemData.map((item) => [item.id, item]))
 
   const groupedItems = useMemo(
