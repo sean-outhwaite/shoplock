@@ -162,7 +162,14 @@ export function ItemPreviewPopover({
       role="presentation"
       aria-hidden="true"
     >
-      <header className="item-popover__header">
+      <header
+        className="item-popover__header"
+        style={
+          {
+            'background-image': `url('src/assets/popover/catalog_tooltip_header_${item.category.toLowerCase()}_psd.png')`,
+          } as CSSProperties
+        }
+      >
         <div>
           <h3>{item.name}</h3>
         </div>
@@ -171,7 +178,14 @@ export function ItemPreviewPopover({
         </div>
       </header>
 
-      <div className="item-popover__body">
+      <div
+        className="item-popover__body"
+        style={
+          {
+            'background-image': `url('src/assets/popover/catalog_tooltip_bg_${item.category.toLowerCase()}.png')`,
+          } as CSSProperties
+        }
+      >
         {item.tooltipSections.map((section, sectionIndex) => (
           <div key={sectionIndex}>
             {section.section_type === 'innate' &&
