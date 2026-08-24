@@ -275,20 +275,21 @@
 .tier-box--1 .tier-price {
   top: 3.5%;
   left: 2.8%;
-  rotate: -8deg;
+  rotate: -5deg;
 }
 .tier-box--2 .tier-price {
   top: 2.5%;
   left: 4%;
-  rotate: -8deg;
+  rotate: -4deg;
 }
 .tier-box--3 .tier-price {
   top: 0.5%;
   left: 4.4%;
-  rotate: -3deg;
+  rotate: -4deg;
 }
 .tier-box--4 .tier-price {
   left: 8%;
+  rotate: -5deg;
 }
 .tier-showcase.vitality .tier-box--4 .tier-price,
 .tier-showcase.spirit .tier-box--4 .tier-price {
