@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
 import type {
@@ -22,6 +22,7 @@ import weaponBg from './assets/catalog_shop_bg_weapon_psd.png'
 import spiritBg from './assets/catalog_shop_bg_spirit_psd.png'
 import vitalityBg from './assets/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/catalog_shop_generic_bg_psd.png'
+import loadingSpinner from './assets/Brawl_Revolver.png'
 
 const itemIcons: Record<ItemCategory, string> = {
   Weapon: weaponIcon,
@@ -62,6 +63,8 @@ const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
   'Vitality',
 ]
 
+const minLoadingTime = 500
+
 function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ItemCategory>('Weapon')
@@ -74,6 +77,15 @@ function App() {
   const shopWindowRef = useRef<HTMLElement | null>(null)
   const build = useBuild()
   const catalog = useItemCatalog()
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => setMinTimeElapsed(true), minLoadingTime)
+    return () => clearTimeout(timer)
+  }, [])
+
+  const isLoading = catalog.status === 'loading' || !minTimeElapsed
+
   const itemData = catalog.status === 'success' ? catalog.items : []
   const itemsById = new Map(itemData.map((item) => [item.id, item]))
 
@@ -130,7 +142,16 @@ function App() {
     [itemData],
   )
 
-  if (catalog.status === 'loading') return <h1>Loading...</h1>
+  if (isLoading)
+    return (
+      <div className="loading-screen">
+        <img
+          className="loading-spinner"
+          src={loadingSpinner}
+          alt="Loading..."
+        />
+      </div>
+    )
   if (catalog.status === 'error') return <h1>Error: {catalog.error}</h1>
 
   function positionPopover(

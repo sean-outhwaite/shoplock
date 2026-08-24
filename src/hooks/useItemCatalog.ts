@@ -18,7 +18,7 @@ export function useItemCatalog() {
         return response.json()
       })
       .then((results: ItemData[]) => {
-        if (!cancelled) return
+        if (cancelled) return
         const items = results
           .filter(
             (item: ItemData) =>
