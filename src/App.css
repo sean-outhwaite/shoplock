@@ -242,6 +242,20 @@
   height: 45.5%;
 }
 
+/* Vitality/Spirit's art shares weapon's template for tiers 1-3, but its
+   tier 3/4 divider sits further left - box 3 is narrower and box 4 wider
+   and shifted left than in catalog_shop_bg_weapon_psd.png. Measured
+   directly off the source art via canvas pixel sampling. */
+.tier-showcase.vitality .tier-box--3,
+.tier-showcase.spirit .tier-box--3 {
+  width: 42.1%;
+}
+.tier-showcase.vitality .tier-box--4,
+.tier-showcase.spirit .tier-box--4 {
+  left: 47.8%;
+  width: 49.2%;
+}
+
 .tier-box .category-grid {
   position: absolute;
   overflow: hidden;
@@ -276,6 +290,11 @@
 .tier-box--4 .tier-price {
   top: -2.1%;
   left: 13.5%;
+}
+.tier-showcase.vitality .tier-box--4 .tier-price,
+.tier-showcase.spirit .tier-box--4 .tier-price {
+  top: -1.2%;
+  left: 9.3%;
 }
 
 .window-header {
