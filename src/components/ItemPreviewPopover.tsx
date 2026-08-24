@@ -29,7 +29,10 @@ const tooltipHeader: Record<ItemCategory, string> = {
 }
 
 function formatPropertyValue(prop: PropertyDescriptor) {
-  const prefix = prop.prefix === '{s:sign}' ? '+' : (prop.prefix ?? '')
+  let prefix = prop.prefix ?? ''
+  if (prop.prefix === '{s:sign}') {
+    prefix = prop.value.startsWith('-') ? '' : '+'
+  }
   return `${prefix}${prop.value}${prop.postfix ?? ''}`
 }
 
