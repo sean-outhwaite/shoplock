@@ -7,11 +7,11 @@ export function formatCost(cost: number) {
 export function categoryAccent(category: ItemCategory) {
   switch (category) {
     case 'Weapon':
-      return '#DCA50F'
+      return '#E3B00B'
     case 'Spirit':
-      return '#AA62CD'
+      return '#B665DC'
     case 'Vitality':
-      return '#9BC636'
+      return '#A3CD3A'
     case 'All':
       return '#8C897A'
   }
