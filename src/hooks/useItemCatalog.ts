@@ -11,6 +11,8 @@ export function useItemCatalog() {
 
   useEffect(() => {
     let cancelled = false
+    // Some items returned by the API aren't actually in the game, keep tracking of those to filter out here
+    const deletedItems = [3713423303, 223594321, 3133167885]
 
     fetch('https://api.deadlock-api.com/v1/assets/items/by-type/upgrade')
       .then((response) => {
@@ -26,7 +28,7 @@ export function useItemCatalog() {
               !item.name.includes('upgrade_') &&
               item.shop_image_webp &&
               item.shop_image_webp.includes('.webp') &&
-              item.id !== 3133167885,
+              deletedItems.includes(item.id) === false,
           )
           .map(
             (item: ItemData): ShopItem => ({

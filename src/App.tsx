@@ -200,8 +200,6 @@ function App() {
     audio.play()
   }
 
-  console.log(groupedItems)
-
   return (
     <div className="shop-app">
       <main className="layout">

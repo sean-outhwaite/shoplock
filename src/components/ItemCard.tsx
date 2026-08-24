@@ -37,6 +37,7 @@ const ItemCard = ({
     <img
       src={`/${item.category}/${item.name.replaceAll(/[ ']/g, '')}.png`}
       key={item.id}
+      alt={item.name}
       className={
         hoveredItem &&
         hoveredItem.id !== item.id &&
@@ -56,33 +57,7 @@ const ItemCard = ({
           '--category-accent': categoryAccent(item.category),
         } as CSSProperties
       }
-    ></img>
-    // <button
-    //   key={item.id}
-    //   type="button"
-    //   className={
-    //     hoveredItem &&
-    //     hoveredItem.id !== item.id &&
-    //     !hoverUpgrades?.includes(item.class_name)
-    //       ? 'grid-item grid-item--dimmed'
-    //       : 'grid-item'
-    //   }
-    //   onMouseEnter={(event) => {
-    //     setHoveredItem(item)
-    //     setHoverUpgrades(item.upgradesFrom)
-    //     positionPopover(event)
-    //   }}
-    //   onMouseLeave={() => setHoveredItem(null)}
-    //   onClick={() => onAddToBuild?.(item.id)}
-    //   style={
-    //     {
-    //       '--category-accent': categoryAccent(item.category),
-    //     } as CSSProperties
-    //   }
-    // >
-    //   <ItemIconBadge item={item} />
-    //   <span className="grid-item-name">{item.name}</span>
-    // </button>
+    />
   )
 }
 

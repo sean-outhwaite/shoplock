@@ -403,10 +403,7 @@
   align-items: center;
   gap: 2px;
   padding: 0px;
-  /* border: 1px solid rgba(20, 14, 8, 0.2); */
   border-radius: 5px;
-  /* background: color-mix(in srgb, var(--category-accent) 22%, #efe6d0); */
-  color: inherit;
   cursor: pointer;
   transition:
     transform 160ms ease,
@@ -431,32 +428,6 @@
 .grid-item--dimmed .item-icon,
 .grid-item--dimmed .grid-item-name {
   filter: blur(0.4px);
-}
-
-.grid-item .item-icon {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  height: auto;
-}
-
-.grid-item-name {
-  width: 100%;
-  text-align: center;
-  font-size: 0.7rem;
-  line-height: 1.05;
-  color: black;
-  font-weight: 600;
-  padding: 1px 4px;
-  overflow-wrap: break-word;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
-.item-icon {
-  padding: 1px 1px;
-  flex: 0 0 auto;
 }
 
 .item-popover {
