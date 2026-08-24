@@ -217,7 +217,7 @@ export function ItemPreviewPopover({
                   ...(attr.elevated_properties ?? []),
                 ].map((propName, index) => {
                   const prop = item.properties[propName]
-                  if (!prop) {
+                  if (!prop || !prop.value) {
                     return null
                   }
                   return (
