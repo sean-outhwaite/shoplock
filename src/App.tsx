@@ -79,6 +79,7 @@ function App() {
   const build = useBuild()
   const catalog = useItemCatalog()
   const [minTimeElapsed, setMinTimeElapsed] = useState(false)
+  const [remClicked, setRemClicked] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setMinTimeElapsed(true), minLoadingTime)
@@ -317,10 +318,14 @@ function App() {
           ) : null}
         </section>
         <img
-          onClick={playAudio}
+          onClick={() => {
+            playAudio()
+            setRemClicked(true)
+          }}
           src={'src/assets/rem_helper.png'}
           alt=""
-          className="rem-helper"
+          className={`rem-helper ${remClicked ? 'bounce-effect' : ''}`}
+          onAnimationEnd={() => setRemClicked(false)}
         />
       </main>
 
