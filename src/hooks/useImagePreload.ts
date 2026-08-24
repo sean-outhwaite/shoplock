@@ -1,28 +1,18 @@
 import { useEffect, useState } from 'react'
 
-// Kicks off a real browser fetch for every URL and doesn't report ready
-// until they've all settled (loaded or errored), so the browser's HTTP
-// cache is already warm by the time the actual <img> tags render - no
-// waiting on a slow/broken URL forever, though.
 export function useImagePreload(urls: string[], timeoutMs = 8000) {
-  const [ready, setReady] = useState(false)
+  const [readyUrls, setReadyUrls] = useState<string[] | null>(null)
+  const ready = urls.length === 0 || readyUrls === urls
 
   useEffect(() => {
+    if (urls.length === 0) return
+
     let cancelled = false
-
-    if (urls.length === 0) {
-      Promise.resolve().then(() => {
-        if (!cancelled) setReady(true)
-      })
-      return () => {
-        cancelled = true
-      }
-    }
-
     let remaining = urls.length
+
     const settle = () => {
       remaining -= 1
-      if (remaining <= 0 && !cancelled) setReady(true)
+      if (remaining <= 0 && !cancelled) setReadyUrls(urls)
     }
 
     const images = urls.map((url) => {
@@ -34,7 +24,7 @@ export function useImagePreload(urls: string[], timeoutMs = 8000) {
     })
 
     const timeout = setTimeout(() => {
-      if (!cancelled) setReady(true)
+      if (!cancelled) setReadyUrls(urls)
     }, timeoutMs)
 
     return () => {
