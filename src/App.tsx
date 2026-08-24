@@ -3,7 +3,7 @@ import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
 import './App.css'
 import type {
   ShopItem,
-  ItemCategory,
+  ShopCategory,
   ItemTier,
   PopoverPosition,
 } from './types.ts'
@@ -24,15 +24,16 @@ import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
 import loadingSpinner from './assets/Brawl_Revolver.png'
 import remHelper from './assets/rem_helper.mp3'
+import remHelperImg from './assets/rem_helper.png'
 
-const itemIcons: Record<ItemCategory, string> = {
+const itemIcons: Record<ShopCategory, string> = {
   Weapon: weaponIcon,
   Spirit: spiritIcon,
   Vitality: vitalityIcon,
   All: allIcon,
 }
 
-const catalogBg: Record<ItemCategory, string> = {
+const catalogBg: Record<ShopCategory, string> = {
   Weapon: weaponBg,
   Spirit: spiritBg,
   Vitality: vitalityBg,
@@ -58,7 +59,7 @@ const tierPrices: Record<ItemTier, number> = {
   'TIER 5': 0,
 }
 
-const categoryOrder: Exclude<ItemCategory, 'All'>[] = [
+const categoryOrder: Exclude<ShopCategory, 'All'>[] = [
   'Weapon',
   'Spirit',
   'Vitality',
@@ -68,7 +69,7 @@ const minLoadingTime = 500
 
 function App() {
   const [selectedCategory, setSelectedCategory] =
-    useState<ItemCategory>('Weapon')
+    useState<ShopCategory>('Weapon')
   const [hoveredItem, setHoveredItem] = useState<ShopItem | null>(null)
   const [hoverUpgrades, setHoverUpgrades] = useState<string[] | null>(null)
   const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>({
@@ -97,7 +98,7 @@ function App() {
   const groupedItems = useMemo(
     () =>
       categoryOrder.reduce<
-        Record<Exclude<ItemCategory, 'All'>, Record<ItemTier, ShopItem[]>>
+        Record<Exclude<ShopCategory, 'All'>, Record<ItemTier, ShopItem[]>>
       >(
         (categoryAccumulator, itemCategory) => {
           categoryAccumulator[itemCategory] = tiers.reduce<
@@ -322,7 +323,7 @@ function App() {
             playAudio()
             setRemClicked(true)
           }}
-          src={'src/assets/rem_helper.png'}
+          src={remHelperImg}
           alt=""
           className={`rem-helper ${remClicked ? 'bounce-effect' : ''}`}
           onAnimationEnd={() => setRemClicked(false)}

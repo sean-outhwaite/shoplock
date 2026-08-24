@@ -7,7 +7,26 @@ import type {
   ImportantPropertyIcon,
   SectionAttribute,
   TooltipSection,
+  ItemCategory,
 } from '../types.ts'
+import tooltipBgWeapon from '../assets/popover/catalog_tooltip_bg_weapon.png'
+import tooltipBgSpirit from '../assets/popover/catalog_tooltip_bg_spirit.png'
+import tooltipBgVitality from '../assets/popover/catalog_tooltip_bg_vitality.png'
+import tooltipHeaderWeapon from '../assets/popover/catalog_tooltip_header_weapon_psd.png'
+import tooltipHeaderSpirit from '../assets/popover/catalog_tooltip_header_spirit_psd.png'
+import tooltipHeaderVitality from '../assets/popover/catalog_tooltip_header_vitality_psd.png'
+
+const tooltipBg: Record<ItemCategory, string> = {
+  Weapon: tooltipBgWeapon,
+  Spirit: tooltipBgSpirit,
+  Vitality: tooltipBgVitality,
+}
+
+const tooltipHeader: Record<ItemCategory, string> = {
+  Weapon: tooltipHeaderWeapon,
+  Spirit: tooltipHeaderSpirit,
+  Vitality: tooltipHeaderVitality,
+}
 
 function formatPropertyValue(prop: PropertyDescriptor) {
   const prefix = prop.prefix === '{s:sign}' ? '+' : (prop.prefix ?? '')
@@ -166,7 +185,7 @@ export function ItemPreviewPopover({
         className="item-popover__header"
         style={
           {
-            'background-image': `url('src/assets/popover/catalog_tooltip_header_${item.category.toLowerCase()}_psd.png')`,
+            backgroundImage: `url('${tooltipHeader[item.category]}')`,
           } as CSSProperties
         }
       >
@@ -182,7 +201,7 @@ export function ItemPreviewPopover({
         className="item-popover__body"
         style={
           {
-            'background-image': `url('src/assets/popover/catalog_tooltip_bg_${item.category.toLowerCase()}.png')`,
+            backgroundImage: `url('${tooltipBg[item.category]}')`,
           } as CSSProperties
         }
       >

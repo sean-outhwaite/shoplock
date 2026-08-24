@@ -21,7 +21,9 @@ export interface BuildSection {
   itemIds: number[]
 }
 
-export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
+export type ShopCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
+
+export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality'
 
 export type ItemTier = 'TIER 1' | 'TIER 2' | 'TIER 3' | 'TIER 4' | 'TIER 5'
 

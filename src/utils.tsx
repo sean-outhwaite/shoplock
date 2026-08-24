@@ -1,10 +1,10 @@
-import type { ItemCategory } from './types'
+import type { ShopCategory } from './types'
 
 export function formatCost(cost: number) {
   return cost.toLocaleString('en-US')
 }
 
-export function categoryAccent(category: ItemCategory) {
+export function categoryAccent(category: ShopCategory) {
   switch (category) {
     case 'Weapon':
       return '#E3B00B'
