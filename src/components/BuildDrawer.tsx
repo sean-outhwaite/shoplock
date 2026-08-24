@@ -10,7 +10,7 @@ interface props {
   itemsById: Map<number, ShopItem>
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
   onToggleDrawer: () => void
@@ -57,7 +57,10 @@ const BuildDrawer = ({
 
   return (
     <div className="build-drawer">
-      <div className="build-drawer__panel" data-open={drawerOpen ? 'true' : 'false'}>
+      <div
+        className="build-drawer__panel"
+        data-open={drawerOpen ? 'true' : 'false'}
+      >
         <button
           type="button"
           className="build-drawer__handle"
@@ -66,7 +69,9 @@ const BuildDrawer = ({
         >
           <span className="build-drawer__handle-title">Build</span>
           <span className="build-drawer__handle-right">
-            <span className="build-drawer__handle-count">{itemCount} items</span>
+            <span className="build-drawer__handle-count">
+              {itemCount} items
+            </span>
             <svg
               className="build-drawer__chevron"
               viewBox="0 0 24 24"
@@ -106,7 +111,10 @@ const BuildDrawer = ({
             ))}
           </div>
 
-          <form className="build-drawer__add-section" onSubmit={submitNewSection}>
+          <form
+            className="build-drawer__add-section"
+            onSubmit={submitNewSection}
+          >
             <input
               type="text"
               placeholder="New section name..."

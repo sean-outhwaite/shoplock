@@ -161,7 +161,7 @@ function App() {
   if (catalog.status === 'error') return <h1>Error: {catalog.error}</h1>
 
   function positionPopover(
-    event: MouseEvent<HTMLButtonElement> | FocusEvent<HTMLButtonElement>,
+    event: MouseEvent<HTMLImageElement> | FocusEvent<HTMLImageElement>,
   ) {
     const iconBounds = event.currentTarget.getBoundingClientRect()
     const gap = 14
@@ -199,6 +199,8 @@ function App() {
     const audio = new Audio(remHelper)
     audio.play()
   }
+
+  console.log(groupedItems)
 
   return (
     <div className="shop-app">

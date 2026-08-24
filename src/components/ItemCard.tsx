@@ -17,7 +17,7 @@ interface props {
   item: ShopItem
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
   onAddToBuild?: (itemId: number) => void
 }
 
@@ -34,9 +34,9 @@ const ItemCard = ({
   setHoverUpgrades: (upgrades: string[] | null) => void
 }) => {
   return (
-    <button
+    <img
+      src={`/${item.category}/${item.name.replaceAll(/[ ']/g, '')}.png`}
       key={item.id}
-      type="button"
       className={
         hoveredItem &&
         hoveredItem.id !== item.id &&
@@ -56,10 +56,33 @@ const ItemCard = ({
           '--category-accent': categoryAccent(item.category),
         } as CSSProperties
       }
-    >
-      <ItemIconBadge item={item} />
-      <span className="grid-item-name">{item.name}</span>
-    </button>
+    ></img>
+    // <button
+    //   key={item.id}
+    //   type="button"
+    //   className={
+    //     hoveredItem &&
+    //     hoveredItem.id !== item.id &&
+    //     !hoverUpgrades?.includes(item.class_name)
+    //       ? 'grid-item grid-item--dimmed'
+    //       : 'grid-item'
+    //   }
+    //   onMouseEnter={(event) => {
+    //     setHoveredItem(item)
+    //     setHoverUpgrades(item.upgradesFrom)
+    //     positionPopover(event)
+    //   }}
+    //   onMouseLeave={() => setHoveredItem(null)}
+    //   onClick={() => onAddToBuild?.(item.id)}
+    //   style={
+    //     {
+    //       '--category-accent': categoryAccent(item.category),
+    //     } as CSSProperties
+    //   }
+    // >
+    //   <ItemIconBadge item={item} />
+    //   <span className="grid-item-name">{item.name}</span>
+    // </button>
   )
 }
 

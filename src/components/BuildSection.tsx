@@ -14,7 +14,7 @@ interface props {
   itemsById: Map<number, ShopItem>
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
   onSetActive: (sectionId: string) => void
@@ -70,13 +70,18 @@ const BuildSection = ({
     event.preventDefault()
     const payload = readDragPayload(event)
     if (payload) {
-      onMoveItem(payload, { sectionId: section.id, index: section.itemIds.length })
+      onMoveItem(payload, {
+        sectionId: section.id,
+        index: section.itemIds.length,
+      })
     }
   }
 
   return (
     <div
-      className={isActive ? 'build-section build-section--active' : 'build-section'}
+      className={
+        isActive ? 'build-section build-section--active' : 'build-section'
+      }
     >
       <header className="build-section__header">
         {renaming ? (

@@ -5,7 +5,7 @@ import type { ShopItem } from '../types.ts'
 interface props {
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLButtonElement>) => void
+  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
   itemData: ShopItem[]
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void

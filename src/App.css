@@ -393,7 +393,7 @@
 
 .grid-item {
   width: 100%;
-  aspect-ratio: 90 / 130;
+  aspect-ratio: 50 / 79;
   height: auto;
   min-height: 0;
   overflow: hidden;
@@ -403,9 +403,9 @@
   align-items: center;
   gap: 2px;
   padding: 0px;
-  border: 1px solid rgba(20, 14, 8, 0.2);
+  /* border: 1px solid rgba(20, 14, 8, 0.2); */
   border-radius: 5px;
-  background: color-mix(in srgb, var(--category-accent) 22%, #efe6d0);
+  /* background: color-mix(in srgb, var(--category-accent) 22%, #efe6d0); */
   color: inherit;
   cursor: pointer;
   transition:
