@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react'
 import type { ShopItem } from '../types.ts'
-import { categoryAccent } from '../utils.tsx'
+import { categoryAccent, getItemCardImageUrl } from '../utils.tsx'
 
 export function ItemIconBadge({ item }: { item: ShopItem }) {
   return (
@@ -35,7 +35,7 @@ const ItemCard = ({
 }) => {
   return (
     <img
-      src={`/${item.category}/${item.name.replaceAll(/[ ']/g, '')}.png`}
+      src={getItemCardImageUrl(item)}
       key={item.id}
       alt={item.name}
       className={

@@ -1,7 +1,11 @@
-import type { ShopCategory } from './types'
+import type { ShopCategory, ShopItem } from './types'
 
 export function formatCost(cost: number) {
   return cost.toLocaleString('en-US')
+}
+
+export function getItemCardImageUrl(item: ShopItem) {
+  return `/${item.category}/${item.name.replaceAll(/[ ']/g, '')}.png`
 }
 
 export function categoryAccent(category: ShopCategory) {

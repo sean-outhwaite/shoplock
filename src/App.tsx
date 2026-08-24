@@ -7,13 +7,14 @@ import type {
   ItemTier,
   PopoverPosition,
 } from './types.ts'
-import { formatCost, categoryAccent } from './utils.tsx'
+import { formatCost, categoryAccent, getItemCardImageUrl } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
 import BuildDrawer from './components/BuildDrawer.tsx'
 import { useBuild } from './hooks/useBuild.ts'
 import { useItemCatalog } from './hooks/useItemCatalog.ts'
+import { useImagePreload } from './hooks/useImagePreload.ts'
 import weaponIcon from './assets/icons/catalog_shop_tab_icon_weapon_psd.png'
 import spiritIcon from './assets/icons/catalog_shop_tab_icon_spirit_psd.png'
 import vitalityIcon from './assets/icons/catalog_shop_tab_icon_vitality_psd.png'
@@ -87,12 +88,22 @@ function App() {
     return () => clearTimeout(timer)
   }, [])
 
-  const isLoading = catalog.status === 'loading' || !minTimeElapsed
-
   const itemData = useMemo(
     () => (catalog.status === 'success' ? catalog.items : []),
     [catalog],
   )
+  const itemImageUrls = useMemo(
+    () => [
+      ...itemData.map((item) => getItemCardImageUrl(item)),
+      ...itemData.map((item) => item.imageURL),
+    ],
+    [itemData],
+  )
+  const imagesReady = useImagePreload(itemImageUrls)
+
+  const isLoading =
+    catalog.status === 'loading' || !minTimeElapsed || !imagesReady
+
   const itemsById = new Map(itemData.map((item) => [item.id, item]))
 
   const groupedItems = useMemo(
