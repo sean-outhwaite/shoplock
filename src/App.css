@@ -50,7 +50,7 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 12px 4px 12px 10px;
+  padding: 12px 0px 12px 10px;
   margin: 8px 0 8px 0;
   align-items: stretch;
   grid-column: 1 / 2;
@@ -83,20 +83,6 @@
 /* Draw the full-height stripe on the shop window at the rail boundary */
 .shop-window {
   position: relative;
-}
-
-.shop-window::before {
-  content: '';
-  position: absolute;
-  left: calc(var(--rail-width, 84px) - 4px);
-  top: 0;
-  bottom: 0;
-  width: 8px;
-  background: var(--active-accent, #94a3b8);
-  box-shadow: 0 6px 18px
-    color-mix(in srgb, var(--active-accent, #94a3b8) 20%, transparent);
-  z-index: 1;
-  max-height: 95%;
 }
 
 /* Active tab: use the stripe's active accent color (no border changes) */
