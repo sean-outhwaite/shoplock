@@ -305,7 +305,7 @@ function App() {
                 {displayTiers.map((tier, index) => (
                   <div key={tier} className={`tier-box tier-box--${index + 1}`}>
                     <span className="tier-price">
-                      ${formatCost(tierPrices[tier])}
+                      §{formatCost(tierPrices[tier])}
                     </span>
                     <div
                       className={`category-grid ${selectedCategory.toLowerCase()}`}

@@ -267,33 +267,38 @@
 
 .tier-price {
   position: absolute;
-  font-weight: 700;
+  font-weight: 900;
   font-family: retailtext;
   white-space: nowrap;
   color: var(--cost-green);
 }
 .tier-box--1 .tier-price {
-  top: 3.5%;
-  left: 2.8%;
+  font-size: 1.6rem;
+  top: 1%;
+  left: 1%;
   rotate: -5deg;
 }
 .tier-box--2 .tier-price {
-  top: 2.5%;
-  left: 4%;
+  font-size: 1.9rem;
+  top: 0.5%;
+  left: 0.5%;
   rotate: -4deg;
 }
 .tier-box--3 .tier-price {
-  top: 0.5%;
-  left: 4.4%;
+  font-size: 2rem;
+  top: -2%;
+  left: 1%;
   rotate: -4deg;
 }
 .tier-box--4 .tier-price {
-  left: 8%;
+  font-size: 2.2rem;
+  top: -3%;
+  left: 1%;
   rotate: -5deg;
 }
 .tier-showcase.vitality .tier-box--4 .tier-price,
 .tier-showcase.spirit .tier-box--4 .tier-price {
-  left: 5%;
+  left: -1%;
 }
 
 .window-header {
