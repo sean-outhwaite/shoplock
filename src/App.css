@@ -459,6 +459,30 @@
   opacity: 0.4;
 }
 
+.grid-item--related-from {
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 2px;
+  filter: brightness(1.4);
+}
+
+.grid-item--related-to {
+  border-style: solid;
+  border-color: #ffffff;
+  border-width: 2px;
+  animation: item-related-to-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes item-related-to-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
 .item-popover {
   --popover-width: 400px;
   --popover-max-height: min(85vh, 760px);
@@ -687,6 +711,37 @@
 }
 
 .item-popover__upgrade-source .item-popover__upgrade-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  flex: 0 0 auto;
+}
+
+.item-popover__upgrades-to {
+  display: grid;
+  gap: 8px;
+}
+
+.item-popover__upgrades-to-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.item-popover__upgrade-target {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-body);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.item-popover__upgrade-target .item-popover__upgrade-icon {
   width: 36px;
   height: 36px;
   border-radius: 4px;

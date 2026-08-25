@@ -21,7 +21,7 @@ export function useItemCatalog() {
       })
       .then((results: ItemData[]) => {
         if (cancelled) return
-        const items = results
+        const itemsWithoutUpgradesTo = results
           .filter(
             (item: ItemData) =>
               item.item_slot_type &&
@@ -46,9 +46,25 @@ export function useItemCatalog() {
               tooltipSections: item.tooltip_sections,
               properties: item.properties,
               upgradesFrom: item.component_items ?? [],
+              upgradesTo: [],
               class_name: item.class_name,
             }),
           )
+
+        const upgradesToByClassName = new Map<string, string[]>()
+        itemsWithoutUpgradesTo.forEach((item) => {
+          item.upgradesFrom.forEach((componentClassName) => {
+            const targets = upgradesToByClassName.get(componentClassName) ?? []
+            targets.push(item.class_name)
+            upgradesToByClassName.set(componentClassName, targets)
+          })
+        })
+
+        const items = itemsWithoutUpgradesTo
+          .map((item) => ({
+            ...item,
+            upgradesTo: upgradesToByClassName.get(item.class_name) ?? [],
+          }))
           .sort((a, b) => a.name.localeCompare(b.name))
         setStatus({ status: 'success', items: items })
       })

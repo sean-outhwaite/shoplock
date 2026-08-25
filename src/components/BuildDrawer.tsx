@@ -11,8 +11,10 @@ interface Props {
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
   positionPopover: (event: MouseEvent<HTMLImageElement>) => void
-  hoverUpgrades: string[] | null
-  setHoverUpgrades: (upgrades: string[] | null) => void
+  hoverUpgradesFrom: string[] | null
+  setHoverUpgradesFrom: (upgrades: string[] | null) => void
+  hoverUpgradesTo: string[] | null
+  setHoverUpgradesTo: (upgrades: string[] | null) => void
   onToggleDrawer: () => void
   onAddSection: (name: string) => void
   onDeleteSection: (sectionId: string) => void
@@ -33,8 +35,10 @@ const BuildDrawer = ({
   hoveredItem,
   setHoveredItem,
   positionPopover,
-  hoverUpgrades,
-  setHoverUpgrades,
+  hoverUpgradesFrom,
+  setHoverUpgradesFrom,
+  hoverUpgradesTo,
+  setHoverUpgradesTo,
   onToggleDrawer,
   onAddSection,
   onDeleteSection,
@@ -100,8 +104,10 @@ const BuildDrawer = ({
                 hoveredItem={hoveredItem}
                 setHoveredItem={setHoveredItem}
                 positionPopover={positionPopover}
-                hoverUpgrades={hoverUpgrades}
-                setHoverUpgrades={setHoverUpgrades}
+                hoverUpgradesFrom={hoverUpgradesFrom}
+                setHoverUpgradesFrom={setHoverUpgradesFrom}
+                hoverUpgradesTo={hoverUpgradesTo}
+                setHoverUpgradesTo={setHoverUpgradesTo}
                 onSetActive={onSetActiveSection}
                 onDelete={onDeleteSection}
                 onRename={onRenameSection}

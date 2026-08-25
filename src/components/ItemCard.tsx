@@ -14,27 +14,37 @@ const ItemCard = ({
   hoveredItem,
   setHoveredItem,
   positionPopover,
-  hoverUpgrades,
-  setHoverUpgrades,
+  hoverUpgradesFrom,
+  setHoverUpgradesFrom,
+  hoverUpgradesTo,
+  setHoverUpgradesTo,
   onAddToBuild,
 }: Props & {
-  hoverUpgrades: string[] | null
-  setHoverUpgrades: (upgrades: string[] | null) => void
+  hoverUpgradesFrom: string[] | null
+  setHoverUpgradesFrom: (upgrades: string[] | null) => void
+  hoverUpgradesTo: string[] | null
+  setHoverUpgradesTo: (upgrades: string[] | null) => void
 }) => {
+  let className = 'grid-item'
+  if (hoveredItem && hoveredItem.id !== item.id) {
+    if (hoverUpgradesFrom?.includes(item.class_name)) {
+      className = 'grid-item grid-item--related-from'
+    } else if (hoverUpgradesTo?.includes(item.class_name)) {
+      className = 'grid-item grid-item--related-to'
+    } else {
+      className = 'grid-item grid-item--dimmed'
+    }
+  }
+
   return (
     <img
       src={getItemCardImageUrl(item)}
       alt={item.name}
-      className={
-        hoveredItem &&
-        hoveredItem.id !== item.id &&
-        !hoverUpgrades?.includes(item.class_name)
-          ? 'grid-item grid-item--dimmed'
-          : 'grid-item'
-      }
+      className={className}
       onMouseEnter={(event) => {
         setHoveredItem(item)
-        setHoverUpgrades(item.upgradesFrom)
+        setHoverUpgradesFrom(item.upgradesFrom)
+        setHoverUpgradesTo(item.upgradesTo)
         positionPopover(event)
       }}
       onMouseLeave={() => setHoveredItem(null)}

@@ -74,7 +74,12 @@ function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ShopCategory>('Weapon')
   const [hoveredItem, setHoveredItem] = useState<ShopItem | null>(null)
-  const [hoverUpgrades, setHoverUpgrades] = useState<string[] | null>(null)
+  const [hoverUpgradesFrom, setHoverUpgradesFrom] = useState<string[] | null>(
+    null,
+  )
+  const [hoverUpgradesTo, setHoverUpgradesTo] = useState<string[] | null>(
+    null,
+  )
   const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>({
     x: 0,
     y: 0,
@@ -278,8 +283,10 @@ function App() {
                   setHoveredItem={setHoveredItem}
                   positionPopover={positionPopover}
                   itemData={itemData}
-                  hoverUpgrades={hoverUpgrades}
-                  setHoverUpgrades={setHoverUpgrades}
+                  hoverUpgradesFrom={hoverUpgradesFrom}
+                  setHoverUpgradesFrom={setHoverUpgradesFrom}
+                  hoverUpgradesTo={hoverUpgradesTo}
+                  setHoverUpgradesTo={setHoverUpgradesTo}
                   onAddToBuild={build.addItemToActiveSection}
                 />
               </div>
@@ -318,8 +325,10 @@ function App() {
                           hoveredItem={hoveredItem}
                           setHoveredItem={setHoveredItem}
                           positionPopover={positionPopover}
-                          hoverUpgrades={hoverUpgrades}
-                          setHoverUpgrades={setHoverUpgrades}
+                          hoverUpgradesFrom={hoverUpgradesFrom}
+                          setHoverUpgradesFrom={setHoverUpgradesFrom}
+                          hoverUpgradesTo={hoverUpgradesTo}
+                          setHoverUpgradesTo={setHoverUpgradesTo}
                           onAddToBuild={build.addItemToActiveSection}
                         />
                       ))}
@@ -370,8 +379,10 @@ function App() {
         hoveredItem={hoveredItem}
         setHoveredItem={setHoveredItem}
         positionPopover={positionPopover}
-        hoverUpgrades={hoverUpgrades}
-        setHoverUpgrades={setHoverUpgrades}
+        hoverUpgradesFrom={hoverUpgradesFrom}
+        setHoverUpgradesFrom={setHoverUpgradesFrom}
+        hoverUpgradesTo={hoverUpgradesTo}
+        setHoverUpgradesTo={setHoverUpgradesTo}
         onToggleDrawer={build.toggleDrawer}
         onAddSection={build.addSection}
         onDeleteSection={build.deleteSection}

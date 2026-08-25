@@ -171,6 +171,10 @@ export function ItemPreviewPopover({
     .map((className) => itemData.find((i) => i.class_name === className))
     .filter((sourceItem): sourceItem is ShopItem => sourceItem !== undefined)
 
+  const upgradeTargets = item.upgradesTo
+    .map((className) => itemData.find((i) => i.class_name === className))
+    .filter((targetItem): targetItem is ShopItem => targetItem !== undefined)
+
   return (
     <aside
       className="item-popover"
@@ -253,6 +257,27 @@ export function ItemPreviewPopover({
                     className="item-popover__upgrade-icon"
                   />
                   <span>{sourceItem.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {upgradeTargets.length > 0 && (
+          <div className="item-popover__upgrades-to">
+            <div className="item-popover__eyebrow">Upgrades To</div>
+            <div className="item-popover__upgrades-to-list">
+              {upgradeTargets.map((targetItem) => (
+                <div
+                  key={targetItem.id}
+                  className="item-popover__upgrade-target"
+                >
+                  <img
+                    src={targetItem.imageURL}
+                    alt=""
+                    className="item-popover__upgrade-icon"
+                  />
+                  <span>{targetItem.name}</span>
                 </div>
               ))}
             </div>

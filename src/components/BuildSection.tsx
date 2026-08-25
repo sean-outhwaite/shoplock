@@ -15,8 +15,10 @@ interface Props {
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
   positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
-  hoverUpgrades: string[] | null
-  setHoverUpgrades: (upgrades: string[] | null) => void
+  hoverUpgradesFrom: string[] | null
+  setHoverUpgradesFrom: (upgrades: string[] | null) => void
+  hoverUpgradesTo: string[] | null
+  setHoverUpgradesTo: (upgrades: string[] | null) => void
   onSetActive: (sectionId: string) => void
   onDelete: (sectionId: string) => void
   onRename: (sectionId: string, name: string) => void
@@ -40,8 +42,10 @@ const BuildSection = ({
   hoveredItem,
   setHoveredItem,
   positionPopover,
-  hoverUpgrades,
-  setHoverUpgrades,
+  hoverUpgradesFrom,
+  setHoverUpgradesFrom,
+  hoverUpgradesTo,
+  setHoverUpgradesTo,
   onSetActive,
   onDelete,
   onRename,
@@ -157,8 +161,10 @@ const BuildSection = ({
                 hoveredItem={hoveredItem}
                 setHoveredItem={setHoveredItem}
                 positionPopover={positionPopover}
-                hoverUpgrades={hoverUpgrades}
-                setHoverUpgrades={setHoverUpgrades}
+                hoverUpgradesFrom={hoverUpgradesFrom}
+                setHoverUpgradesFrom={setHoverUpgradesFrom}
+                hoverUpgradesTo={hoverUpgradesTo}
+                setHoverUpgradesTo={setHoverUpgradesTo}
                 onAddToBuild={() => onRemoveItem(section.id, index)}
               />
             </div>

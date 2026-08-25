@@ -12,6 +12,7 @@ export interface ShopItem {
   tooltipSections: TooltipSection[]
   properties: Properties
   upgradesFrom: string[]
+  upgradesTo: string[]
   class_name: string
 }
 

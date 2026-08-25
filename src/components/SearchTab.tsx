@@ -8,8 +8,10 @@ interface Props {
   setHoveredItem: (item: ShopItem | null) => void
   positionPopover: (event: MouseEvent<HTMLImageElement>) => void
   itemData: ShopItem[]
-  hoverUpgrades: string[] | null
-  setHoverUpgrades: (upgrades: string[] | null) => void
+  hoverUpgradesFrom: string[] | null
+  setHoverUpgradesFrom: (upgrades: string[] | null) => void
+  hoverUpgradesTo: string[] | null
+  setHoverUpgradesTo: (upgrades: string[] | null) => void
   onAddToBuild?: (itemId: number) => void
 }
 
@@ -18,8 +20,10 @@ const SearchTab = ({
   setHoveredItem,
   positionPopover,
   itemData,
-  hoverUpgrades,
-  setHoverUpgrades,
+  hoverUpgradesFrom,
+  setHoverUpgradesFrom,
+  hoverUpgradesTo,
+  setHoverUpgradesTo,
   onAddToBuild,
 }: Props) => {
   const [searchTerm, setSearchTerm] = useState('')
@@ -56,8 +60,10 @@ const SearchTab = ({
             hoveredItem={hoveredItem}
             setHoveredItem={setHoveredItem}
             positionPopover={positionPopover}
-            hoverUpgrades={hoverUpgrades}
-            setHoverUpgrades={setHoverUpgrades}
+            hoverUpgradesFrom={hoverUpgradesFrom}
+            setHoverUpgradesFrom={setHoverUpgradesFrom}
+            hoverUpgradesTo={hoverUpgradesTo}
+            setHoverUpgradesTo={setHoverUpgradesTo}
             onAddToBuild={onAddToBuild}
           />
         ))}
