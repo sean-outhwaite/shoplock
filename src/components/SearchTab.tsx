@@ -26,7 +26,7 @@ const SearchTab = ({
 
   const sortedItems = useMemo(() => {
     return [...itemData]
-      .sort((a, b) => a.name.localeCompare(b.name))
+      .sort((a, b) => a.tier.localeCompare(b.tier) || a.name.localeCompare(b.name))
       .filter((item) => item.tier !== 'TIER 5')
   }, [itemData])
 
