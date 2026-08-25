@@ -707,9 +707,13 @@
   padding-bottom: 14px;
 }
 
+.item-popover__upgrades-from:has(+ .item-popover__upgrades-to) {
+  padding-bottom: 4px;
+}
+
 .item-popover__upgrades-from + .item-popover__upgrades-to {
   margin-top: -14px;
-  padding-top: 14px;
+  padding-top: 4px;
 }
 
 .item-popover__upgrades-from-list {
