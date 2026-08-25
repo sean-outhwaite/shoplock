@@ -267,7 +267,7 @@
 .tier-price {
   position: absolute;
   font-weight: 900;
-  font-family: retailtext;
+  font-family: var(--font-body);
   white-space: nowrap;
   color: color-mix(in srgb, var(--cost-green) 40%, white 30%);
 }
@@ -536,15 +536,15 @@
 .item-popover__header h3 {
   margin: 2px 0 0;
   color: var(--text-strong);
-  font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-family: var(--font-body);
+  font-size: 1.8rem;
   line-height: 1;
+  letter-spacing: -0.04em;
 }
 
 .item-popover__header strong {
   color: var(--cost-green);
   font-size: 1.25rem;
-  letter-spacing: 0.08em;
 }
 
 .item-popover__eyebrow,
@@ -626,6 +626,10 @@
   font-style: italic;
   font-size: 90%;
   opacity: 0.9;
+}
+
+.item-popover__price {
+  font-family: var(--font-body);
 }
 
 .item-popover__stats {

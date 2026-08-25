@@ -1,4 +1,4 @@
-import { formatCost, categoryAccent } from '../utils.tsx'
+import { categoryAccent } from '../utils.tsx'
 import type { CSSProperties } from 'react'
 import type {
   ShopItem,
@@ -200,7 +200,7 @@ export function ItemPreviewPopover({
           <h3>{item.name}</h3>
         </div>
         <div>
-          <strong>${formatCost(item.cost)}</strong>
+          <strong className="item-popover__price">§{item.cost}</strong>
         </div>
       </header>
 
