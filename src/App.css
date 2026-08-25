@@ -270,7 +270,11 @@
   font-weight: 900;
   font-family: retailtext;
   white-space: nowrap;
-  color: var(--cost-green);
+  color: color-mix(in srgb, var(--cost-green) 40%, white 30%);
+}
+
+.currency {
+  color: color-mix(in srgb, var(--cost-green) 45%, rgb(255, 177, 32) 20%);
 }
 .tier-box--1 .tier-price {
   font-size: 1.6rem;
