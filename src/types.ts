@@ -49,8 +49,6 @@ export interface ItemData {
   start_trained: boolean
   image: string
   image_webp: string
-  heroes: TemplateStringsArray[]
-  weapon_info: WeaponInfo
   type: string
   shop_image: string
   shop_image_webp: string
@@ -135,5 +133,3 @@ export interface PropertyUpgrade {
   name: string
   bonus: string
 }
-
-export type WeaponInfo = object

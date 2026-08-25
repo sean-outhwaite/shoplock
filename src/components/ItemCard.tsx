@@ -1,23 +1,11 @@
-import type { CSSProperties } from 'react'
+import type { CSSProperties, MouseEvent } from 'react'
 import type { ShopItem } from '../types.ts'
 import { categoryAccent, getItemCardImageUrl } from '../utils.tsx'
-
-export function ItemIconBadge({ item }: { item: ShopItem }) {
-  return (
-    <span
-      className="item-icon"
-      style={{ '--accent': item.accent } as CSSProperties}
-    >
-      <img src={item.imageURL} alt="" className="item-icon" />
-    </span>
-  )
-}
-
-interface props {
+interface Props {
   item: ShopItem
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
+  positionPopover: (event: MouseEvent<HTMLImageElement>) => void
   onAddToBuild?: (itemId: number) => void
 }
 
@@ -29,14 +17,13 @@ const ItemCard = ({
   hoverUpgrades,
   setHoverUpgrades,
   onAddToBuild,
-}: props & {
+}: Props & {
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
 }) => {
   return (
     <img
       src={getItemCardImageUrl(item)}
-      key={item.id}
       alt={item.name}
       className={
         hoveredItem &&

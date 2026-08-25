@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import ItemCard from './ItemCard.tsx'
 import type { ShopItem } from '../types.ts'
+import type { MouseEvent } from 'react'
 
-interface props {
+interface Props {
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
+  positionPopover: (event: MouseEvent<HTMLImageElement>) => void
   itemData: ShopItem[]
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
@@ -20,16 +21,20 @@ const SearchTab = ({
   hoverUpgrades,
   setHoverUpgrades,
   onAddToBuild,
-}: props) => {
+}: Props) => {
   const [searchTerm, setSearchTerm] = useState('')
 
-  const sortedItems = itemData
-    .sort((a, b) => a.name.localeCompare(b.name))
-    .filter((item) => item.tier !== 'TIER 5')
+  const sortedItems = useMemo(() => {
+    return [...itemData]
+      .sort((a, b) => a.name.localeCompare(b.name))
+      .filter((item) => item.tier !== 'TIER 5')
+  }, [itemData])
 
-  const filteredItems = sortedItems.filter((item) =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+  const filteredItems = useMemo(() => {
+    return sortedItems.filter((item) =>
+      item.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    )
+  }, [sortedItems, searchTerm])
 
   return (
     <>

@@ -97,7 +97,9 @@ function App() {
   )
   const itemImageUrls = useMemo(
     () => [
-      ...itemData.map((item) => getItemCardImageUrl(item)),
+      ...itemData
+        .filter((item) => item.tier != 'TIER 5')
+        .map((item) => getItemCardImageUrl(item)),
       ...itemData.map((item) => item.imageURL),
     ],
     [itemData],
@@ -107,7 +109,10 @@ function App() {
   const isLoading =
     catalog.status === 'loading' || !minTimeElapsed || !imagesReady
 
-  const itemsById = new Map(itemData.map((item) => [item.id, item]))
+  const itemsById = useMemo(
+    () => new Map(itemData.map((item) => [item.id, item])),
+    [itemData],
+  )
 
   const groupedItems = useMemo(
     () =>

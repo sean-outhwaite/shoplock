@@ -1,7 +1,7 @@
 import background from '../assets/backgrounds/bg_team1_psd.png'
 import { usePlayerRanks } from '../hooks/usePlayerRanks'
 
-interface props {
+interface Props {
   windowOpen: boolean
   onToggleWindow: () => void
 }
@@ -46,9 +46,8 @@ const rankNames = [
 
 const playerIds = players.map((player) => player.id)
 
-const RankWindow = ({ windowOpen, onToggleWindow }: props) => {
+const RankWindow = ({ windowOpen, onToggleWindow }: Props) => {
   const ranks = usePlayerRanks(playerIds)
-  console.log(ranks)
   return (
     <div
       className="rank-window__overlay"
@@ -73,19 +72,13 @@ const RankWindow = ({ windowOpen, onToggleWindow }: props) => {
                   src={`https://api.deadlock-api.com/v1/players/${player.id}/rank/image`}
                   alt="Player Rank"
                   className="rank-window__player-rank"
-                  key={player.id}
                 />
                 {result.status === 'success' && (
-                  <span
-                    className="rank-window__player-rank-name"
-                    key={result.data.rank}
-                  >
+                  <span className="rank-window__player-rank-name">
                     {rankNames[result.data.rank]} {result.data.subrank}
                   </span>
                 )}
-                <span className="rank-window__player-name" key={player.name}>
-                  {player.name}
-                </span>
+                <span className="rank-window__player-name">{player.name}</span>
               </div>
             )
           })}

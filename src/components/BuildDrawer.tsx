@@ -1,16 +1,16 @@
 import { useState } from 'react'
-import type { FormEvent } from 'react'
+import type { SubmitEvent, MouseEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import BuildSection from './BuildSection.tsx'
 
-interface props {
+interface Props {
   sections: BuildSectionData[]
   activeSectionId: string | null
   drawerOpen: boolean
   itemsById: Map<number, ShopItem>
   hoveredItem: ShopItem | null
   setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: React.MouseEvent<HTMLImageElement>) => void
+  positionPopover: (event: MouseEvent<HTMLImageElement>) => void
   hoverUpgrades: string[] | null
   setHoverUpgrades: (upgrades: string[] | null) => void
   onToggleDrawer: () => void
@@ -42,14 +42,14 @@ const BuildDrawer = ({
   onSetActiveSection,
   onRemoveItem,
   onMoveItem,
-}: props) => {
+}: Props) => {
   const [newSectionName, setNewSectionName] = useState('')
   const itemCount = sections.reduce(
     (total, section) => total + section.itemIds.length,
     0,
   )
 
-  function submitNewSection(event: FormEvent) {
+  function submitNewSection(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault()
     onAddSection(newSectionName)
     setNewSectionName('')

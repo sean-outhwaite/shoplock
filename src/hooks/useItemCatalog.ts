@@ -28,7 +28,7 @@ export function useItemCatalog() {
               !item.name.includes('upgrade_') &&
               item.shop_image_webp &&
               item.shop_image_webp.includes('.webp') &&
-              deletedItems.includes(item.id) === false,
+              !deletedItems.includes(item.id),
           )
           .map(
             (item: ItemData): ShopItem => ({

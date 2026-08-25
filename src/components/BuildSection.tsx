@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { DragEvent, FormEvent } from 'react'
+import type { DragEvent, SubmitEvent, FocusEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import ItemCard from './ItemCard.tsx'
 
@@ -8,7 +8,7 @@ interface DragPayload {
   index: number
 }
 
-interface props {
+interface Props {
   section: BuildSectionData
   isActive: boolean
   itemsById: Map<number, ShopItem>
@@ -47,11 +47,13 @@ const BuildSection = ({
   onRename,
   onRemoveItem,
   onMoveItem,
-}: props) => {
+}: Props) => {
   const [renaming, setRenaming] = useState(false)
   const [nameDraft, setNameDraft] = useState(section.name)
 
-  function submitRename(event: FormEvent) {
+  function submitRename(
+    event: SubmitEvent<HTMLFormElement> | FocusEvent<HTMLInputElement>,
+  ) {
     event.preventDefault()
     onRename(section.id, nameDraft)
     setRenaming(false)
