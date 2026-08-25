@@ -268,7 +268,7 @@
 .tier-price {
   position: absolute;
   font-weight: 700;
-  font-family: var(--font-display);
+  font-family: retailtext;
   white-space: nowrap;
   color: var(--cost-green);
 }

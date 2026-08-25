@@ -52,3 +52,11 @@ button {
 #root {
   min-height: 100vh;
 }
+
+@font-face {
+  font-family: 'RetailText';
+  src: url(./assets/fonts/retailtextdemo-bold.otf) format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
