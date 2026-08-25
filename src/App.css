@@ -696,6 +696,9 @@
 
 .item-popover__upgrades-from {
   display: grid;
+  margin: 0 -14px;
+  padding: 0 14px 12px;
+  background: color-mix(in srgb, black 20%, transparent);
 }
 
 .item-popover__upgrades-from-list {
@@ -726,6 +729,9 @@
 
 .item-popover__upgrades-to {
   display: grid;
+  margin: 0 -14px;
+  padding: 0 14px 12px;
+  background: color-mix(in srgb, black 20%, transparent);
 }
 
 .item-popover__upgrades-to-list {
