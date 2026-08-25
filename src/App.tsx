@@ -12,6 +12,7 @@ import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
 import BuildDrawer from './components/BuildDrawer.tsx'
+import RankWindow from './components/RankWindow.tsx'
 import { useBuild } from './hooks/useBuild.ts'
 import { useItemCatalog } from './hooks/useItemCatalog.ts'
 import { useImagePreload } from './hooks/useImagePreload.ts'
@@ -83,6 +84,7 @@ function App() {
   const catalog = useItemCatalog()
   const [minTimeElapsed, setMinTimeElapsed] = useState(false)
   const [remClicked, setRemClicked] = useState(false)
+  const [windowOpen, setWindowOpen] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setMinTimeElapsed(true), minLoadingTime)
@@ -341,8 +343,18 @@ function App() {
           onAnimationEnd={() => setRemClicked(false)}
         />
 
-        <img src={voteSticker} alt="" className={`vote-sticker`} />
+        <img
+          src={voteSticker}
+          alt=""
+          className={`vote-sticker`}
+          onClick={() => setWindowOpen(!windowOpen)}
+        />
       </main>
+
+      <RankWindow
+        windowOpen={windowOpen}
+        onToggleWindow={() => setWindowOpen(!windowOpen)}
+      />
 
       <BuildDrawer
         sections={build.sections}

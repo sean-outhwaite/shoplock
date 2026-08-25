@@ -1005,3 +1005,22 @@
   opacity: 0.4;
   rotate: -15deg;
 }
+
+.rank-window {
+  position: fixed;
+  bottom: 30%;
+  left: 9%;
+  width: 88cqw;
+  height: 60cqh;
+  z-index: 60;
+  opacity: 0.95;
+}
+
+.rank-window__players {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rank-window__player-rank {
+  width: 14cqw;
+}
