@@ -244,7 +244,7 @@ export function ItemPreviewPopover({
 
         {upgradeSources.length > 0 && (
           <div className="item-popover__upgrades-from">
-            <div className="item-popover__eyebrow">Upgrades From</div>
+            <div className="item-popover__eyebrow-upgrades">UPGRADES FROM:</div>
             <div className="item-popover__upgrades-from-list">
               {upgradeSources.map((sourceItem) => (
                 <div
@@ -265,7 +265,7 @@ export function ItemPreviewPopover({
 
         {upgradeTargets.length > 0 && (
           <div className="item-popover__upgrades-to">
-            <div className="item-popover__eyebrow">Upgrades To</div>
+            <div className="item-popover__eyebrow-upgrades">UPGRADES TO:</div>
             <div className="item-popover__upgrades-to-list">
               {upgradeTargets.map((targetItem) => (
                 <div
