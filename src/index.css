@@ -1,19 +1,16 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Alfa+Slab+One&family=Baloo+2:wght@600;700;800&family=Space+Grotesk:ital,wght@0,400;0,500;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
 
 :root {
   color-scheme: dark;
   font-family: var(--font-body);
-  /* Space Grotesk has no italic cut on Google Fonts, so italic text (e.g.
-     .diminish) needs the browser to fake a slant - only style synthesis is
-     allowed since every other weight/family in use loads its real face. */
+  /* Neither Retailtext nor Fraunces load an italic cut, so italic text
+     (e.g. .diminish) needs the browser to fake a slant. */
   font-synthesis: style;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   --font-body: 'Retailtext', 'Helvetica Neue', sans-serif;
   --font-display: 'Fraunces', Georgia, serif;
-  --font-weapon: 'Alfa Slab One', 'Fraunces', Georgia, serif;
-  --font-vitality: 'Baloo 2', 'Fraunces', Georgia, serif;
   --bg: #0a0908;
   --panel-border: rgba(148, 163, 184, 0.18);
   --shadow-soft: 0 24px 80px rgba(2, 6, 23, 0.42);
