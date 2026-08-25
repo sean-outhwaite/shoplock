@@ -258,7 +258,6 @@
 
 .tier-box .category-grid {
   position: absolute;
-  overflow: hidden;
   inset: 15% 3% 3% 3%;
 }
 .tier-box--4 .category-grid {
@@ -401,6 +400,8 @@
 }
 
 .grid-item {
+  position: relative;
+  z-index: 1;
   width: 100%;
   aspect-ratio: 50 / 79;
   height: auto;
@@ -424,19 +425,38 @@
 
 .grid-item:hover,
 .grid-item:focus-visible {
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.2);
   border-color: color-mix(in srgb, white 50%, rgba(148, 163, 184, 0.18));
   border-width: 2px;
+  z-index: 2;
+  animation: item-hover-wobble 4s ease-in-out infinite;
+}
+
+@keyframes item-hover-wobble {
+  0% {
+    rotate: -0.2deg;
+  }
+  10% {
+    rotate: -2deg;
+    scale: 1.1;
+  }
+  50% {
+    rotate: -2deg;
+    scale: 1.1;
+  }
+  25% {
+    rotate: 2deg;
+    scale: 1;
+  }
+  75% {
+    rotate: 0.2deg;
+    scale: 1;
+  }
 }
 
 .grid-item--dimmed {
   filter: blur(0.6px);
   opacity: 0.4;
-}
-
-.grid-item--dimmed .item-icon,
-.grid-item--dimmed .grid-item-name {
-  filter: blur(0.4px);
 }
 
 .item-popover {
