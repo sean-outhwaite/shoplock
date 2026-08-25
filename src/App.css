@@ -1007,13 +1007,17 @@
 }
 
 .rank-window {
+  display: flex;
+  align-items: center;
   position: fixed;
   bottom: 30%;
   left: 9%;
-  width: 88cqw;
-  height: 60cqh;
+  width: 88vw;
+  height: 60vh;
   z-index: 60;
   opacity: 0.95;
+  justify-content: center;
+  box-shadow: 0 0 50px 8px #9fa28e;
 }
 
 .rank-window__players {
@@ -1023,4 +1027,24 @@
 
 .rank-window__player-rank {
   width: 14cqw;
+}
+
+.rank-window__player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.rank-window__overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 59;
+  background: rgba(10, 14, 26, 0.6);
+}
+
+.rank-window__player-rank-name {
+  font-weight: 600;
+  color: var(--text-strong);
 }
