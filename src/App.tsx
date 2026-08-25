@@ -26,6 +26,7 @@ import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
 import loadingSpinner from './assets/Brawl_Revolver.png'
 import remHelper from './assets/rem_helper.mp3'
 import remHelperImg from './assets/rem_helper.png'
+import voteSticker from './assets/VotedSticker_03.png'
 
 const itemIcons: Record<ShopCategory, string> = {
   Weapon: weaponIcon,
@@ -339,6 +340,8 @@ function App() {
           className={`rem-helper ${remClicked ? 'bounce-effect' : ''}`}
           onAnimationEnd={() => setRemClicked(false)}
         />
+
+        <img src={voteSticker} alt="" className={`vote-sticker`} />
       </main>
 
       <BuildDrawer

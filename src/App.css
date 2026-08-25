@@ -995,3 +995,13 @@
     rotate: 2deg;
   }
 }
+
+.vote-sticker {
+  position: fixed;
+  bottom: 80px;
+  left: 15px;
+  width: 80px;
+  height: 80px;
+  opacity: 0.4;
+  rotate: -15deg;
+}
