@@ -53,6 +53,7 @@ export function useItemCatalog() {
 
         const upgradesToByClassName = new Map<string, string[]>()
         itemsWithoutUpgradesTo.forEach((item) => {
+          if (item.tier === 'TIER 5') return
           item.upgradesFrom.forEach((componentClassName) => {
             const targets = upgradesToByClassName.get(componentClassName) ?? []
             targets.push(item.class_name)
