@@ -701,6 +701,17 @@
   background: color-mix(in srgb, black 20%, transparent);
 }
 
+.item-popover__upgrades-from:last-child,
+.item-popover__upgrades-to:last-child {
+  margin-bottom: -14px;
+  padding-bottom: 14px;
+}
+
+.item-popover__upgrades-from + .item-popover__upgrades-to {
+  margin-top: -14px;
+  padding-top: 14px;
+}
+
 .item-popover__upgrades-from-list {
   display: flex;
   flex-wrap: wrap;
