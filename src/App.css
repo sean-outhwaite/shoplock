@@ -429,7 +429,7 @@
   border-color: color-mix(in srgb, white 50%, rgba(148, 163, 184, 0.18));
   border-width: 2px;
   z-index: 2;
-  animation: item-hover-wobble 4s ease-in-out infinite;
+  animation: item-hover-wobble 6s ease-in-out infinite;
 }
 
 @keyframes item-hover-wobble {
@@ -437,15 +437,15 @@
     rotate: -0.2deg;
   }
   10% {
-    rotate: -2deg;
+    rotate: -1.2deg;
     scale: 1.1;
   }
   50% {
-    rotate: -2deg;
+    rotate: -1.2deg;
     scale: 1.1;
   }
   25% {
-    rotate: 2deg;
+    rotate: 1.2deg;
     scale: 1;
   }
   75% {
