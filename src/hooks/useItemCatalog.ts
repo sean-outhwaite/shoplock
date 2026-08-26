@@ -30,26 +30,24 @@ export function useItemCatalog() {
               item.shop_image_webp.includes('.webp') &&
               !deletedItems.includes(item.id),
           )
-          .map(
-            (item: ItemData): ShopItem => ({
-              id: item.id,
-              name: item.name,
-              category: (item.item_slot_type.charAt(0).toUpperCase() +
-                item.item_slot_type.slice(1)) as ItemCategory,
-              tier: `TIER ${item.item_tier}` as ItemTier,
-              cost: item.cost,
-              accent: '#f8a51c',
-              icon: 'wave',
-              description: item.description.desc,
-              imageURL: item.shop_image_webp,
-              upgrades: item.upgrades,
-              tooltipSections: item.tooltip_sections,
-              properties: item.properties,
-              upgradesFrom: item.component_items ?? [],
-              upgradesTo: [],
-              class_name: item.class_name,
-            }),
-          )
+          .map((item: ItemData): ShopItem => ({
+            id: item.id,
+            name: item.name,
+            category: (item.item_slot_type.charAt(0).toUpperCase() +
+              item.item_slot_type.slice(1)) as ItemCategory,
+            tier: `TIER ${item.item_tier}` as ItemTier,
+            cost: item.cost,
+            accent: '#f8a51c',
+            icon: 'wave',
+            description: item.description.desc,
+            imageURL: item.shop_image_webp,
+            upgrades: item.upgrades,
+            tooltipSections: item.tooltip_sections,
+            properties: item.properties,
+            upgradesFrom: item.component_items ?? [],
+            upgradesTo: [],
+            class_name: item.class_name,
+          }))
 
         const upgradesToByClassName = new Map<string, string[]>()
         itemsWithoutUpgradesTo.forEach((item) => {

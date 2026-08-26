@@ -29,14 +29,7 @@ export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality'
 export type ItemTier = 'TIER 1' | 'TIER 2' | 'TIER 3' | 'TIER 4' | 'TIER 5'
 
 export type ItemIcon =
-  | 'blade'
-  | 'spark'
-  | 'shield'
-  | 'gear'
-  | 'pulse'
-  | 'hex'
-  | 'bolt'
-  | 'wave'
+  'blade' | 'spark' | 'shield' | 'gear' | 'pulse' | 'hex' | 'bolt' | 'wave'
 
 export type PopoverPosition = {
   x: number

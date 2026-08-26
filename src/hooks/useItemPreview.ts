@@ -20,9 +20,7 @@ export function useItemPreview(): ItemPreviewState {
   const [hoverUpgradesFrom, setHoverUpgradesFrom] = useState<string[] | null>(
     null,
   )
-  const [hoverUpgradesTo, setHoverUpgradesTo] = useState<string[] | null>(
-    null,
-  )
+  const [hoverUpgradesTo, setHoverUpgradesTo] = useState<string[] | null>(null)
   const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>({
     x: 0,
     y: 0,

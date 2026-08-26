@@ -8,16 +8,21 @@ export function formatCost(cost: number) {
 export function groupItemsByCategoryAndTier(
   itemData: ShopItem[],
 ): Record<ItemCategory, Record<ItemTier, ShopItem[]>> {
-  return categoryOrder.reduce<Record<ItemCategory, Record<ItemTier, ShopItem[]>>>(
+  return categoryOrder.reduce<
+    Record<ItemCategory, Record<ItemTier, ShopItem[]>>
+  >(
     (categoryAccumulator, itemCategory) => {
       categoryAccumulator[itemCategory] = tiers.reduce<
         Record<ItemTier, ShopItem[]>
-      >((tierAccumulator, tier) => {
-        tierAccumulator[tier] = itemData.filter(
-          (item) => item.category === itemCategory && item.tier === tier,
-        )
-        return tierAccumulator
-      }, {} as Record<ItemTier, ShopItem[]>)
+      >(
+        (tierAccumulator, tier) => {
+          tierAccumulator[tier] = itemData.filter(
+            (item) => item.category === itemCategory && item.tier === tier,
+          )
+          return tierAccumulator
+        },
+        {} as Record<ItemTier, ShopItem[]>,
+      )
 
       return categoryAccumulator
     },

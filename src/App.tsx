@@ -166,7 +166,10 @@ function App() {
                 >
                   <h1 className="sr-only">{selectedCategory}</h1>
                   {displayTiers.map((tier, index) => (
-                    <div key={tier} className={`tier-box tier-box--${index + 1}`}>
+                    <div
+                      key={tier}
+                      className={`tier-box tier-box--${index + 1}`}
+                    >
                       <span className="tier-price">
                         <span className="currency">§</span>
                         {formatCost(tierPrices[tier])}
