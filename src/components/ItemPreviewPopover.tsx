@@ -15,6 +15,7 @@ import tooltipBgVitality from '../assets/popover/catalog_tooltip_bg_vitality.png
 import tooltipHeaderWeapon from '../assets/popover/catalog_tooltip_header_weapon_psd.png'
 import tooltipHeaderSpirit from '../assets/popover/catalog_tooltip_header_spirit_psd.png'
 import tooltipHeaderVitality from '../assets/popover/catalog_tooltip_header_vitality_psd.png'
+import currencySymbol from '../assets/price_currency_psd.png'
 
 const tooltipBg: Record<ItemCategory, string> = {
   Weapon: tooltipBgWeapon,
@@ -200,7 +201,14 @@ export function ItemPreviewPopover({
           <h3>{item.name}</h3>
         </div>
         <div>
-          <strong className="item-popover__price">§{item.cost}</strong>
+          <strong className="item-popover__price">
+            <img
+              src={currencySymbol}
+              alt=""
+              className="item-popover__price-icon"
+            />
+            {item.cost}
+          </strong>
         </div>
       </header>
 
