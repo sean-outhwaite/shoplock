@@ -271,25 +271,25 @@
   color: color-mix(in srgb, var(--cost-green) 45%, rgb(255, 177, 32) 20%);
 }
 .tier-box--1 .tier-price {
-  font-size: clamp(0.85rem, 2cqw, 1.6rem);
+  font-size: clamp(0.4rem, 2cqw, 1.6rem);
   top: 1%;
   left: 1%;
   rotate: -5deg;
 }
 .tier-box--2 .tier-price {
-  font-size: clamp(0.95rem, 2.35cqw, 1.9rem);
+  font-size: clamp(0.45rem, 2.35cqw, 1.9rem);
   top: 0.5%;
   left: 0.5%;
   rotate: -4deg;
 }
 .tier-box--3 .tier-price {
-  font-size: clamp(1rem, 2.45cqw, 2rem);
+  font-size: clamp(0.48rem, 2.45cqw, 2rem);
   top: -2%;
   left: 1%;
   rotate: -4deg;
 }
 .tier-box--4 .tier-price {
-  font-size: clamp(1.05rem, 2.7cqw, 2.2rem);
+  font-size: clamp(0.5rem, 2.7cqw, 2.2rem);
   top: -3%;
   left: 1%;
   rotate: -5deg;
@@ -452,7 +452,7 @@
   z-index: 50;
   width: min(var(--popover-width), calc(100% - 24px));
   max-height: var(--popover-max-height);
-  overflow-y: hidden;
+  overflow-y: auto;
   border-radius: 6px;
   box-shadow: 0 20px 60px rgba(2, 6, 23, 0.58);
   pointer-events: none;
@@ -789,7 +789,6 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
     padding: 0;
-    margin: 0 0 12px 0;
   }
 
   .shop-window > .tab-rail .rail-tab {
@@ -798,8 +797,8 @@
     min-height: 58px;
     padding: 6px 4px;
     border-radius: 12px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    justify-content: center;
   }
 
   .shop-window > .tab-rail .rail-tab__marker {
@@ -820,6 +819,8 @@
     height: auto;
     min-height: 58px;
     padding: 6px 4px;
+    display: flex;
+    justify-content: center;
   }
 
   .shop-window > .tab-rail .rail-tab.rail-tab--all .rail-tab__marker {
@@ -831,7 +832,6 @@
 
   .shop-window {
     border-radius: 22px;
-    row-gap: 24px;
     grid-template-columns: 1fr;
     grid-template-rows: auto 1fr;
   }
@@ -843,10 +843,24 @@
 
   .search-header {
     flex-wrap: wrap;
+    margin-left: 0;
+  }
+
+  .search-input__clear {
+    right: 6%;
+    top: 25%;
   }
 
   .build-drawer__panel {
     max-height: min(60svh, 480px);
+  }
+
+  .tier-showcase.all > .full-shop {
+    height: 100vh;
+  }
+
+  .item-popover {
+    transform: scale(0.6);
   }
 }
 
