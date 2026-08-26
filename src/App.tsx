@@ -261,15 +261,15 @@ function App() {
           </nav>
 
           {selectedCategory === 'All' ? (
-            <div
-              className="full-shop"
-              style={
-                {
-                  backgroundImage: `url(${catalogBg.All})`,
-                } as CSSProperties
-              }
-            >
-              <div className="shop-body">
+            <div className="tier-showcase all">
+              <div
+                className="full-shop"
+                style={
+                  {
+                    backgroundImage: `url(${catalogBg.All})`,
+                  } as CSSProperties
+                }
+              >
                 <SearchTab
                   hoveredItem={hoveredItem}
                   setHoveredItem={setHoveredItem}

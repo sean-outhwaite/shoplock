@@ -54,6 +54,7 @@
   margin: 8px 0 8px 0;
   align-items: stretch;
   grid-column: 1 / 2;
+  position: relative;
 }
 
 .shop-window > .tab-rail .rail-tab {
@@ -115,8 +116,31 @@
   min-height: 156px;
 }
 
-.shop-window > .tab-rail .rail-tab.rail-tab--all.active {
-  min-height: 72px;
+/* Pinned at the y-offset the All tab sits at whenever a category tab is
+   active and grown (12 padding-top + 156 active + 12 gap + 76 + 12 gap + 76
+   + 12 gap = 356), so selecting All doesn't shift it just because none of
+   the other three are grown right now. Flush left/width match the other
+   tabs so it still reads as part of the same rail rather than a detached
+   floating button - only the height/icon shrink.
+   The extra ".rail-tab" in the selector matches the specificity of
+   ".rail-tab.active"'s min-height:156px above (4 classes each) so this
+   still wins and the button doesn't grow when it becomes active. */
+.shop-window > .tab-rail .rail-tab.rail-tab--all {
+  position: absolute;
+  top: 356px;
+  left: 12px;
+  width: 60px;
+  height: 60px;
+  min-height: 60px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+}
+
+.shop-window > .tab-rail .rail-tab.rail-tab--all .rail-tab__marker {
+  width: 46px;
+  height: 46px;
+  margin-right: 0;
 }
 
 .rail-tab.active {
@@ -143,11 +167,14 @@
 
 .full-shop {
   position: relative;
-  background-size: cover;
-  background-position: center;
+  width: min(100cqw, 100cqh * 1825 / 1618);
+  aspect-ratio: 1825 / 1618;
+  background-size: 100% 100%;
   background-repeat: no-repeat;
-  background-color: #8c8779;
-  height: 100%;
+  background-position: center;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 /* Subtle paper grain overlay across the panel */
@@ -164,7 +191,6 @@
 }
 
 /* Make header and body occupy the main column */
-.shop-window > .full-shop,
 .shop-window > .tier-showcase {
   grid-column: 2;
   grid-row: 1 span 2;
@@ -292,14 +318,15 @@
 .search-header {
   position: relative;
   z-index: 1;
+  flex: 0 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 20px;
-  margin: 0 0 18px;
+  margin-left: 20px;
   padding: 16px 20px;
-  background: rgba(15, 12, 10, 0.92);
-  border-radius: 14px;
+  background: rgba(15, 12, 10, 0.75);
+  border-radius: 0;
 }
 
 .search-header__text h1 {
@@ -328,12 +355,6 @@
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-.shop-body {
-  position: relative;
-  z-index: 1;
-  padding: 16px 16px 18px;
 }
 
 /* Cards are a fixed fraction of the board's own width (cqw, queried
@@ -730,9 +751,15 @@
 }
 
 .search-tier-groups {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 16px 16px 18px;
 }
 
 .search-tier-row {
@@ -789,6 +816,21 @@
   .rail-tab {
     min-height: 64px;
     border-radius: 14px;
+  }
+
+  .shop-window > .tab-rail .rail-tab.rail-tab--all {
+    position: static;
+    top: auto;
+    left: auto;
+    width: auto;
+    height: auto;
+    min-height: 64px;
+    padding: 10px 8px;
+  }
+
+  .shop-window > .tab-rail .rail-tab.rail-tab--all .rail-tab__marker {
+    width: 60px;
+    height: 60px;
   }
 
   .shop-window {
