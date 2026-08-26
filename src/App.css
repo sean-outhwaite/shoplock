@@ -50,8 +50,8 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 12px 0px 12px 10px;
-  margin: 8px 0 8px 0;
+  padding: 0px 0px 12px 10px;
+  margin: 0px 0 8px 0;
   align-items: stretch;
   grid-column: 1 / 2;
   position: relative;
@@ -62,7 +62,7 @@
   margin-left: 2px;
   min-height: 72px;
   padding: 8px 10px;
-  border-radius: 12px 0 0 12px;
+  border-radius: 10px 0 0 10px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -127,24 +127,21 @@
    still wins and the button doesn't grow when it becomes active. */
 .shop-window > .tab-rail .rail-tab.rail-tab--all {
   position: absolute;
-  top: 356px;
-  left: 12px;
-  width: 60px;
-  height: 60px;
-  min-height: 60px;
+  top: 344px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  min-height: 50px;
   padding: 0;
   display: grid;
   place-items: center;
 }
 
 .shop-window > .tab-rail .rail-tab.rail-tab--all .rail-tab__marker {
-  width: 46px;
-  height: 46px;
-  margin-left: 8px;
-}
-
-.rail-tab.active {
-  color: var(--text-strong);
+  width: 40px;
+  height: 40px;
+  margin-left: 6px;
+  margin-top: 2px;
 }
 
 .rail-tab:focus-visible {
