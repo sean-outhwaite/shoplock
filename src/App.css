@@ -60,9 +60,9 @@
 .shop-window > .tab-rail .rail-tab {
   width: calc(100% - 2px);
   margin-left: 2px;
-  min-height: 72px;
+  min-height: 86px;
   padding: 8px 10px;
-  border-radius: 10px 0 0 10px;
+  border-radius: 14px 0 0 14px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
@@ -79,6 +79,22 @@
 .shop-window > .tab-rail .rail-tab {
   background: var(--tab-accent);
   color: #000;
+}
+
+/* Torn-paper texture along the tab's left edge - the overlay art's own
+   worn/faded color, not recolored to match the tab. */
+.shop-window > .tab-rail .rail-tab:not(.rail-tab--all)::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: inherit;
+  height: 100%;
+  background-image: url(./assets/catalog_shop_tab_edge_overlay_psd.png);
+  background-repeat: no-repeat;
+  background-position: left top;
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 /* Draw the full-height stripe on the shop window at the rail boundary */
@@ -100,8 +116,8 @@
 }
 
 .shop-window > .tab-rail .rail-tab__marker {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   margin-right: 8px;
 }
 
@@ -114,34 +130,34 @@
 }
 
 .shop-window > .tab-rail .rail-tab.active {
-  min-height: 156px;
+  min-height: 230px;
 }
 
 /* Pinned at the y-offset the All tab sits at whenever a category tab is
-   active and grown (12 padding-top + 156 active + 12 gap + 76 + 12 gap + 76
-   + 12 gap = 356), so selecting All doesn't shift it just because none of
-   the other three are grown right now. Flush left/width match the other
-   tabs so it still reads as part of the same rail rather than a detached
-   floating button - only the height/icon shrink.
+   active and grown (230 active + 86 inactive + 86 inactive + 3 gaps of 12px
+   between the three category tabs and down to All = 438), so selecting All
+   doesn't shift it just because none of the other three are grown right
+   now - only the height/icon shrink.
    The extra ".rail-tab" in the selector matches the specificity of
-   ".rail-tab.active"'s min-height:156px above (4 classes each) so this
+   ".rail-tab.active"'s min-height:230px above (4 classes each) so this
    still wins and the button doesn't grow when it becomes active. */
 .shop-window > .tab-rail .rail-tab.rail-tab--all {
   position: absolute;
-  top: 344px;
-  left: 20px;
+  top: 438px;
+  left: 30px;
   width: 50px;
   height: 50px;
   min-height: 50px;
   padding: 0;
   display: grid;
   place-items: center;
+  border-radius: 8px 0 0 8px;
 }
 
 .shop-window > .tab-rail .rail-tab.rail-tab--all .rail-tab__marker {
-  width: 40px;
-  height: 40px;
-  margin-left: 6px;
+  width: 32px;
+  height: 32px;
+  margin-left: 10px;
   margin-top: 2px;
 }
 
@@ -164,10 +180,9 @@
 
 /* Layout: left rail + main content inside the window */
 .shop-window {
-  --rail-width: 72px;
+  --rail-width: 82px;
   display: grid;
   grid-template-columns: var(--rail-width) minmax(0, 1fr);
-
   align-items: start;
 }
 
@@ -276,8 +291,12 @@
   color: color-mix(in srgb, var(--cost-green) 40%, white 30%);
 }
 
-.currency {
-  color: color-mix(in srgb, var(--cost-green) 45%, rgb(255, 177, 32) 20%);
+.currency-symbol {
+  display: inline-block;
+  height: clamp(0.6rem, 2.4cqw, 1.4rem);
+  width: auto;
+  vertical-align: -0.15em;
+  margin-right: 0.12em;
 }
 .tier-box--1 .tier-price {
   font-size: clamp(0.4rem, 2cqw, 1.6rem);

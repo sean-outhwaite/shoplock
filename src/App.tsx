@@ -3,7 +3,6 @@ import type { CSSProperties } from 'react'
 import './App.css'
 import type { ShopCategory } from './types.ts'
 import {
-  formatCost,
   categoryAccent,
   getItemCardImageUrl,
   groupItemsByCategoryAndTier,
@@ -29,6 +28,7 @@ import loadingSpinner from './assets/Brawl_Revolver.png'
 import remHelper from './assets/rem_helper.mp3'
 import remHelperImg from './assets/rem_helper.png'
 import voteSticker from './assets/VotedSticker_03.png'
+import currencySymbol from './assets/price_currency_psd.png'
 
 const minLoadingTime = 500
 
@@ -171,8 +171,13 @@ function App() {
                       className={`tier-box tier-box--${index + 1}`}
                     >
                       <span className="tier-price">
-                        <span className="currency">§</span>
-                        {formatCost(tierPrices[tier])}
+                        <img
+                          src={currencySymbol}
+                          alt="Currency Symbol"
+                          className="currency-symbol"
+                        />
+
+                        {tierPrices[tier]}
                       </span>
                       <div
                         className={`category-grid ${selectedCategory.toLowerCase()}`}
