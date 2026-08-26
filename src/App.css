@@ -271,25 +271,25 @@
   color: color-mix(in srgb, var(--cost-green) 45%, rgb(255, 177, 32) 20%);
 }
 .tier-box--1 .tier-price {
-  font-size: 1.6rem;
+  font-size: clamp(0.85rem, 2cqw, 1.6rem);
   top: 1%;
   left: 1%;
   rotate: -5deg;
 }
 .tier-box--2 .tier-price {
-  font-size: 1.9rem;
+  font-size: clamp(0.95rem, 2.35cqw, 1.9rem);
   top: 0.5%;
   left: 0.5%;
   rotate: -4deg;
 }
 .tier-box--3 .tier-price {
-  font-size: 2rem;
+  font-size: clamp(1rem, 2.45cqw, 2rem);
   top: -2%;
   left: 1%;
   rotate: -4deg;
 }
 .tier-box--4 .tier-price {
-  font-size: 2.2rem;
+  font-size: clamp(1.05rem, 2.7cqw, 2.2rem);
   top: -3%;
   left: 1%;
   rotate: -5deg;
@@ -784,19 +784,32 @@
     grid-template-columns: 1fr;
   }
 
-  .tab-rail {
+  .shop-window > .tab-rail {
     display: grid;
-  }
-
-  .tab-rail {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 8px;
-    padding: 0 0 4px;
+    padding: 0;
+    margin: 0 0 12px 0;
   }
 
-  .rail-tab {
-    min-height: 64px;
-    border-radius: 14px;
+  .shop-window > .tab-rail .rail-tab {
+    width: 100%;
+    margin-left: 0;
+    min-height: 58px;
+    padding: 6px 4px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+  }
+
+  .shop-window > .tab-rail .rail-tab__marker {
+    width: 36px;
+    height: 36px;
+    margin-right: 0;
+  }
+
+  .shop-window > .tab-rail .rail-tab.active {
+    min-height: 58px;
   }
 
   .shop-window > .tab-rail .rail-tab.rail-tab--all {
@@ -805,18 +818,31 @@
     left: auto;
     width: auto;
     height: auto;
-    min-height: 64px;
-    padding: 10px 8px;
+    min-height: 58px;
+    padding: 6px 4px;
   }
 
   .shop-window > .tab-rail .rail-tab.rail-tab--all .rail-tab__marker {
-    width: 60px;
-    height: 60px;
+    width: 36px;
+    height: 36px;
+    margin-left: 0;
+    margin-top: 0;
   }
 
   .shop-window {
     border-radius: 22px;
     row-gap: 24px;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+  }
+
+  .shop-window > .tier-showcase {
+    grid-column: 1;
+    grid-row: auto;
+  }
+
+  .search-header {
+    flex-wrap: wrap;
   }
 
   .build-drawer__panel {
