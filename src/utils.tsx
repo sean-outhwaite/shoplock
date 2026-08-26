@@ -17,7 +17,7 @@ export function categoryAccent(category: ShopCategory) {
     case 'Vitality':
       return '#A3CD3A'
     case 'All':
-      return '#8C897A'
+      return '#A9A995'
   }
 }
 
