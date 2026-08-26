@@ -1,12 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import type { CSSProperties, FocusEvent, MouseEvent } from 'react'
+import type { CSSProperties } from 'react'
 import './App.css'
-import type {
-  ShopItem,
-  ShopCategory,
-  ItemTier,
-  PopoverPosition,
-} from './types.ts'
+import type { ShopItem, ShopCategory, ItemTier } from './types.ts'
 import { formatCost, categoryAccent, getItemCardImageUrl } from './utils.tsx'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
@@ -16,6 +11,8 @@ import RankWindow from './components/RankWindow.tsx'
 import { useBuild } from './hooks/useBuild.ts'
 import { useItemCatalog } from './hooks/useItemCatalog.ts'
 import { useImagePreload } from './hooks/useImagePreload.ts'
+import { useItemPreview } from './hooks/useItemPreview.ts'
+import { ItemPreviewContext } from './context/ItemPreviewContext.ts'
 import weaponIcon from './assets/icons/catalog_shop_tab_icon_weapon_psd.png'
 import spiritIcon from './assets/icons/catalog_shop_tab_icon_spirit_psd.png'
 import vitalityIcon from './assets/icons/catalog_shop_tab_icon_vitality_psd.png'
@@ -73,17 +70,8 @@ const minLoadingTime = 500
 function App() {
   const [selectedCategory, setSelectedCategory] =
     useState<ShopCategory>('Weapon')
-  const [hoveredItem, setHoveredItem] = useState<ShopItem | null>(null)
-  const [hoverUpgradesFrom, setHoverUpgradesFrom] = useState<string[] | null>(
-    null,
-  )
-  const [hoverUpgradesTo, setHoverUpgradesTo] = useState<string[] | null>(
-    null,
-  )
-  const [popoverPosition, setPopoverPosition] = useState<PopoverPosition>({
-    x: 0,
-    y: 0,
-  })
+  const itemPreview = useItemPreview()
+  const { hoveredItem, popoverPosition } = itemPreview
   const shopWindowRef = useRef<HTMLElement | null>(null)
   const build = useBuild()
   const catalog = useItemCatalog()
@@ -184,206 +172,152 @@ function App() {
     )
   if (catalog.status === 'error') return <h1>Error: {catalog.error}</h1>
 
-  function positionPopover(
-    event: MouseEvent<HTMLImageElement> | FocusEvent<HTMLImageElement>,
-  ) {
-    const iconBounds = event.currentTarget.getBoundingClientRect()
-    const gap = 14
-    const margin = 18
-    // Leave room for the build drawer's closed handle bar so the popover
-    // never renders behind it.
-    const bottomReserve = margin + 64
-    const width = 400
-    const maxHeight = Math.min(window.innerHeight * 0.85, 760)
-
-    // Prefer the icon's right side; flip to the left if it wouldn't fit,
-    // so the popover never covers the item it's describing.
-    let x = iconBounds.right + gap
-    const overflowsRight = x + width > window.innerWidth - margin
-    if (overflowsRight) {
-      const leftPlacement = iconBounds.left - gap - width
-      x =
-        leftPlacement >= margin
-          ? leftPlacement
-          : Math.max(margin, Math.min(window.innerWidth - width - margin, x))
-    }
-
-    let y = iconBounds.top
-    if (y + maxHeight > window.innerHeight - bottomReserve) {
-      y = Math.max(margin, window.innerHeight - maxHeight - bottomReserve)
-    }
-    if (y < margin) {
-      y = margin
-    }
-
-    setPopoverPosition({ x, y })
-  }
-
   const playAudio = () => {
     const audio = new Audio(remHelper)
     audio.play()
   }
 
   return (
-    <div className="shop-app">
-      <main className="layout">
-        <section
-          ref={shopWindowRef}
-          className="shop-window"
-          style={
-            {
-              '--active-accent': categoryAccent(selectedCategory),
-            } as CSSProperties
-          }
-        >
-          <nav className="tab-rail" aria-label="Shop item types">
-            {categories.map((itemCategory) => (
-              <button
-                key={itemCategory}
-                type="button"
-                className={`rail-tab${itemCategory === 'All' ? ' rail-tab--all' : ''}${
-                  selectedCategory === itemCategory ? ' active' : ''
-                }`}
-                style={
-                  {
-                    '--tab-accent': categoryAccent(itemCategory),
-                  } as CSSProperties
-                }
-                onClick={() => setSelectedCategory(itemCategory)}
-              >
-                <img
-                  src={itemIcons[itemCategory]}
-                  alt=""
-                  className="rail-tab__marker"
-                />
-              </button>
-            ))}
-          </nav>
+    <ItemPreviewContext.Provider value={itemPreview}>
+      <div className="shop-app">
+        <main className="layout">
+          <section
+            ref={shopWindowRef}
+            className="shop-window"
+            style={
+              {
+                '--active-accent': categoryAccent(selectedCategory),
+              } as CSSProperties
+            }
+          >
+            <nav className="tab-rail" aria-label="Shop item types">
+              {categories.map((itemCategory) => (
+                <button
+                  key={itemCategory}
+                  type="button"
+                  className={`rail-tab${itemCategory === 'All' ? ' rail-tab--all' : ''}${
+                    selectedCategory === itemCategory ? ' active' : ''
+                  }`}
+                  style={
+                    {
+                      '--tab-accent': categoryAccent(itemCategory),
+                    } as CSSProperties
+                  }
+                  onClick={() => setSelectedCategory(itemCategory)}
+                >
+                  <img
+                    src={itemIcons[itemCategory]}
+                    alt=""
+                    className="rail-tab__marker"
+                  />
+                </button>
+              ))}
+            </nav>
 
-          {selectedCategory === 'All' ? (
-            <div className="tier-showcase all">
-              <div
-                className="full-shop"
-                style={
-                  {
-                    backgroundImage: `url(${catalogBg.All})`,
-                  } as CSSProperties
-                }
-              >
-                <SearchTab
-                  hoveredItem={hoveredItem}
-                  setHoveredItem={setHoveredItem}
-                  positionPopover={positionPopover}
-                  itemData={itemData}
-                  hoverUpgradesFrom={hoverUpgradesFrom}
-                  setHoverUpgradesFrom={setHoverUpgradesFrom}
-                  hoverUpgradesTo={hoverUpgradesTo}
-                  setHoverUpgradesTo={setHoverUpgradesTo}
-                  onAddToBuild={build.addItemToActiveSection}
-                />
+            {selectedCategory === 'All' ? (
+              <div className="tier-showcase all">
+                <div
+                  className="full-shop"
+                  style={
+                    {
+                      backgroundImage: `url(${catalogBg.All})`,
+                    } as CSSProperties
+                  }
+                >
+                  <SearchTab
+                    itemData={itemData}
+                    onAddToBuild={build.addItemToActiveSection}
+                  />
+                </div>
               </div>
-            </div>
-          ) : (
-            <div
-              className={`tier-showcase ${selectedCategory.toLowerCase()}`}
-              style={
-                {
-                  '--category-accent': categoryAccent(selectedCategory),
-                } as CSSProperties
-              }
-            >
+            ) : (
               <div
-                className="tier-board"
+                className={`tier-showcase ${selectedCategory.toLowerCase()}`}
                 style={
                   {
-                    backgroundImage: `url(${catalogBg[selectedCategory]})`,
+                    '--category-accent': categoryAccent(selectedCategory),
                   } as CSSProperties
                 }
               >
-                <h1 className="sr-only">{selectedCategory}</h1>
-                {displayTiers.map((tier, index) => (
-                  <div key={tier} className={`tier-box tier-box--${index + 1}`}>
-                    <span className="tier-price">
-                      <span className="currency">§</span>
-                      {formatCost(tierPrices[tier])}
-                    </span>
-                    <div
-                      className={`category-grid ${selectedCategory.toLowerCase()}`}
-                    >
-                      {groupedItems[selectedCategory][tier].map((item) => (
-                        <ItemCard
-                          key={item.id}
-                          item={item}
-                          hoveredItem={hoveredItem}
-                          setHoveredItem={setHoveredItem}
-                          positionPopover={positionPopover}
-                          hoverUpgradesFrom={hoverUpgradesFrom}
-                          setHoverUpgradesFrom={setHoverUpgradesFrom}
-                          hoverUpgradesTo={hoverUpgradesTo}
-                          setHoverUpgradesTo={setHoverUpgradesTo}
-                          onAddToBuild={build.addItemToActiveSection}
-                        />
-                      ))}
+                <div
+                  className="tier-board"
+                  style={
+                    {
+                      backgroundImage: `url(${catalogBg[selectedCategory]})`,
+                    } as CSSProperties
+                  }
+                >
+                  <h1 className="sr-only">{selectedCategory}</h1>
+                  {displayTiers.map((tier, index) => (
+                    <div key={tier} className={`tier-box tier-box--${index + 1}`}>
+                      <span className="tier-price">
+                        <span className="currency">§</span>
+                        {formatCost(tierPrices[tier])}
+                      </span>
+                      <div
+                        className={`category-grid ${selectedCategory.toLowerCase()}`}
+                      >
+                        {groupedItems[selectedCategory][tier].map((item) => (
+                          <ItemCard
+                            key={item.id}
+                            item={item}
+                            onAddToBuild={build.addItemToActiveSection}
+                          />
+                        ))}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {hoveredItem ? (
-            <ItemPreviewPopover
-              item={hoveredItem}
-              position={popoverPosition}
-              itemData={itemData}
-            />
-          ) : null}
-        </section>
-        <img
-          onClick={() => {
-            playAudio()
-            setRemClicked(true)
-          }}
-          src={remHelperImg}
-          alt=""
-          className={`rem-helper ${remClicked ? 'bounce-effect' : ''}`}
-          onAnimationEnd={() => setRemClicked(false)}
+            {hoveredItem ? (
+              <ItemPreviewPopover
+                item={hoveredItem}
+                position={popoverPosition}
+                itemData={itemData}
+              />
+            ) : null}
+          </section>
+          <img
+            onClick={() => {
+              playAudio()
+              setRemClicked(true)
+            }}
+            src={remHelperImg}
+            alt=""
+            className={`rem-helper ${remClicked ? 'bounce-effect' : ''}`}
+            onAnimationEnd={() => setRemClicked(false)}
+          />
+
+          <img
+            src={voteSticker}
+            alt=""
+            className={`vote-sticker`}
+            onClick={() => setWindowOpen(!windowOpen)}
+          />
+        </main>
+
+        <RankWindow
+          windowOpen={windowOpen}
+          onToggleWindow={() => setWindowOpen(!windowOpen)}
         />
 
-        <img
-          src={voteSticker}
-          alt=""
-          className={`vote-sticker`}
-          onClick={() => setWindowOpen(!windowOpen)}
+        <BuildDrawer
+          sections={build.sections}
+          activeSectionId={build.activeSectionId}
+          drawerOpen={build.drawerOpen}
+          itemsById={itemsById}
+          onToggleDrawer={build.toggleDrawer}
+          onAddSection={build.addSection}
+          onDeleteSection={build.deleteSection}
+          onRenameSection={build.renameSection}
+          onSetActiveSection={build.setActiveSection}
+          onRemoveItem={build.removeItem}
+          onMoveItem={build.moveItem}
         />
-      </main>
-
-      <RankWindow
-        windowOpen={windowOpen}
-        onToggleWindow={() => setWindowOpen(!windowOpen)}
-      />
-
-      <BuildDrawer
-        sections={build.sections}
-        activeSectionId={build.activeSectionId}
-        drawerOpen={build.drawerOpen}
-        itemsById={itemsById}
-        hoveredItem={hoveredItem}
-        setHoveredItem={setHoveredItem}
-        positionPopover={positionPopover}
-        hoverUpgradesFrom={hoverUpgradesFrom}
-        setHoverUpgradesFrom={setHoverUpgradesFrom}
-        hoverUpgradesTo={hoverUpgradesTo}
-        setHoverUpgradesTo={setHoverUpgradesTo}
-        onToggleDrawer={build.toggleDrawer}
-        onAddSection={build.addSection}
-        onDeleteSection={build.deleteSection}
-        onRenameSection={build.renameSection}
-        onSetActiveSection={build.setActiveSection}
-        onRemoveItem={build.removeItem}
-        onMoveItem={build.moveItem}
-      />
-    </div>
+      </div>
+    </ItemPreviewContext.Provider>
   )
 }
 

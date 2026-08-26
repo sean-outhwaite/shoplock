@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import type { SubmitEvent, MouseEvent } from 'react'
+import type { SubmitEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import BuildSection from './BuildSection.tsx'
 
@@ -8,13 +8,6 @@ interface Props {
   activeSectionId: string | null
   drawerOpen: boolean
   itemsById: Map<number, ShopItem>
-  hoveredItem: ShopItem | null
-  setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: MouseEvent<HTMLImageElement>) => void
-  hoverUpgradesFrom: string[] | null
-  setHoverUpgradesFrom: (upgrades: string[] | null) => void
-  hoverUpgradesTo: string[] | null
-  setHoverUpgradesTo: (upgrades: string[] | null) => void
   onToggleDrawer: () => void
   onAddSection: (name: string) => void
   onDeleteSection: (sectionId: string) => void
@@ -32,13 +25,6 @@ const BuildDrawer = ({
   activeSectionId,
   drawerOpen,
   itemsById,
-  hoveredItem,
-  setHoveredItem,
-  positionPopover,
-  hoverUpgradesFrom,
-  setHoverUpgradesFrom,
-  hoverUpgradesTo,
-  setHoverUpgradesTo,
   onToggleDrawer,
   onAddSection,
   onDeleteSection,
@@ -101,13 +87,6 @@ const BuildDrawer = ({
                 section={section}
                 isActive={section.id === activeSectionId}
                 itemsById={itemsById}
-                hoveredItem={hoveredItem}
-                setHoveredItem={setHoveredItem}
-                positionPopover={positionPopover}
-                hoverUpgradesFrom={hoverUpgradesFrom}
-                setHoverUpgradesFrom={setHoverUpgradesFrom}
-                hoverUpgradesTo={hoverUpgradesTo}
-                setHoverUpgradesTo={setHoverUpgradesTo}
                 onSetActive={onSetActiveSection}
                 onDelete={onDeleteSection}
                 onRename={onRenameSection}

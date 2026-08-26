@@ -1,33 +1,15 @@
 import { useMemo, useState } from 'react'
 import ItemCard from './ItemCard.tsx'
 import type { ShopItem, ItemTier } from '../types.ts'
-import type { MouseEvent } from 'react'
 
 interface Props {
-  hoveredItem: ShopItem | null
-  setHoveredItem: (item: ShopItem | null) => void
-  positionPopover: (event: MouseEvent<HTMLImageElement>) => void
   itemData: ShopItem[]
-  hoverUpgradesFrom: string[] | null
-  setHoverUpgradesFrom: (upgrades: string[] | null) => void
-  hoverUpgradesTo: string[] | null
-  setHoverUpgradesTo: (upgrades: string[] | null) => void
   onAddToBuild?: (itemId: number) => void
 }
 
 const displayTiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
 
-const SearchTab = ({
-  hoveredItem,
-  setHoveredItem,
-  positionPopover,
-  itemData,
-  hoverUpgradesFrom,
-  setHoverUpgradesFrom,
-  hoverUpgradesTo,
-  setHoverUpgradesTo,
-  onAddToBuild,
-}: Props) => {
+const SearchTab = ({ itemData, onAddToBuild }: Props) => {
   const [searchTerm, setSearchTerm] = useState('')
 
   const sortedItems = useMemo(() => {
@@ -91,13 +73,6 @@ const SearchTab = ({
                 <ItemCard
                   key={item.id}
                   item={item}
-                  hoveredItem={hoveredItem}
-                  setHoveredItem={setHoveredItem}
-                  positionPopover={positionPopover}
-                  hoverUpgradesFrom={hoverUpgradesFrom}
-                  setHoverUpgradesFrom={setHoverUpgradesFrom}
-                  hoverUpgradesTo={hoverUpgradesTo}
-                  setHoverUpgradesTo={setHoverUpgradesTo}
                   onAddToBuild={onAddToBuild}
                 />
               ))}
