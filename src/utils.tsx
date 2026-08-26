@@ -1,7 +1,28 @@
-import type { ShopCategory, ShopItem } from './types'
+import type { ShopCategory, ShopItem, ItemCategory, ItemTier } from './types'
+import { categoryOrder, tiers } from './shopConstants.ts'
 
 export function formatCost(cost: number) {
   return cost.toLocaleString('en-US')
+}
+
+export function groupItemsByCategoryAndTier(
+  itemData: ShopItem[],
+): Record<ItemCategory, Record<ItemTier, ShopItem[]>> {
+  return categoryOrder.reduce<Record<ItemCategory, Record<ItemTier, ShopItem[]>>>(
+    (categoryAccumulator, itemCategory) => {
+      categoryAccumulator[itemCategory] = tiers.reduce<
+        Record<ItemTier, ShopItem[]>
+      >((tierAccumulator, tier) => {
+        tierAccumulator[tier] = itemData.filter(
+          (item) => item.category === itemCategory && item.tier === tier,
+        )
+        return tierAccumulator
+      }, {} as Record<ItemTier, ShopItem[]>)
+
+      return categoryAccumulator
+    },
+    {} as Record<ItemCategory, Record<ItemTier, ShopItem[]>>,
+  )
 }
 
 export function getItemCardImageUrl(item: ShopItem) {

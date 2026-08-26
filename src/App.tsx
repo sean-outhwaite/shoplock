@@ -1,8 +1,20 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
 import './App.css'
-import type { ShopItem, ShopCategory, ItemTier } from './types.ts'
-import { formatCost, categoryAccent, getItemCardImageUrl } from './utils.tsx'
+import type { ShopCategory } from './types.ts'
+import {
+  formatCost,
+  categoryAccent,
+  getItemCardImageUrl,
+  groupItemsByCategoryAndTier,
+} from './utils.tsx'
+import {
+  itemIcons,
+  catalogBg,
+  displayTiers,
+  categories,
+  tierPrices,
+} from './shopConstants.ts'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
@@ -13,57 +25,10 @@ import { useItemCatalog } from './hooks/useItemCatalog.ts'
 import { useImagePreload } from './hooks/useImagePreload.ts'
 import { useItemPreview } from './hooks/useItemPreview.ts'
 import { ItemPreviewContext } from './context/ItemPreviewContext.ts'
-import weaponIcon from './assets/icons/catalog_shop_tab_icon_weapon_psd.png'
-import spiritIcon from './assets/icons/catalog_shop_tab_icon_spirit_psd.png'
-import vitalityIcon from './assets/icons/catalog_shop_tab_icon_vitality_psd.png'
-import allIcon from './assets/icons/All.svg'
-import weaponBg from './assets/backgrounds/catalog_shop_bg_weapon_psd.png'
-import spiritBg from './assets/backgrounds/catalog_shop_bg_spirit_psd.png'
-import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
-import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
 import loadingSpinner from './assets/Brawl_Revolver.png'
 import remHelper from './assets/rem_helper.mp3'
 import remHelperImg from './assets/rem_helper.png'
 import voteSticker from './assets/VotedSticker_03.png'
-
-const itemIcons: Record<ShopCategory, string> = {
-  Weapon: weaponIcon,
-  Spirit: spiritIcon,
-  Vitality: vitalityIcon,
-  All: allIcon,
-}
-
-const catalogBg: Record<ShopCategory, string> = {
-  Weapon: weaponBg,
-  Spirit: spiritBg,
-  Vitality: vitalityBg,
-  All: genericBg,
-}
-
-const displayTiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
-
-const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
-  'Weapon',
-  'Vitality',
-  'Spirit',
-  'All',
-]
-
-const tiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4', 'TIER 5']
-
-const tierPrices: Record<ItemTier, number> = {
-  'TIER 1': 800,
-  'TIER 2': 1600,
-  'TIER 3': 3200,
-  'TIER 4': 6400,
-  'TIER 5': 0,
-}
-
-const categoryOrder: Exclude<ShopCategory, 'All'>[] = [
-  'Weapon',
-  'Spirit',
-  'Vitality',
-]
 
 const minLoadingTime = 500
 
@@ -108,55 +73,7 @@ function App() {
   )
 
   const groupedItems = useMemo(
-    () =>
-      categoryOrder.reduce<
-        Record<Exclude<ShopCategory, 'All'>, Record<ItemTier, ShopItem[]>>
-      >(
-        (categoryAccumulator, itemCategory) => {
-          categoryAccumulator[itemCategory] = tiers.reduce<
-            Record<ItemTier, ShopItem[]>
-          >(
-            (tierAccumulator, tier) => {
-              tierAccumulator[tier] = itemData.filter(
-                (item) => item.category === itemCategory && item.tier === tier,
-              )
-              return tierAccumulator
-            },
-            {
-              'TIER 1': [],
-              'TIER 2': [],
-              'TIER 3': [],
-              'TIER 4': [],
-              'TIER 5': [],
-            },
-          )
-
-          return categoryAccumulator
-        },
-        {
-          Weapon: {
-            'TIER 1': [],
-            'TIER 2': [],
-            'TIER 3': [],
-            'TIER 4': [],
-            'TIER 5': [],
-          },
-          Spirit: {
-            'TIER 1': [],
-            'TIER 2': [],
-            'TIER 3': [],
-            'TIER 4': [],
-            'TIER 5': [],
-          },
-          Vitality: {
-            'TIER 1': [],
-            'TIER 2': [],
-            'TIER 3': [],
-            'TIER 4': [],
-            'TIER 5': [],
-          },
-        },
-      ),
+    () => groupItemsByCategoryAndTier(itemData),
     [itemData],
   )
 

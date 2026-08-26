@@ -1,13 +1,12 @@
 import { useMemo, useState } from 'react'
 import ItemCard from './ItemCard.tsx'
 import type { ShopItem, ItemTier } from '../types.ts'
+import { displayTiers } from '../shopConstants.ts'
 
 interface Props {
   itemData: ShopItem[]
   onAddToBuild?: (itemId: number) => void
 }
-
-const displayTiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
 
 const SearchTab = ({ itemData, onAddToBuild }: Props) => {
   const [searchTerm, setSearchTerm] = useState('')
