@@ -32,7 +32,12 @@ const SearchTab = ({
 
   const sortedItems = useMemo(() => {
     return [...itemData]
-      .sort((a, b) => a.tier.localeCompare(b.tier) || a.name.localeCompare(b.name))
+      .sort(
+        (a, b) =>
+          a.tier.localeCompare(b.tier) ||
+          b.category.localeCompare(a.category) ||
+          a.name.localeCompare(b.name),
+      )
       .filter((item) => item.tier !== 'TIER 5')
   }, [itemData])
 
@@ -43,10 +48,13 @@ const SearchTab = ({
   }, [sortedItems, searchTerm])
 
   const tieredItems = useMemo(() => {
-    return displayTiers.reduce<Partial<Record<ItemTier, ShopItem[]>>>((acc, tier) => {
-      acc[tier] = filteredItems.filter((item) => item.tier === tier)
-      return acc
-    }, {})
+    return displayTiers.reduce<Partial<Record<ItemTier, ShopItem[]>>>(
+      (acc, tier) => {
+        acc[tier] = filteredItems.filter((item) => item.tier === tier)
+        return acc
+      },
+      {},
+    )
   }, [filteredItems])
 
   return (
