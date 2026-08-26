@@ -467,24 +467,6 @@
   );
 }
 
-.item-popover::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(
-    135deg,
-    color-mix(in srgb, var(--popover-accent) 70%, white),
-    transparent 60%
-  );
-  -webkit-mask:
-    linear-gradient(#fff 0 0) content-box,
-    linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-
 .item-popover__header {
   display: flex;
   flex-direction: column;
