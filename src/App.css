@@ -37,7 +37,7 @@
     rgba(10, 14, 26, 0.9)
   );
   color: var(--text-body);
-  cursor: pointer;
+  cursor: url(./assets/Cursor.png), auto;
   box-shadow: 0 12px 30px rgba(2, 6, 23, 0.22);
   transition:
     transform 160ms ease,
@@ -374,7 +374,7 @@
   gap: 2px;
   padding: 0px;
   border-radius: 5px;
-  cursor: pointer;
+  cursor: url(./assets/Cursor.png), auto;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
