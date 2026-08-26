@@ -768,11 +768,26 @@
 .search-input {
   padding: 10px 14px;
   width: min(320px, 26vw);
-  border-radius: 8px;
-  border: 1px solid var(--panel-border);
-  background: rgba(255, 255, 255, 0.06);
+  border-radius: 2px;
+  border: 4px solid var(--panel-border);
+  background: rgba(74, 74, 74, 0.6);
   color: var(--text-strong);
   font-family: var(--font-body);
+}
+.search-bar :focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.search-input__clear {
+  position: absolute;
+  right: 3%;
+  top: 28%;
+  background: none;
+  border: none;
+  color: rgb(184, 184, 184);
+  font-size: 1.5rem;
+  cursor: pointer;
 }
 
 @media (max-width: 1180px) {

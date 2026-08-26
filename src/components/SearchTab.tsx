@@ -67,12 +67,18 @@ const SearchTab = ({
         <div className="search-bar">
           <input
             type="text"
-            placeholder="Search items..."
             className="search-input"
             aria-label="Search items"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            autoFocus
           />
+          <button
+            className="search-input__clear"
+            onClick={() => setSearchTerm('')}
+          >
+            x
+          </button>
         </div>
       </header>
       <div className="search-tier-groups">
