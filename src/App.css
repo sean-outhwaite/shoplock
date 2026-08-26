@@ -471,7 +471,7 @@
 
 .item-popover {
   --popover-width: 400px;
-  --popover-max-height: min(85vh, 760px);
+  --popover-max-height: 85vh;
   position: fixed;
   /* positionPopover() in App.tsx already flips/clamps these against the
      viewport and the hovered item's bounds, so just use them directly. */

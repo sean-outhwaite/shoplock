@@ -36,7 +36,7 @@ export function useItemPreview(): ItemPreviewState {
     // never renders behind it.
     const bottomReserve = margin + 64
     const width = 400
-    const maxHeight = Math.min(window.innerHeight * 0.85, 760)
+    const maxHeight = window.innerHeight * 0.85
 
     // Below the 820px layout breakpoint, the tapped icon is too small and
     // often too close to an edge for icon-relative anchoring to read well -
