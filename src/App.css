@@ -305,7 +305,7 @@
 .search-header__text h1 {
   margin: 0;
   color: var(--text-strong);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1;
@@ -314,9 +314,8 @@
 
 .search-header__subtitle {
   margin: 4px 0 0;
-  color: var(--text-body);
-  font-size: 0.85rem;
-  opacity: 0.75;
+  color: var(--text-strong);
+  font-size: 1rem;
 }
 
 .sr-only {
