@@ -109,6 +109,7 @@
 .shop-window > .tab-rail .rail-tab {
   transition:
     min-height 160ms ease,
+    background-color 0.3s ease,
     transform 160ms ease;
 }
 
@@ -146,6 +147,14 @@
 
 .rail-tab:focus-visible {
   transform: translateX(2px);
+}
+
+.shop-window > .tab-rail .rail-tab:not(.active):hover {
+  background-color: color-mix(
+    in srgb,
+    var(--tab-accent) 50%,
+    rgb(255, 255, 255)
+  );
 }
 
 .shop-window {
