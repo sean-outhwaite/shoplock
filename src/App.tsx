@@ -241,11 +241,9 @@ function App() {
               <button
                 key={itemCategory}
                 type="button"
-                className={
-                  selectedCategory === itemCategory
-                    ? 'rail-tab active'
-                    : 'rail-tab'
-                }
+                className={`rail-tab${itemCategory === 'All' ? ' rail-tab--all' : ''}${
+                  selectedCategory === itemCategory ? ' active' : ''
+                }`}
                 style={
                   {
                     '--tab-accent': categoryAccent(itemCategory),
@@ -271,12 +269,6 @@ function App() {
                 } as CSSProperties
               }
             >
-              <header className="window-header">
-                <div>
-                  <h1>All items</h1>
-                </div>
-              </header>
-
               <div className="shop-body">
                 <SearchTab
                   hoveredItem={hoveredItem}
