@@ -168,11 +168,7 @@
 }
 
 .shop-window > .tab-rail .rail-tab:not(.active):hover {
-  background-color: color-mix(
-    in srgb,
-    var(--tab-accent) 50%,
-    rgb(255, 255, 255)
-  );
+  filter: brightness(1.1);
 }
 
 .shop-window {
