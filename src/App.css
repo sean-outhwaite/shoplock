@@ -333,7 +333,7 @@
   font-size: clamp(0.4rem, 2cqw, 1.6rem);
   top: 1%;
   left: 1%;
-  rotate: -5deg;
+  rotate: -6deg;
 }
 .tier-showcase.vitality .tier-box--1 .tier-price,
 .tier-showcase.spirit .tier-box--1 .tier-price {
@@ -343,18 +343,18 @@
   font-size: clamp(0.45rem, 2.35cqw, 1.9rem);
   top: 1.5%;
   left: 0.5%;
-  rotate: -4deg;
+  rotate: -6deg;
 }
 .tier-box--3 .tier-price {
   font-size: clamp(0.48rem, 2.45cqw, 2rem);
   top: -1%;
   left: 1%;
-  rotate: -4deg;
+  rotate: -7deg;
 }
 .tier-box--4 .tier-price {
   font-size: clamp(0.5rem, 2.7cqw, 2.2rem);
   left: 1%;
-  rotate: -5deg;
+  rotate: -6deg;
 }
 .tier-showcase.weapon .tier-box--4 .tier-price {
   top: -3%;
