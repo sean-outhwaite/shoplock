@@ -2,17 +2,22 @@ import type { ShopCategory, ItemTier } from './types.ts'
 import weaponIcon from './assets/icons/catalog_shop_tab_icon_weapon_psd.png'
 import spiritIcon from './assets/icons/catalog_shop_tab_icon_spirit_psd.png'
 import vitalityIcon from './assets/icons/catalog_shop_tab_icon_vitality_psd.png'
-import allIcon from './assets/icons/All.svg'
 import weaponBg from './assets/backgrounds/catalog_shop_bg_weapon_psd.png'
 import spiritBg from './assets/backgrounds/catalog_shop_bg_spirit_psd.png'
 import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
+import searchTabIconInactive from './assets/catalog_shop_tab_search_sm_psd.png'
+import searchTabIconActive from './assets/catalog_shop_tab_search_showing_sm_psd.png'
 
-export const itemIcons: Record<ShopCategory, string> = {
+export const itemIcons: Record<Exclude<ShopCategory, 'All'>, string> = {
   Weapon: weaponIcon,
   Spirit: spiritIcon,
   Vitality: vitalityIcon,
-  All: allIcon,
+}
+
+export const searchTabIcons = {
+  active: searchTabIconActive,
+  inactive: searchTabIconInactive,
 }
 
 export const catalogBg: Record<ShopCategory, string> = {

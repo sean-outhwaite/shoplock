@@ -9,6 +9,7 @@ import {
 } from './utils.tsx'
 import {
   itemIcons,
+  searchTabIcons,
   catalogBg,
   displayTiers,
   categories,
@@ -108,27 +109,48 @@ function App() {
             }
           >
             <nav className="tab-rail" aria-label="Shop item types">
-              {categories.map((itemCategory) => (
-                <button
-                  key={itemCategory}
-                  type="button"
-                  className={`rail-tab${itemCategory === 'All' ? ' rail-tab--all' : ''}${
-                    selectedCategory === itemCategory ? ' active' : ''
-                  }`}
-                  style={
-                    {
-                      '--tab-accent': categoryAccent(itemCategory),
-                    } as CSSProperties
-                  }
-                  onClick={() => setSelectedCategory(itemCategory)}
-                >
-                  <img
-                    src={itemIcons[itemCategory]}
-                    alt=""
-                    className="rail-tab__marker"
-                  />
-                </button>
-              ))}
+              {categories.map((itemCategory) =>
+                itemCategory === 'All' ? (
+                  <button
+                    key={itemCategory}
+                    type="button"
+                    className={`rail-tab rail-tab--all${
+                      selectedCategory === itemCategory ? ' active' : ''
+                    }`}
+                    onClick={() => setSelectedCategory(itemCategory)}
+                  >
+                    <img
+                      src={
+                        selectedCategory === itemCategory
+                          ? searchTabIcons.active
+                          : searchTabIcons.inactive
+                      }
+                      alt=""
+                      className="rail-tab__marker rail-tab__marker--search"
+                    />
+                  </button>
+                ) : (
+                  <button
+                    key={itemCategory}
+                    type="button"
+                    className={`rail-tab${
+                      selectedCategory === itemCategory ? ' active' : ''
+                    }`}
+                    style={
+                      {
+                        '--tab-accent': categoryAccent(itemCategory),
+                      } as CSSProperties
+                    }
+                    onClick={() => setSelectedCategory(itemCategory)}
+                  >
+                    <img
+                      src={itemIcons[itemCategory]}
+                      alt=""
+                      className="rail-tab__marker"
+                    />
+                  </button>
+                ),
+              )}
             </nav>
 
             {selectedCategory === 'All' ? (
