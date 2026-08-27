@@ -30,25 +30,35 @@ const ItemCard = ({ item, onAddToBuild }: Props) => {
     }
   }
 
+  const isHovered = hoveredItem?.id === item.id
+
   return (
-    <img
-      src={getItemCardImageUrl(item)}
-      alt={item.name}
-      className={className}
-      onMouseEnter={(event) => {
-        setHoveredItem(item)
-        setHoverUpgradesFrom(item.upgradesFrom)
-        setHoverUpgradesTo(item.upgradesTo)
-        positionPopover(event)
-      }}
-      onMouseLeave={() => setHoveredItem(null)}
-      onClick={() => onAddToBuild?.(item.id)}
-      style={
-        {
-          '--category-accent': categoryAccent(item.category),
-        } as CSSProperties
-      }
-    />
+    <div className={`grid-item__container is${item.category}`}>
+      <img
+        src={getItemCardImageUrl(item)}
+        alt={item.name}
+        className={className}
+        onMouseEnter={(event) => {
+          setHoveredItem(item)
+          setHoverUpgradesFrom(item.upgradesFrom)
+          setHoverUpgradesTo(item.upgradesTo)
+          positionPopover(event)
+        }}
+        onMouseLeave={() => setHoveredItem(null)}
+        onClick={() => onAddToBuild?.(item.id)}
+        style={
+          {
+            '--category-accent': categoryAccent(item.category),
+          } as CSSProperties
+        }
+      />
+      {isHovered && (
+        <>
+          <div id="BackgroundTexture" />
+          <div id="BackgroundTexture2" />
+        </>
+      )}
+    </div>
   )
 }
 

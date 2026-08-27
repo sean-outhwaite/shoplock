@@ -373,6 +373,10 @@
    against .tier-board), so every card is the exact same size regardless of
    which tier box it sits in - each box just reflows however many fit per
    row, rather than a per-tier column count. */
+.grid-item__container {
+  position: relative;
+}
+
 .category-grid {
   display: flex;
   flex-wrap: wrap;
@@ -411,33 +415,47 @@
     filter 160ms ease;
 }
 
+.grid-item__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .grid-item:hover,
 .grid-item:focus-visible {
-  transform: translateY(-2px) scale(1.2);
   border-color: color-mix(in srgb, white 50%, rgba(148, 163, 184, 0.18));
   border-width: 2px;
   z-index: 2;
-  animation: item-hover-wobble 6s ease-in-out infinite;
+  animation: item-hover-wobble 5s ease-in-out infinite;
 }
 
 @keyframes item-hover-wobble {
   0% {
-    rotate: -0.2deg;
-  }
-  10% {
-    rotate: -1.2deg;
-    scale: 1.1;
-  }
-  50% {
-    rotate: -1.2deg;
-    scale: 1.1;
-  }
-  25% {
-    rotate: 1.2deg;
+    transform: rotateZ(0deg);
     scale: 1;
   }
-  75% {
-    rotate: 0.2deg;
+
+  20% {
+    scale: 0.98;
+  }
+
+  40% {
+    scale: 1.25;
+    transform: rotateZ(-1deg);
+  }
+
+  60% {
+    scale: 0.98;
+    transform: rotateZ(2deg);
+  }
+
+  80% {
+    scale: 1.25;
+    transform: rotateZ(-1deg);
+  }
+
+  100% {
+    transform: rotateZ(0deg);
     scale: 1;
   }
 }
@@ -456,16 +474,22 @@
   border-style: solid;
   border-color: #ffffff;
   border-width: 2px;
+  z-index: 2;
   animation: item-related-to-pulse 2s ease-in-out infinite;
 }
 
 @keyframes item-related-to-pulse {
-  0%,
-  100% {
-    transform: scale(1);
+  0% {
+    scale: 1.1;
+    filter: brightness(1);
   }
   50% {
-    transform: scale(1.15);
+    scale: 1.25;
+    filter: brightness(1.5);
+  }
+  100% {
+    scale: 1.1;
+    filter: brightness(1);
   }
 }
 
@@ -1227,4 +1251,111 @@
 .rank-window__player-rank-name {
   font-weight: 600;
   color: var(--text-strong);
+}
+
+#BackgroundTexture {
+  position: absolute;
+  top: -62.5%;
+  left: -62.5%;
+  width: 225%;
+  height: 225%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: brightness(1.2);
+  mix-blend-mode: screen;
+  background-image: url('./assets/popover/catalog_tooltip_header_weapon_psd.png');
+  mask: url('./assets/backer_star_test_png.png') center / contain no-repeat;
+  animation-name: backgroundPulse;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes backgroundPulse {
+  0% {
+    transform: rotateZ(0deg) skew(22deg);
+    scale: 1;
+  }
+
+  20% {
+    scale: 0.9;
+  }
+
+  40% {
+    scale: 1.05;
+  }
+
+  60% {
+    scale: 0.9;
+    transform: skew(2deg);
+  }
+
+  80% {
+    scale: 1.05;
+  }
+
+  100% {
+    transform: rotateZ(0deg) skew(22deg);
+    scale: 1;
+  }
+}
+
+#BackgroundTexture2 {
+  position: absolute;
+  top: -37.5%;
+  left: -37.5%;
+  width: 175%;
+  height: 175%;
+  background-size: cover;
+  filter: brightness(2);
+  mix-blend-mode: screen;
+  background-image: url('./assets/popover/catalog_tooltip_header_weapon_psd.png');
+  background-repeat: no-repeat;
+  mask: url('./assets/backer_star_test_png.png') center / contain no-repeat;
+  animation-name: backgroundPulse2;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes backgroundPulse2 {
+  0% {
+    transform: rotateZ(0deg) skew(22deg);
+    scale: 1;
+  }
+
+  20% {
+    scale: 1.1;
+  }
+
+  40% {
+    scale: 0.9;
+  }
+
+  60% {
+    scale: 1.1;
+    transform: skew(2deg);
+  }
+
+  80% {
+    scale: 0.9;
+  }
+
+  100% {
+    transform: rotateZ(0deg) skew(22deg);
+    scale: 1;
+  }
+}
+
+.isWeapon #BackgroundTexture,
+.isWeapon #BackgroundTexture2 {
+  background-image: url('./assets/popover/catalog_tooltip_header_weapon_psd.png');
+}
+
+.isVitality #BackgroundTexture,
+.isVitality #BackgroundTexture2 {
+  background-image: url('./assets/popover/catalog_tooltip_header_vitality_psd.png');
+}
+
+.isSpirit #BackgroundTexture,
+.isSpirit #BackgroundTexture2 {
+  background-image: url('./assets/popover/catalog_tooltip_header_spirit_psd.png');
 }
