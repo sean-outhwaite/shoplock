@@ -1,4 +1,4 @@
-import type { ShopCategory, ItemTier } from './types.ts'
+import type { ShopCategory, ItemCategory, ItemTier } from './types.ts'
 import weaponIcon from './assets/icons/catalog_shop_tab_icon_weapon_psd.png'
 import spiritIcon from './assets/icons/catalog_shop_tab_icon_spirit_psd.png'
 import vitalityIcon from './assets/icons/catalog_shop_tab_icon_vitality_psd.png'
@@ -8,6 +8,13 @@ import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
 import searchTabIconInactive from './assets/catalog_shop_tab_search_sm_psd.png'
 import searchTabIconActive from './assets/catalog_shop_tab_search_showing_sm_psd.png'
+import panelWeaponSfx from './assets/audio/ui_shop_panel_weapon.mp3'
+import panelVitalitySfx from './assets/audio/ui_shop_panel_vitality.mp3'
+import panelSpiritSfx from './assets/audio/ui_shop_panel_magic.mp3'
+import purchaseT4WeaponSfx from './assets/audio/ui_shop_mod_purchase_t4_weapon.mp3'
+import purchaseT4VitalitySfx from './assets/audio/ui_shop_mod_purchase_t4_vitality.mp3'
+import purchaseT4SpiritSfx from './assets/audio/ui_shop_mod_purchase_t4_spirit.mp3'
+import autobuySfx from './assets/audio/ui_shop_autobuy_04.mp3'
 
 export const itemIcons: Record<Exclude<ShopCategory, 'All'>, string> = {
   Weapon: weaponIcon,
@@ -57,3 +64,17 @@ export const categoryOrder: Exclude<ShopCategory, 'All'>[] = [
   'Spirit',
   'Vitality',
 ]
+
+export const panelSfx: Record<Exclude<ShopCategory, 'All'>, string> = {
+  Weapon: panelWeaponSfx,
+  Spirit: panelSpiritSfx,
+  Vitality: panelVitalitySfx,
+}
+
+export const purchaseT4Sfx: Record<ItemCategory, string> = {
+  Weapon: purchaseT4WeaponSfx,
+  Spirit: purchaseT4SpiritSfx,
+  Vitality: purchaseT4VitalitySfx,
+}
+
+export { autobuySfx }

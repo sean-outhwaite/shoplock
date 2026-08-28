@@ -6,6 +6,7 @@ import {
   categoryAccent,
   getItemCardImageUrl,
   groupItemsByCategoryAndTier,
+  playSound,
 } from './utils.tsx'
 import {
   itemIcons,
@@ -14,6 +15,7 @@ import {
   displayTiers,
   categories,
   tierPrices,
+  panelSfx,
 } from './shopConstants.ts'
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
@@ -90,11 +92,6 @@ function App() {
     )
   if (catalog.status === 'error') return <h1>Error: {catalog.error}</h1>
 
-  const playAudio = () => {
-    const audio = new Audio(remHelper)
-    audio.play()
-  }
-
   return (
     <ItemPreviewContext.Provider value={itemPreview}>
       <div className="shop-app">
@@ -141,7 +138,10 @@ function App() {
                         '--tab-accent': categoryAccent(itemCategory),
                       } as CSSProperties
                     }
-                    onClick={() => setSelectedCategory(itemCategory)}
+                    onClick={() => {
+                      playSound(panelSfx[itemCategory])
+                      setSelectedCategory(itemCategory)
+                    }}
                   >
                     <img
                       src={itemIcons[itemCategory]}
@@ -228,7 +228,7 @@ function App() {
           </section>
           <img
             onClick={() => {
-              playAudio()
+              playSound(remHelper)
               setRemClicked(true)
             }}
             src={remHelperImg}

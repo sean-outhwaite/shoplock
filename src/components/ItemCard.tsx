@@ -1,7 +1,8 @@
 import type { CSSProperties } from 'react'
 import type { ShopItem } from '../types.ts'
-import { categoryAccent, getItemCardImageUrl } from '../utils.tsx'
+import { categoryAccent, getItemCardImageUrl, playSound } from '../utils.tsx'
 import { useItemPreviewContext } from '../context/ItemPreviewContext.ts'
+import { autobuySfx, purchaseT4Sfx } from '../shopConstants.ts'
 
 interface Props {
   item: ShopItem
@@ -45,7 +46,10 @@ const ItemCard = ({ item, onAddToBuild }: Props) => {
           positionPopover(event)
         }}
         onMouseLeave={() => setHoveredItem(null)}
-        onClick={() => onAddToBuild?.(item.id)}
+        onClick={() => {
+          playSound(item.tier === 'TIER 4' ? purchaseT4Sfx[item.category] : autobuySfx)
+          onAddToBuild?.(item.id)
+        }}
         style={
           {
             '--category-accent': categoryAccent(item.category),

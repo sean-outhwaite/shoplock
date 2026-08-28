@@ -34,6 +34,12 @@ export function getItemCardImageUrl(item: ShopItem) {
   return `/${item.category}/${item.name.replaceAll(/[ ']/g, '')}.png`
 }
 
+export function playSound(src: string, volume = 0.025) {
+  const audio = new Audio(src)
+  audio.volume = volume
+  audio.play()
+}
+
 export function categoryAccent(category: ShopCategory) {
   switch (category) {
     case 'Weapon':
