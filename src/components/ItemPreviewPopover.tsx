@@ -31,12 +31,28 @@ const tooltipHeader: Record<ItemCategory, string> = {
   Vitality: tooltipHeaderVitality,
 }
 
+// The API sometimes bakes the unit into `value` itself (e.g. "7m") while
+// still returning that same unit in `postfix` (e.g. "m" or " m/s"), which
+// would otherwise render as "7mm" or "7mm/s". Strip whatever leading part of
+// the (trimmed) postfix is already duplicated at the end of the value.
+function dedupePostfix(value: string, postfix: string) {
+  const trimmed = postfix.trimStart()
+  const maxOverlap = Math.min(value.length, trimmed.length)
+  for (let overlap = maxOverlap; overlap > 0; overlap--) {
+    if (value.endsWith(trimmed.slice(0, overlap))) {
+      return trimmed.slice(overlap)
+    }
+  }
+  return postfix
+}
+
 function formatPropertyValue(prop: PropertyDescriptor) {
   let prefix = prop.prefix ?? ''
   if (prop.prefix === '{s:sign}') {
     prefix = prop.value.startsWith('-') ? '' : '+'
   }
-  return `${prefix}${prop.value}${prop.postfix ?? ''}`
+  const postfix = prop.postfix ? dedupePostfix(prop.value, prop.postfix) : ''
+  return `${prefix}${prop.value}${postfix}`
 }
 
 // Most stat-box entries reference a normal, numeric property. A few (like
