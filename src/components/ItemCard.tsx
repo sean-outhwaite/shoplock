@@ -34,22 +34,26 @@ const ItemCard = ({ item, onAddToBuild }: Props) => {
   const isHovered = hoveredItem?.id === item.id
 
   return (
-    <div className={`grid-item__container is${item.category}`}>
+    <div
+      className={`grid-item__container is${item.category}`}
+      onMouseEnter={(event) => {
+        setHoveredItem(item)
+        setHoverUpgradesFrom(item.upgradesFrom)
+        setHoverUpgradesTo(item.upgradesTo)
+        positionPopover(event)
+      }}
+      onMouseLeave={() =>
+        setHoveredItem((current) => (current?.id === item.id ? null : current))
+      }
+      onClick={() => {
+        playSound(item.tier === 'TIER 4' ? purchaseT4Sfx[item.category] : autobuySfx)
+        onAddToBuild?.(item.id)
+      }}
+    >
       <img
         src={getItemCardImageUrl(item)}
         alt={item.name}
         className={className}
-        onMouseEnter={(event) => {
-          setHoveredItem(item)
-          setHoverUpgradesFrom(item.upgradesFrom)
-          setHoverUpgradesTo(item.upgradesTo)
-          positionPopover(event)
-        }}
-        onMouseLeave={() => setHoveredItem(null)}
-        onClick={() => {
-          playSound(item.tier === 'TIER 4' ? purchaseT4Sfx[item.category] : autobuySfx)
-          onAddToBuild?.(item.id)
-        }}
         style={
           {
             '--category-accent': categoryAccent(item.category),

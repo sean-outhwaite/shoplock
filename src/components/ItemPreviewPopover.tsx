@@ -1,4 +1,6 @@
+import { useLayoutEffect, useRef } from 'react'
 import { categoryAccent } from '../utils.tsx'
+import { useItemPreviewContext } from '../context/ItemPreviewContext.ts'
 import type { CSSProperties } from 'react'
 import type {
   ShopItem,
@@ -176,8 +178,18 @@ export function ItemPreviewPopover({
     .map((className) => itemData.find((i) => i.class_name === className))
     .filter((targetItem): targetItem is ShopItem => targetItem !== undefined)
 
+  const { adjustPopoverHeight } = useItemPreviewContext()
+  const popoverRef = useRef<HTMLElement | null>(null)
+
+  useLayoutEffect(() => {
+    if (popoverRef.current) {
+      adjustPopoverHeight(popoverRef.current.offsetHeight)
+    }
+  }, [item.id, adjustPopoverHeight])
+
   return (
     <aside
+      ref={popoverRef}
       className="item-popover"
       style={
         {

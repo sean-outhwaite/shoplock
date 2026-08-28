@@ -1,18 +1,24 @@
-import { useState } from 'react'
-import type { FocusEvent, MouseEvent } from 'react'
+import { useCallback, useState } from 'react'
+import type { Dispatch, FocusEvent, MouseEvent, SetStateAction } from 'react'
 import type { ShopItem, PopoverPosition } from '../types.ts'
+
+// Leave room for the build drawer's closed handle bar so the popover never
+// renders behind it.
+const POPOVER_MARGIN = 18
+const POPOVER_BOTTOM_RESERVE = POPOVER_MARGIN + 64
 
 export interface ItemPreviewState {
   hoveredItem: ShopItem | null
-  setHoveredItem: (item: ShopItem | null) => void
+  setHoveredItem: Dispatch<SetStateAction<ShopItem | null>>
   hoverUpgradesFrom: string[] | null
   setHoverUpgradesFrom: (upgrades: string[] | null) => void
   hoverUpgradesTo: string[] | null
   setHoverUpgradesTo: (upgrades: string[] | null) => void
   popoverPosition: PopoverPosition
   positionPopover: (
-    event: MouseEvent<HTMLImageElement> | FocusEvent<HTMLImageElement>,
+    event: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>,
   ) => void
+  adjustPopoverHeight: (actualHeight: number) => void
 }
 
 export function useItemPreview(): ItemPreviewState {
@@ -25,16 +31,15 @@ export function useItemPreview(): ItemPreviewState {
     x: 0,
     y: 0,
   })
+  const [iconTop, setIconTop] = useState(0)
 
   function positionPopover(
-    event: MouseEvent<HTMLImageElement> | FocusEvent<HTMLImageElement>,
+    event: MouseEvent<HTMLElement> | FocusEvent<HTMLElement>,
   ) {
     const iconBounds = event.currentTarget.getBoundingClientRect()
     const gap = 14
-    const margin = 18
-    // Leave room for the build drawer's closed handle bar so the popover
-    // never renders behind it.
-    const bottomReserve = margin + 64
+    const margin = POPOVER_MARGIN
+    const bottomReserve = POPOVER_BOTTOM_RESERVE
     const width = 400
     const maxHeight = window.innerHeight * 0.85
 
@@ -67,8 +72,33 @@ export function useItemPreview(): ItemPreviewState {
       y = margin
     }
 
+    setIconTop(iconBounds.top)
     setPopoverPosition({ x, y })
   }
+
+  const adjustPopoverHeight = useCallback(
+    (actualHeight: number) => {
+      if (window.innerWidth <= 820) {
+        return
+      }
+
+      const margin = POPOVER_MARGIN
+      const bottomReserve = POPOVER_BOTTOM_RESERVE
+
+      let y = iconTop
+      if (y + actualHeight > window.innerHeight - bottomReserve) {
+        y = Math.max(margin, window.innerHeight - bottomReserve - actualHeight)
+      }
+      if (y < margin) {
+        y = margin
+      }
+
+      setPopoverPosition((current) =>
+        current.y === y ? current : { ...current, y },
+      )
+    },
+    [iconTop],
+  )
 
   return {
     hoveredItem,
@@ -79,5 +109,6 @@ export function useItemPreview(): ItemPreviewState {
     setHoverUpgradesTo,
     popoverPosition,
     positionPopover,
+    adjustPopoverHeight,
   }
 }

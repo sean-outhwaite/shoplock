@@ -408,6 +408,7 @@
 
 .grid-item__container {
   position: relative;
+  cursor: url(./assets/Cursor.png), auto;
 }
 
 .category-grid {
@@ -432,7 +433,7 @@
   gap: 2px;
   padding: 0px;
   border-radius: 5px;
-  cursor: url(./assets/Cursor.png), auto;
+  pointer-events: none;
   transition:
     transform 160ms ease,
     border-color 160ms ease,
@@ -447,8 +448,8 @@
   object-fit: cover;
 }
 
-.grid-item:hover,
-.grid-item:focus-visible {
+.grid-item__container:hover .grid-item,
+.grid-item__container:focus-within .grid-item {
   border-color: color-mix(in srgb, white 50%, rgba(148, 163, 184, 0.18));
   border-width: 2px;
   z-index: 2;
@@ -1285,6 +1286,7 @@
   left: -62.5%;
   width: 225%;
   height: 225%;
+  pointer-events: none;
   background-size: cover;
   background-repeat: no-repeat;
   filter: brightness(1.2);
@@ -1331,6 +1333,7 @@
   left: -37.5%;
   width: 175%;
   height: 175%;
+  pointer-events: none;
   background-size: cover;
   filter: brightness(2);
   mix-blend-mode: screen;
