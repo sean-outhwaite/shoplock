@@ -1,8 +1,10 @@
 # shoplock
 
-A fan-made browser for [Deadlock](https://www.playdeadlock.com/)'s in-game item shop, styled to match the game's own look and feel. Built with some AI assistance.
+A fan-made browser for [Deadlock](https://www.playdeadlock.com/)'s in-game item shop, styled to match the game's own look and feel. Built with some AI assistance from Claude Code.
 
 Item data (stats, costs, tooltips, upgrade paths, icons) is fetched live from the community [deadlock-api.com](https://deadlock-api.com) — there's no backend or bundled dataset, so the shop always reflects the current game data.
+
+[Currently live on Cloudflare.](https://shoplock.sean-outhwaite.workers.dev/)
 
 ## Features
 
