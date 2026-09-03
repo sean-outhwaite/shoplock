@@ -1110,6 +1110,11 @@
   position: relative;
 }
 
+.build-slot .grid-item {
+  flex: 0 0 auto;
+  width: clamp(52px, 5.4vw, 84px);
+}
+
 .build-slot__handle {
   position: absolute;
   top: 2px;
