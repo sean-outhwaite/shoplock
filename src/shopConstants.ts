@@ -7,6 +7,7 @@ import weaponBg from './assets/backgrounds/catalog_shop_bg_weapon_psd.png'
 import spiritBg from './assets/backgrounds/catalog_shop_bg_spirit_psd.png'
 import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
 import genericBg from './assets/backgrounds/catalog_shop_generic_bg_psd.png'
+import buildsBg from './assets/backgrounds/catalog_shop_builds_bg_psd.png'
 import searchTabIconInactive from './assets/catalog_shop_tab_search_sm_psd.png'
 import searchTabIconActive from './assets/catalog_shop_tab_search_showing_sm_psd.png'
 import panelWeaponSfx from './assets/audio/ui_shop_panel_weapon.mp3'
@@ -33,7 +34,7 @@ export const catalogBg: Record<ShopCategory, string> = {
   Weapon: weaponBg,
   Spirit: spiritBg,
   Vitality: vitalityBg,
-  Builds: genericBg,
+  Builds: buildsBg,
   All: genericBg,
 }
 

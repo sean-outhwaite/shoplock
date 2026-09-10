@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import type { SubmitEvent } from 'react'
+import type { CSSProperties, SubmitEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import BuildSection from './BuildSection.tsx'
+import buildsHeaderBg from '../assets/catalog_shop_builds_header_bg_psd.png'
 
 interface Props {
   sections: BuildSectionData[]
@@ -39,34 +40,45 @@ const BuildsTab = ({
 
   return (
     <div className="builds-tab">
-      <div className="builds-tab__sections">
-        {sections.map((section) => (
-          <BuildSection
-            key={section.id}
-            section={section}
-            isActive={section.id === activeSectionId}
-            itemsById={itemsById}
-            onSetActive={onSetActiveSection}
-            onDelete={onDeleteSection}
-            onRename={onRenameSection}
-            onRemoveItem={onRemoveItem}
-            onMoveItem={onMoveItem}
-          />
-        ))}
-      </div>
+      <header
+        className="builds-tab__header"
+        style={
+          { backgroundImage: `url(${buildsHeaderBg})` } as CSSProperties
+        }
+      >
+        <h1 className="builds-tab__header-title">Builds</h1>
+      </header>
 
-      <form className="builds-tab__add-section" onSubmit={submitNewSection}>
-        <input
-          type="text"
-          placeholder="New section name..."
-          className="builds-tab__add-section-input"
-          value={newSectionName}
-          onChange={(e) => setNewSectionName(e.target.value)}
-        />
-        <button type="submit" className="builds-tab__add-section-button">
-          + Add section
-        </button>
-      </form>
+      <div className="builds-tab__body">
+        <div className="builds-tab__sections">
+          {sections.map((section) => (
+            <BuildSection
+              key={section.id}
+              section={section}
+              isActive={section.id === activeSectionId}
+              itemsById={itemsById}
+              onSetActive={onSetActiveSection}
+              onDelete={onDeleteSection}
+              onRename={onRenameSection}
+              onRemoveItem={onRemoveItem}
+              onMoveItem={onMoveItem}
+            />
+          ))}
+        </div>
+
+        <form className="builds-tab__add-section" onSubmit={submitNewSection}>
+          <input
+            type="text"
+            placeholder="New section name..."
+            className="builds-tab__add-section-input"
+            value={newSectionName}
+            onChange={(e) => setNewSectionName(e.target.value)}
+          />
+          <button type="submit" className="builds-tab__add-section-button">
+            + Add section
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
