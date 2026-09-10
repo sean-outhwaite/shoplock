@@ -134,16 +134,16 @@
 }
 
 /* Pinned at the y-offset the All tab sits at whenever a category tab is
-   active and grown (230 active + 86 inactive + 86 inactive + 3 gaps of 12px
-   between the three category tabs and down to All = 438), so selecting All
-   doesn't shift it just because none of the other three are grown right
-   now - only the height/icon shrink.
+   active and grown (230 active + 86 inactive * 3 + 4 gaps of 12px between
+   the four category tabs (Builds/Weapon/Vitality/Spirit) and down to All =
+   536), so selecting All doesn't shift it just because none of the other
+   four are grown right now - only the height/icon shrink.
    The extra ".rail-tab" in the selector matches the specificity of
    ".rail-tab.active"'s min-height:230px above (4 classes each) so this
    still wins and the button doesn't grow when it becomes active. */
 .shop-window > .tab-rail .rail-tab.rail-tab--all {
   position: absolute;
-  top: 438px;
+  top: 536px;
   left: 26px;
   width: 70px;
   height: 70px;
@@ -873,7 +873,7 @@
 
   .shop-window > .tab-rail {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 8px;
     padding: 0;
   }
@@ -938,11 +938,8 @@
     top: 25%;
   }
 
-  .build-drawer__panel {
-    max-height: min(60svh, 480px);
-  }
-
-  .tier-showcase.all > .full-shop {
+  .tier-showcase.all > .full-shop,
+  .tier-showcase.builds > .full-shop {
     height: 100vh;
   }
 
@@ -951,75 +948,7 @@
   }
 }
 
-.build-drawer {
-  position: fixed;
-  inset: auto 0 0 0;
-  z-index: 40;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
-}
-
-.build-drawer__panel {
-  pointer-events: auto;
-  width: min(1480px, 100%);
-  max-height: min(50svh, 560px);
-  display: flex;
-  flex-direction: column;
-  background: color-mix(in srgb, var(--build-accent) 14%, rgba(10, 9, 8, 0.96));
-  border: 1px solid var(--panel-border);
-  border-bottom: none;
-  border-radius: 16px 16px 0 0;
-  box-shadow: var(--shadow-soft);
-  transform: translateY(calc(100% - 52px));
-  transition: transform 220ms ease;
-}
-
-.build-drawer__panel[data-open='true'] {
-  transform: translateY(0);
-}
-
-.build-drawer__handle {
-  flex: 0 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 52px;
-  padding: 0 20px;
-  border: none;
-  border-radius: 16px 16px 0 0;
-  background: var(--build-accent);
-  color: var(--text-strong);
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.build-drawer__handle-title {
-  font-family: var(--font-display);
-  font-size: 1rem;
-  letter-spacing: 0.04em;
-}
-
-.build-drawer__handle-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.build-drawer__handle-count {
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-
-.build-drawer__chevron {
-  transition: transform 220ms ease;
-}
-
-.build-drawer__panel[data-open='true'] .build-drawer__chevron {
-  transform: rotate(180deg);
-}
-
-.build-drawer__body {
+.builds-tab {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
@@ -1029,7 +958,7 @@
   gap: 16px;
 }
 
-.build-drawer__sections {
+.builds-tab__sections {
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -1136,12 +1065,12 @@
   cursor: grabbing;
 }
 
-.build-drawer__add-section {
+.builds-tab__add-section {
   display: flex;
   gap: 8px;
 }
 
-.build-drawer__add-section-input {
+.builds-tab__add-section-input {
   flex: 1;
   padding: 8px 10px;
   border-radius: 6px;
@@ -1150,7 +1079,7 @@
   color: var(--text-strong);
 }
 
-.build-drawer__add-section-button {
+.builds-tab__add-section-button {
   padding: 8px 14px;
   border-radius: 6px;
   border: 1px solid var(--build-accent);
@@ -1161,7 +1090,7 @@
   white-space: nowrap;
 }
 
-.build-drawer__add-section-button:hover {
+.builds-tab__add-section-button:hover {
   background: color-mix(in srgb, var(--build-accent) 16%, transparent);
 }
 

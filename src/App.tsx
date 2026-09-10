@@ -20,7 +20,7 @@ import {
 import { ItemPreviewPopover } from './components/ItemPreviewPopover.tsx'
 import SearchTab from './components/SearchTab.tsx'
 import ItemCard from './components/ItemCard.tsx'
-import BuildDrawer from './components/BuildDrawer.tsx'
+import BuildsTab from './components/BuildsTab.tsx'
 import RankWindow from './components/RankWindow.tsx'
 import { useBuild } from './hooks/useBuild.ts'
 import { useItemCatalog } from './hooks/useItemCatalog.ts'
@@ -139,7 +139,8 @@ function App() {
                       } as CSSProperties
                     }
                     onClick={() => {
-                      playSound(panelSfx[itemCategory])
+                      const sfx = panelSfx[itemCategory]
+                      if (sfx) playSound(sfx)
                       setSelectedCategory(itemCategory)
                     }}
                   >
@@ -166,6 +167,29 @@ function App() {
                   <SearchTab
                     itemData={itemData}
                     onAddToBuild={build.addItemToActiveSection}
+                  />
+                </div>
+              </div>
+            ) : selectedCategory === 'Builds' ? (
+              <div className="tier-showcase builds">
+                <div
+                  className="full-shop"
+                  style={
+                    {
+                      backgroundImage: `url(${catalogBg.Builds})`,
+                    } as CSSProperties
+                  }
+                >
+                  <BuildsTab
+                    sections={build.sections}
+                    activeSectionId={build.activeSectionId}
+                    itemsById={itemsById}
+                    onAddSection={build.addSection}
+                    onDeleteSection={build.deleteSection}
+                    onRenameSection={build.renameSection}
+                    onSetActiveSection={build.setActiveSection}
+                    onRemoveItem={build.removeItem}
+                    onMoveItem={build.moveItem}
                   />
                 </div>
               </div>
@@ -248,20 +272,6 @@ function App() {
         <RankWindow
           windowOpen={windowOpen}
           onToggleWindow={() => setWindowOpen(!windowOpen)}
-        />
-
-        <BuildDrawer
-          sections={build.sections}
-          activeSectionId={build.activeSectionId}
-          drawerOpen={build.drawerOpen}
-          itemsById={itemsById}
-          onToggleDrawer={build.toggleDrawer}
-          onAddSection={build.addSection}
-          onDeleteSection={build.deleteSection}
-          onRenameSection={build.renameSection}
-          onSetActiveSection={build.setActiveSection}
-          onRemoveItem={build.removeItem}
-          onMoveItem={build.moveItem}
         />
       </div>
     </ItemPreviewContext.Provider>

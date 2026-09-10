@@ -22,7 +22,7 @@ export interface BuildSection {
   itemIds: number[]
 }
 
-export type ShopCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'All'
+export type ShopCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'Builds' | 'All'
 
 export type ItemCategory = 'Weapon' | 'Spirit' | 'Vitality'
 

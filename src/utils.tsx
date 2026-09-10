@@ -48,6 +48,8 @@ export function categoryAccent(category: ShopCategory) {
       return '#B665DC'
     case 'Vitality':
       return '#A3CD3A'
+    case 'Builds':
+      return 'var(--build-accent)'
     case 'All':
       return '#A9A995'
   }

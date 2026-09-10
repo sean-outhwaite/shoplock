@@ -16,7 +16,6 @@ function loadSections(): BuildSection[] {
 export function useBuild() {
   const [sections, setSections] = useState<BuildSection[]>(loadSections)
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
-  const [drawerOpen, setDrawerOpen] = useState(false)
 
   useEffect(() => {
     try {
@@ -25,15 +24,6 @@ export function useBuild() {
       // localStorage unavailable (quota, private mode) - ignore
     }
   }, [sections])
-
-  function toggleDrawer() {
-    setDrawerOpen((open) => {
-      if (open) {
-        setActiveSectionId(null)
-      }
-      return !open
-    })
-  }
 
   function addSection(name: string) {
     const trimmed = name.trim()
@@ -146,8 +136,6 @@ export function useBuild() {
   return {
     sections,
     activeSectionId,
-    drawerOpen,
-    toggleDrawer,
     addSection,
     deleteSection,
     renameSection,

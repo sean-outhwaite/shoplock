@@ -2,6 +2,7 @@ import type { ShopCategory, ItemCategory, ItemTier } from './types.ts'
 import weaponIcon from './assets/icons/catalog_shop_tab_icon_weapon_psd.png'
 import spiritIcon from './assets/icons/catalog_shop_tab_icon_spirit_psd.png'
 import vitalityIcon from './assets/icons/catalog_shop_tab_icon_vitality_psd.png'
+import buildsIcon from './assets/icons/catalog_shop_tab_icon_builds_psd.png'
 import weaponBg from './assets/backgrounds/catalog_shop_bg_weapon_psd.png'
 import spiritBg from './assets/backgrounds/catalog_shop_bg_spirit_psd.png'
 import vitalityBg from './assets/backgrounds/catalog_shop_bg_vitality_psd.png'
@@ -20,6 +21,7 @@ export const itemIcons: Record<Exclude<ShopCategory, 'All'>, string> = {
   Weapon: weaponIcon,
   Spirit: spiritIcon,
   Vitality: vitalityIcon,
+  Builds: buildsIcon,
 }
 
 export const searchTabIcons = {
@@ -31,17 +33,15 @@ export const catalogBg: Record<ShopCategory, string> = {
   Weapon: weaponBg,
   Spirit: spiritBg,
   Vitality: vitalityBg,
+  Builds: genericBg,
   All: genericBg,
 }
 
 export const displayTiers: ItemTier[] = ['TIER 1', 'TIER 2', 'TIER 3', 'TIER 4']
 
-export const categories: Array<'Weapon' | 'Spirit' | 'Vitality' | 'All'> = [
-  'Weapon',
-  'Vitality',
-  'Spirit',
-  'All',
-]
+export const categories: Array<
+  'Weapon' | 'Spirit' | 'Vitality' | 'Builds' | 'All'
+> = ['Builds', 'Weapon', 'Vitality', 'Spirit', 'All']
 
 export const tiers: ItemTier[] = [
   'TIER 1',
@@ -59,13 +59,13 @@ export const tierPrices: Record<ItemTier, number> = {
   'TIER 5': 0,
 }
 
-export const categoryOrder: Exclude<ShopCategory, 'All'>[] = [
+export const categoryOrder: ItemCategory[] = [
   'Weapon',
   'Spirit',
   'Vitality',
 ]
 
-export const panelSfx: Record<Exclude<ShopCategory, 'All'>, string> = {
+export const panelSfx: Partial<Record<Exclude<ShopCategory, 'All'>, string>> = {
   Weapon: panelWeaponSfx,
   Spirit: panelSpiritSfx,
   Vitality: panelVitalitySfx,
