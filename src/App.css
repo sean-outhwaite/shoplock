@@ -995,7 +995,7 @@
 }
 
 .build-section {
-  border: 1px solid var(--panel-border);
+  border: 2px solid rgba(10, 9, 8, 0.257);
   overflow: hidden;
   transition: border-color 160ms ease;
 }
@@ -1045,20 +1045,19 @@
 }
 
 .build-section__icon-button {
-  width: 24px;
-  height: 24px;
+  width: 36px;
+  height: 36px;
   display: grid;
   place-items: center;
   border: none;
-  border-radius: 5px;
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(93, 93, 93, 0.645);
   cursor: pointer;
   padding: 0;
 }
 
 .build-section__icon-image {
-  width: 14px;
-  height: 14px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
 }
 
@@ -1128,10 +1127,10 @@
   padding: 8px 16px;
   border-radius: 999px;
   border: 1px solid rgba(0, 0, 0, 0.15);
-  background: rgba(232, 232, 232, 0.7);
+  background: rgba(210, 208, 208, 0.821);
   color: #1a1a1a;
   font-family: var(--font-body);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 500;
   cursor: pointer;
 }
@@ -1144,16 +1143,8 @@
 
 .builds-tab__body--edit {
   background: #3b5fa0;
-  margin-top: -10px;
+  margin-top: -7px;
   padding-top: 26px;
-}
-
-.builds-tab__body--edit .build-section {
-  background: #4a72b8;
-}
-
-.builds-tab__body--edit .build-section:not(.build-section--selected) {
-  border-color: transparent;
 }
 
 .builds-tab__body--edit .build-section__header {
