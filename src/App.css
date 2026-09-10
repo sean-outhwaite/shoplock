@@ -992,9 +992,7 @@
 
 .build-section {
   border: 1px solid var(--panel-border);
-  border-radius: 8px;
   overflow: hidden;
-  background: rgba(10, 14, 26, 0.35);
   transition: border-color 160ms ease;
 }
 
@@ -1009,7 +1007,7 @@
   justify-content: space-between;
   gap: 8px;
   padding: 10px 14px;
-  background: rgba(10, 9, 8, 0.55);
+  background: rgba(10, 9, 8, 0.257);
   border-bottom: 1px solid var(--panel-border);
 }
 
@@ -1017,9 +1015,9 @@
   border: none;
   background: none;
   color: var(--text-strong);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 700;
-  font-size: 1rem;
+  font-size: 1.2rem;
   cursor: pointer;
   padding: 2px 0;
 }
