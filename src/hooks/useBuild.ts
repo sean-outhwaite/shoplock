@@ -16,6 +16,7 @@ function loadSections(): BuildSection[] {
 export function useBuild() {
   const [sections, setSections] = useState<BuildSection[]>(loadSections)
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
+  const [isEditMode, setIsEditMode] = useState(false)
 
   useEffect(() => {
     try {
@@ -25,15 +26,22 @@ export function useBuild() {
     }
   }, [sections])
 
-  function addSection(name: string) {
-    const trimmed = name.trim()
-    if (!trimmed) {
-      return
-    }
+  function enterEditMode() {
+    setIsEditMode(true)
+  }
+
+  function exitEditMode() {
+    setIsEditMode(false)
+    setActiveSectionId(null)
+  }
+
+  function addSection() {
+    const id = crypto.randomUUID()
     setSections((current) => [
       ...current,
-      { id: crypto.randomUUID(), name: trimmed, itemIds: [] },
+      { id, name: `Category ${current.length + 1}`, itemIds: [] },
     ])
+    setActiveSectionId(id)
   }
 
   function deleteSection(sectionId: string) {
@@ -59,8 +67,11 @@ export function useBuild() {
     setActiveSectionId((current) => (current === sectionId ? null : sectionId))
   }
 
+  // Gated here (unlike the other mutators, which the UI simply doesn't wire
+  // up outside edit mode) because this is called from every catalog
+  // ItemCard on every tab, not just from within the Builds tab itself.
   function addItemToActiveSection(itemId: number) {
-    if (!activeSectionId) {
+    if (!isEditMode || !activeSectionId) {
       return
     }
     setSections((current) =>
@@ -136,6 +147,9 @@ export function useBuild() {
   return {
     sections,
     activeSectionId,
+    isEditMode,
+    enterEditMode,
+    exitEditMode,
     addSection,
     deleteSection,
     renameSection,

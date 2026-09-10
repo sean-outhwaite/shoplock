@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { DragEvent, SubmitEvent, FocusEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import ItemCard from './ItemCard.tsx'
+import trashIcon from '../assets/icons/icon_trash_png.png'
 
 interface DragPayload {
   sectionId: string
@@ -11,6 +12,7 @@ interface DragPayload {
 interface Props {
   section: BuildSectionData
   isActive: boolean
+  isEditMode: boolean
   itemsById: Map<number, ShopItem>
   onSetActive: (sectionId: string) => void
   onDelete: (sectionId: string) => void
@@ -31,6 +33,7 @@ function readDragPayload(event: DragEvent): DragPayload | null {
 const BuildSection = ({
   section,
   isActive,
+  isEditMode,
   itemsById,
   onSetActive,
   onDelete,
@@ -69,15 +72,28 @@ const BuildSection = ({
     }
   }
 
+  const isSelected = isEditMode && isActive
+
   return (
     <div
       className={
-        isActive ? 'build-section build-section--active' : 'build-section'
+        isSelected ? 'build-section build-section--selected' : 'build-section'
       }
     >
-      <header className="build-section__header">
+      <header
+        className={
+          isEditMode
+            ? 'build-section__header build-section__header--interactive'
+            : 'build-section__header'
+        }
+        onClick={isEditMode ? () => onSetActive(section.id) : undefined}
+      >
         {renaming ? (
-          <form onSubmit={submitRename} className="build-section__rename-form">
+          <form
+            onSubmit={submitRename}
+            className="build-section__rename-form"
+            onClick={(e) => e.stopPropagation()}
+          >
             <input
               type="text"
               value={nameDraft}
@@ -87,11 +103,10 @@ const BuildSection = ({
               className="build-section__rename-input"
             />
           </form>
-        ) : (
+        ) : isEditMode ? (
           <button
             type="button"
             className="build-section__name"
-            onClick={() => onSetActive(section.id)}
             onDoubleClick={() => {
               setNameDraft(section.name)
               setRenaming(true)
@@ -99,22 +114,31 @@ const BuildSection = ({
           >
             {section.name}
           </button>
+        ) : (
+          <span className="build-section__name build-section__name--static">
+            {section.name}
+          </span>
         )}
 
-        <button
-          type="button"
-          className="build-section__delete"
-          aria-label={`Delete section ${section.name}`}
-          onClick={() => onDelete(section.id)}
-        >
-          ×
-        </button>
+        {isSelected && (
+          <button
+            type="button"
+            className="build-section__icon-button build-section__icon-button--delete"
+            aria-label={`Delete section ${section.name}`}
+            onClick={(e) => {
+              e.stopPropagation()
+              onDelete(section.id)
+            }}
+          >
+            <img src={trashIcon} alt="" className="build-section__icon-image" />
+          </button>
+        )}
       </header>
 
       <div
         className="build-section__slots"
-        onDragOver={(e) => e.preventDefault()}
-        onDrop={dropOnContainer}
+        onDragOver={isEditMode ? (e) => e.preventDefault() : undefined}
+        onDrop={isEditMode ? dropOnContainer : undefined}
       >
         {section.itemIds.map((itemId, index) => {
           const item = itemsById.get(itemId)
@@ -125,26 +149,30 @@ const BuildSection = ({
             <div
               key={`${itemId}-${index}`}
               className="build-slot"
-              onDragOver={(e) => e.preventDefault()}
-              onDrop={(e) => dropOnSlot(e, index)}
+              onDragOver={isEditMode ? (e) => e.preventDefault() : undefined}
+              onDrop={isEditMode ? (e) => dropOnSlot(e, index) : undefined}
             >
-              <span
-                className="build-slot__handle"
-                draggable
-                aria-label={`Drag to reorder ${item.name}`}
-                onDragStart={(e) => {
-                  e.dataTransfer.effectAllowed = 'move'
-                  e.dataTransfer.setData(
-                    'application/json',
-                    JSON.stringify({ sectionId: section.id, index }),
-                  )
-                }}
-              >
-                ⠿
-              </span>
+              {isEditMode && (
+                <span
+                  className="build-slot__handle"
+                  draggable
+                  aria-label={`Drag to reorder ${item.name}`}
+                  onDragStart={(e) => {
+                    e.dataTransfer.effectAllowed = 'move'
+                    e.dataTransfer.setData(
+                      'application/json',
+                      JSON.stringify({ sectionId: section.id, index }),
+                    )
+                  }}
+                >
+                  ⠿
+                </span>
+              )}
               <ItemCard
                 item={item}
-                onAddToBuild={() => onRemoveItem(section.id, index)}
+                onAddToBuild={
+                  isEditMode ? () => onRemoveItem(section.id, index) : undefined
+                }
               />
             </div>
           )

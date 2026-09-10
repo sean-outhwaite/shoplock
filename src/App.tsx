@@ -184,12 +184,15 @@ function App() {
                     sections={build.sections}
                     activeSectionId={build.activeSectionId}
                     itemsById={itemsById}
+                    isEditMode={build.isEditMode}
                     onAddSection={build.addSection}
                     onDeleteSection={build.deleteSection}
                     onRenameSection={build.renameSection}
                     onSetActiveSection={build.setActiveSection}
                     onRemoveItem={build.removeItem}
                     onMoveItem={build.moveItem}
+                    onEnterEditMode={build.enterEditMode}
+                    onExitEditMode={build.exitEditMode}
                   />
                 </div>
               </div>
