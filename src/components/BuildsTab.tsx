@@ -1,4 +1,5 @@
-import type { CSSProperties } from 'react'
+import { useState } from 'react'
+import type { CSSProperties, SubmitEvent, FocusEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import BuildSection from './BuildSection.tsx'
 import buildsHeaderBg from '../assets/catalog_shop_builds_header_bg_psd.png'
@@ -8,6 +9,8 @@ interface Props {
   activeSectionId: string | null
   itemsById: Map<number, ShopItem>
   isEditMode: boolean
+  buildName: string
+  onRenameBuild: (name: string) => void
   onAddSection: () => void
   onDeleteSection: (sectionId: string) => void
   onRenameSection: (sectionId: string, name: string) => void
@@ -26,6 +29,8 @@ const BuildsTab = ({
   activeSectionId,
   itemsById,
   isEditMode,
+  buildName,
+  onRenameBuild,
   onAddSection,
   onDeleteSection,
   onRenameSection,
@@ -35,6 +40,17 @@ const BuildsTab = ({
   onEnterEditMode,
   onExitEditMode,
 }: Props) => {
+  const [renamingBuild, setRenamingBuild] = useState(false)
+  const [buildNameDraft, setBuildNameDraft] = useState(buildName)
+
+  function submitBuildRename(
+    event: SubmitEvent<HTMLFormElement> | FocusEvent<HTMLInputElement>,
+  ) {
+    event.preventDefault()
+    onRenameBuild(buildNameDraft)
+    setRenamingBuild(false)
+  }
+
   return (
     <div className={isEditMode ? 'builds-tab builds-tab--edit' : 'builds-tab'}>
       <header
@@ -43,7 +59,33 @@ const BuildsTab = ({
           { backgroundImage: `url(${buildsHeaderBg})` } as CSSProperties
         }
       >
-        <h1 className="builds-tab__header-title">Builds</h1>
+        {renamingBuild ? (
+          <form
+            onSubmit={submitBuildRename}
+            className="builds-tab__header-rename-form"
+          >
+            <input
+              type="text"
+              value={buildNameDraft}
+              autoFocus
+              onChange={(e) => setBuildNameDraft(e.target.value)}
+              onBlur={submitBuildRename}
+              className="builds-tab__header-rename-input"
+            />
+          </form>
+        ) : isEditMode ? (
+          <h1
+            className="builds-tab__header-title builds-tab__header-title--editable"
+            onDoubleClick={() => {
+              setBuildNameDraft(buildName)
+              setRenamingBuild(true)
+            }}
+          >
+            {buildName}
+          </h1>
+        ) : (
+          <h1 className="builds-tab__header-title">{buildName}</h1>
+        )}
 
         {isEditMode ? (
           <div className="builds-tab__header-actions">

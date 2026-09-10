@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import type { BuildSection } from '../types.ts'
 
 const STORAGE_KEY = 'shoplock.build.v1'
+const NAME_STORAGE_KEY = 'shoplock.build-name.v1'
 
 function loadSections(): BuildSection[] {
   try {
@@ -13,10 +14,19 @@ function loadSections(): BuildSection[] {
   }
 }
 
+function loadBuildName(): string {
+  try {
+    return localStorage.getItem(NAME_STORAGE_KEY) || 'Build'
+  } catch {
+    return 'Build'
+  }
+}
+
 export function useBuild() {
   const [sections, setSections] = useState<BuildSection[]>(loadSections)
   const [activeSectionId, setActiveSectionId] = useState<string | null>(null)
   const [isEditMode, setIsEditMode] = useState(false)
+  const [buildName, setBuildName] = useState<string>(loadBuildName)
 
   useEffect(() => {
     try {
@@ -25,6 +35,22 @@ export function useBuild() {
       // localStorage unavailable (quota, private mode) - ignore
     }
   }, [sections])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(NAME_STORAGE_KEY, buildName)
+    } catch {
+      // localStorage unavailable (quota, private mode) - ignore
+    }
+  }, [buildName])
+
+  function renameBuild(name: string) {
+    const trimmed = name.trim()
+    if (!trimmed) {
+      return
+    }
+    setBuildName(trimmed)
+  }
 
   function enterEditMode() {
     setIsEditMode(true)
@@ -148,6 +174,8 @@ export function useBuild() {
     sections,
     activeSectionId,
     isEditMode,
+    buildName,
+    renameBuild,
     enterEditMode,
     exitEditMode,
     addSection,

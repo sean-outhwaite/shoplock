@@ -185,6 +185,8 @@ function App() {
                     activeSectionId={build.activeSectionId}
                     itemsById={itemsById}
                     isEditMode={build.isEditMode}
+                    buildName={build.buildName}
+                    onRenameBuild={build.renameBuild}
                     onAddSection={build.addSection}
                     onDeleteSection={build.deleteSection}
                     onRenameSection={build.renameSection}
