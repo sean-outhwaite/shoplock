@@ -149,11 +149,6 @@ const BuildSection = ({
             </div>
           )
         })}
-        {section.itemIds.length === 0 && (
-          <div className="build-section__empty">
-            {isActive ? 'Click items to add them here' : 'No items yet'}
-          </div>
-        )}
       </div>
     </div>
   )
