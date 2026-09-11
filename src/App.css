@@ -194,6 +194,7 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  container-type: inline-size;
 }
 
 /* Make header and body occupy the main column */
@@ -823,7 +824,7 @@
 
 .search-tier-row .grid-item {
   flex: 0 0 auto;
-  width: clamp(52px, 5.4vw, 84px);
+  width: 7.2cqw;
 }
 
 .search-header .search-bar {
@@ -1108,7 +1109,7 @@
 
 .build-slot .grid-item {
   flex: 0 0 auto;
-  width: clamp(52px, 5.4vw, 84px);
+  width: 7.2cqw;
 }
 
 .build-slot__handle {
