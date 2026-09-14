@@ -93,9 +93,6 @@ export function useBuild() {
     setActiveSectionId((current) => (current === sectionId ? null : sectionId))
   }
 
-  // Gated here (unlike the other mutators, which the UI simply doesn't wire
-  // up outside edit mode) because this is called from every catalog
-  // ItemCard on every tab, not just from within the Builds tab itself.
   function addItemToActiveSection(itemId: number) {
     if (!isEditMode || !activeSectionId) {
       return

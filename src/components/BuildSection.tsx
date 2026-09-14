@@ -3,6 +3,7 @@ import type { DragEvent, SubmitEvent, FocusEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import ItemCard from './ItemCard.tsx'
 import trashIcon from '../assets/icons/icon_trash_png.png'
+import { useItemPreviewContext } from '../context/ItemPreviewContext.ts'
 
 interface DragPayload {
   sectionId: string
@@ -43,6 +44,7 @@ const BuildSection = ({
 }: Props) => {
   const [renaming, setRenaming] = useState(false)
   const [nameDraft, setNameDraft] = useState(section.name)
+  const { setHoveredItem } = useItemPreviewContext()
 
   function submitRename(
     event: SubmitEvent<HTMLFormElement> | FocusEvent<HTMLInputElement>,
@@ -149,25 +151,30 @@ const BuildSection = ({
             <div
               key={`${itemId}-${index}`}
               className="build-slot"
+              draggable={isEditMode}
+              onDragStart={
+                isEditMode
+                  ? (e) => {
+                      setHoveredItem(null)
+                      e.dataTransfer.effectAllowed = 'move'
+                      e.dataTransfer.setData(
+                        'application/json',
+                        JSON.stringify({ sectionId: section.id, index }),
+                      )
+                      const img = e.currentTarget.querySelector('img')
+                      if (img) {
+                        e.dataTransfer.setDragImage(
+                          img,
+                          img.clientWidth / 2,
+                          img.clientHeight / 2,
+                        )
+                      }
+                    }
+                  : undefined
+              }
               onDragOver={isEditMode ? (e) => e.preventDefault() : undefined}
               onDrop={isEditMode ? (e) => dropOnSlot(e, index) : undefined}
             >
-              {isEditMode && (
-                <span
-                  className="build-slot__handle"
-                  draggable
-                  aria-label={`Drag to reorder ${item.name}`}
-                  onDragStart={(e) => {
-                    e.dataTransfer.effectAllowed = 'move'
-                    e.dataTransfer.setData(
-                      'application/json',
-                      JSON.stringify({ sectionId: section.id, index }),
-                    )
-                  }}
-                >
-                  ⠿
-                </span>
-              )}
               <ItemCard
                 item={item}
                 onAddToBuild={

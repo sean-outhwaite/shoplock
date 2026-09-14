@@ -1107,30 +1107,17 @@
   position: relative;
 }
 
-.build-slot .grid-item {
-  flex: 0 0 auto;
-  width: 7.2cqw;
-}
-
-.build-slot__handle {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  z-index: 1;
-  width: 20px;
-  height: 20px;
-  display: grid;
-  place-items: center;
-  border-radius: 5px;
-  background: rgba(10, 9, 8, 0.55);
-  color: var(--text-strong);
-  font-size: 0.9rem;
-  line-height: 1;
+.build-slot[draggable='true'] {
   cursor: grab;
 }
 
-.build-slot__handle:active {
+.build-slot[draggable='true']:active {
   cursor: grabbing;
+}
+
+.build-slot .grid-item {
+  flex: 0 0 auto;
+  width: 7.2cqw;
 }
 
 .builds-tab__header-actions {
