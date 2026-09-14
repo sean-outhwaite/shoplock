@@ -1017,9 +1017,21 @@
 }
 
 .build-section {
+  position: relative;
   border: 2px solid rgba(10, 9, 8, 0.257);
   overflow: hidden;
   transition: border-color 160ms ease;
+}
+
+.build-section__resize-handle {
+  position: absolute;
+  right: 3px;
+  bottom: 3px;
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid rgba(230, 230, 230, 0.7);
+  border-bottom: 2px solid rgba(230, 230, 230, 0.7);
+  cursor: ew-resize;
 }
 
 .build-section--selected {

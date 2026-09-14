@@ -1,9 +1,16 @@
-import { useState } from 'react'
-import type { DragEvent, SubmitEvent, FocusEvent } from 'react'
+import { useRef, useState } from 'react'
+import type {
+  DragEvent,
+  SubmitEvent,
+  FocusEvent,
+  MouseEvent as ReactMouseEvent,
+} from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import ItemCard from './ItemCard.tsx'
 import trashIcon from '../assets/icons/icon_trash_png.png'
 import { useItemPreviewContext } from '../context/ItemPreviewContext.ts'
+
+const MIN_SECTION_WIDTH = 220
 
 interface DragPayload {
   sectionId: string
@@ -18,6 +25,7 @@ interface Props {
   onSetActive: (sectionId: string) => void
   onDelete: (sectionId: string) => void
   onRename: (sectionId: string, name: string) => void
+  onResize: (sectionId: string, width: number) => void
   onRemoveItem: (sectionId: string, index: number) => void
   onMoveItem: (from: DragPayload, to: DragPayload) => void
 }
@@ -39,12 +47,47 @@ const BuildSection = ({
   onSetActive,
   onDelete,
   onRename,
+  onResize,
   onRemoveItem,
   onMoveItem,
 }: Props) => {
   const [renaming, setRenaming] = useState(false)
   const [nameDraft, setNameDraft] = useState(section.name)
+  const [dragWidth, setDragWidth] = useState<number | null>(null)
+  const sectionRef = useRef<HTMLDivElement>(null)
   const { setHoveredItem } = useItemPreviewContext()
+
+  function startResize(event: ReactMouseEvent) {
+    event.preventDefault()
+    event.stopPropagation()
+
+    const sectionEl = sectionRef.current
+    if (!sectionEl) {
+      return
+    }
+
+    const startX = event.clientX
+    const startWidth = sectionEl.getBoundingClientRect().width
+    const maxWidth = sectionEl.parentElement?.getBoundingClientRect().width ?? startWidth
+
+    function clamp(width: number) {
+      return Math.min(maxWidth, Math.max(MIN_SECTION_WIDTH, width))
+    }
+
+    function onMouseMove(moveEvent: MouseEvent) {
+      setDragWidth(clamp(startWidth + moveEvent.clientX - startX))
+    }
+
+    function onMouseUp(upEvent: MouseEvent) {
+      onResize(section.id, clamp(startWidth + upEvent.clientX - startX))
+      setDragWidth(null)
+      window.removeEventListener('mousemove', onMouseMove)
+      window.removeEventListener('mouseup', onMouseUp)
+    }
+
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+  }
 
   function submitRename(
     event: SubmitEvent<HTMLFormElement> | FocusEvent<HTMLInputElement>,
@@ -76,11 +119,15 @@ const BuildSection = ({
 
   const isSelected = isEditMode && isActive
 
+  const width = dragWidth ?? section.width
+
   return (
     <div
+      ref={sectionRef}
       className={
         isSelected ? 'build-section build-section--selected' : 'build-section'
       }
+      style={width ? { width } : undefined}
     >
       <header
         className={
@@ -185,6 +232,14 @@ const BuildSection = ({
           )
         })}
       </div>
+
+      {isSelected && (
+        <span
+          className="build-section__resize-handle"
+          aria-hidden="true"
+          onMouseDown={startResize}
+        />
+      )}
     </div>
   )
 }

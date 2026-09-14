@@ -190,6 +190,7 @@ function App() {
                     onAddSection={build.addSection}
                     onDeleteSection={build.deleteSection}
                     onRenameSection={build.renameSection}
+                    onResizeSection={build.resizeSection}
                     onSetActiveSection={build.setActiveSection}
                     onRemoveItem={build.removeItem}
                     onMoveItem={build.moveItem}

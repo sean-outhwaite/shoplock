@@ -89,6 +89,14 @@ export function useBuild() {
     )
   }
 
+  function resizeSection(sectionId: string, width: number) {
+    setSections((current) =>
+      current.map((section) =>
+        section.id === sectionId ? { ...section, width } : section,
+      ),
+    )
+  }
+
   function setActiveSection(sectionId: string) {
     setActiveSectionId((current) => (current === sectionId ? null : sectionId))
   }
@@ -178,6 +186,7 @@ export function useBuild() {
     addSection,
     deleteSection,
     renameSection,
+    resizeSection,
     setActiveSection,
     addItemToActiveSection,
     removeItem,

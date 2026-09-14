@@ -20,6 +20,7 @@ export interface BuildSection {
   id: string
   name: string
   itemIds: number[]
+  width?: number
 }
 
 export type ShopCategory = 'Weapon' | 'Spirit' | 'Vitality' | 'Builds' | 'All'

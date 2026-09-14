@@ -14,6 +14,7 @@ interface Props {
   onAddSection: () => void
   onDeleteSection: (sectionId: string) => void
   onRenameSection: (sectionId: string, name: string) => void
+  onResizeSection: (sectionId: string, width: number) => void
   onSetActiveSection: (sectionId: string) => void
   onRemoveItem: (sectionId: string, index: number) => void
   onMoveItem: (
@@ -34,6 +35,7 @@ const BuildsTab = ({
   onAddSection,
   onDeleteSection,
   onRenameSection,
+  onResizeSection,
   onSetActiveSection,
   onRemoveItem,
   onMoveItem,
@@ -131,6 +133,7 @@ const BuildsTab = ({
               onSetActive={onSetActiveSection}
               onDelete={onDeleteSection}
               onRename={onRenameSection}
+              onResize={onResizeSection}
               onRemoveItem={onRemoveItem}
               onMoveItem={onMoveItem}
             />
