@@ -1016,8 +1016,17 @@
   gap: 14px;
 }
 
+.builds-tab__row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px;
+}
+
 .build-section {
   position: relative;
+  width: 100%;
   border: 2px solid rgba(10, 9, 8, 0.257);
   overflow: hidden;
   transition: border-color 160ms ease;
@@ -1078,6 +1087,11 @@
   padding: 2px 6px;
 }
 
+.build-section__icons {
+  display: flex;
+  gap: 6px;
+}
+
 .build-section__icon-button {
   width: 36px;
   height: 36px;
@@ -1085,6 +1099,7 @@
   place-items: center;
   border: none;
   background: rgba(93, 93, 93, 0.645);
+  color: var(--text-strong);
   cursor: pointer;
   padding: 0;
 }
@@ -1093,6 +1108,14 @@
   width: 24px;
   height: 24px;
   object-fit: contain;
+}
+
+.build-section__icon-button--move {
+  cursor: grab;
+}
+
+.build-section__icon-button--move:active {
+  cursor: grabbing;
 }
 
 .build-section__icon-button--delete:hover {

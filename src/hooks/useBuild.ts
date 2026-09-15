@@ -8,7 +8,13 @@ function loadSections(): BuildSection[] {
   try {
     const raw = localStorage.getItem(STORAGE_KEY)
     const parsed = raw ? JSON.parse(raw) : null
-    return Array.isArray(parsed) ? parsed : []
+    if (!Array.isArray(parsed)) {
+      return []
+    }
+    return parsed.map((section, index) => ({
+      ...section,
+      row: typeof section.row === 'number' ? section.row : index,
+    }))
   } catch {
     return []
   }
@@ -63,10 +69,15 @@ export function useBuild() {
 
   function addSection() {
     const id = crypto.randomUUID()
-    setSections((current) => [
-      ...current,
-      { id, name: `Category ${current.length + 1}`, itemIds: [] },
-    ])
+    setSections((current) => {
+      const nextRow = current.length
+        ? Math.max(...current.map((section) => section.row)) + 1
+        : 0
+      return [
+        ...current,
+        { id, name: `Category ${current.length + 1}`, itemIds: [], row: nextRow },
+      ]
+    })
     setActiveSectionId(id)
   }
 
@@ -95,6 +106,18 @@ export function useBuild() {
         section.id === sectionId ? { ...section, width } : section,
       ),
     )
+  }
+
+  function moveSection(fromIndex: number, toIndex: number, row: number) {
+    setSections((current) => {
+      if (fromIndex < 0 || fromIndex >= current.length) {
+        return current
+      }
+      const updated = [...current]
+      const [moved] = updated.splice(fromIndex, 1)
+      updated.splice(toIndex, 0, { ...moved, row })
+      return updated
+    })
   }
 
   function setActiveSection(sectionId: string) {
@@ -187,6 +210,7 @@ export function useBuild() {
     deleteSection,
     renameSection,
     resizeSection,
+    moveSection,
     setActiveSection,
     addItemToActiveSection,
     removeItem,

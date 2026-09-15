@@ -8,9 +8,11 @@ import type {
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import ItemCard from './ItemCard.tsx'
 import trashIcon from '../assets/icons/icon_trash_png.png'
+import moveIcon from '../assets/icons/move_png.png'
 import { useItemPreviewContext } from '../context/ItemPreviewContext.ts'
 
 const MIN_SECTION_WIDTH = 220
+const SECTION_DRAG_TYPE = 'application/x-build-section-index'
 
 interface DragPayload {
   sectionId: string
@@ -19,6 +21,7 @@ interface DragPayload {
 
 interface Props {
   section: BuildSectionData
+  index: number
   isActive: boolean
   isEditMode: boolean
   itemsById: Map<number, ShopItem>
@@ -26,6 +29,7 @@ interface Props {
   onDelete: (sectionId: string) => void
   onRename: (sectionId: string, name: string) => void
   onResize: (sectionId: string, width: number) => void
+  onMoveSection: (fromIndex: number, toIndex: number, row: number) => void
   onRemoveItem: (sectionId: string, index: number) => void
   onMoveItem: (from: DragPayload, to: DragPayload) => void
 }
@@ -41,6 +45,7 @@ function readDragPayload(event: DragEvent): DragPayload | null {
 
 const BuildSection = ({
   section,
+  index,
   isActive,
   isEditMode,
   itemsById,
@@ -48,6 +53,7 @@ const BuildSection = ({
   onDelete,
   onRename,
   onResize,
+  onMoveSection,
   onRemoveItem,
   onMoveItem,
 }: Props) => {
@@ -117,6 +123,23 @@ const BuildSection = ({
     }
   }
 
+  function dragOverSection(event: DragEvent) {
+    if (event.dataTransfer.types.includes(SECTION_DRAG_TYPE)) {
+      event.preventDefault()
+    }
+  }
+
+  function dropOnSection(event: DragEvent) {
+    if (!event.dataTransfer.types.includes(SECTION_DRAG_TYPE)) {
+      return
+    }
+    event.preventDefault()
+    const raw = event.dataTransfer.getData(SECTION_DRAG_TYPE)
+    if (raw) {
+      onMoveSection(Number(raw), index, section.row)
+    }
+  }
+
   const isSelected = isEditMode && isActive
 
   const width = dragWidth ?? section.width
@@ -128,6 +151,8 @@ const BuildSection = ({
         isSelected ? 'build-section build-section--selected' : 'build-section'
       }
       style={width ? { width } : undefined}
+      onDragOver={isEditMode ? dragOverSection : undefined}
+      onDrop={isEditMode ? dropOnSection : undefined}
     >
       <header
         className={
@@ -170,17 +195,43 @@ const BuildSection = ({
         )}
 
         {isSelected && (
-          <button
-            type="button"
-            className="build-section__icon-button build-section__icon-button--delete"
-            aria-label={`Delete section ${section.name}`}
-            onClick={(e) => {
-              e.stopPropagation()
-              onDelete(section.id)
-            }}
-          >
-            <img src={trashIcon} alt="" className="build-section__icon-image" />
-          </button>
+          <div className="build-section__icons">
+            <button
+              type="button"
+              className="build-section__icon-button build-section__icon-button--move"
+              aria-label={`Reorder section ${section.name}`}
+              draggable
+              onClick={(e) => e.stopPropagation()}
+              onDragStart={(e) => {
+                e.stopPropagation()
+                e.dataTransfer.effectAllowed = 'move'
+                e.dataTransfer.setData(SECTION_DRAG_TYPE, String(index))
+                const sectionEl = sectionRef.current
+                if (sectionEl) {
+                  const rect = sectionEl.getBoundingClientRect()
+                  e.dataTransfer.setDragImage(
+                    sectionEl,
+                    e.clientX - rect.left,
+                    e.clientY - rect.top,
+                  )
+                }
+              }}
+            >
+              <img src={moveIcon} alt="" className="build-section__icon-image" />
+            </button>
+
+            <button
+              type="button"
+              className="build-section__icon-button build-section__icon-button--delete"
+              aria-label={`Delete section ${section.name}`}
+              onClick={(e) => {
+                e.stopPropagation()
+                onDelete(section.id)
+              }}
+            >
+              <img src={trashIcon} alt="" className="build-section__icon-image" />
+            </button>
+          </div>
         )}
       </header>
 

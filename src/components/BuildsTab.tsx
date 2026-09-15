@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import type { CSSProperties, SubmitEvent, FocusEvent } from 'react'
 import type { BuildSection as BuildSectionData, ShopItem } from '../types.ts'
 import BuildSection from './BuildSection.tsx'
@@ -15,6 +15,7 @@ interface Props {
   onDeleteSection: (sectionId: string) => void
   onRenameSection: (sectionId: string, name: string) => void
   onResizeSection: (sectionId: string, width: number) => void
+  onMoveSection: (fromIndex: number, toIndex: number, row: number) => void
   onSetActiveSection: (sectionId: string) => void
   onRemoveItem: (sectionId: string, index: number) => void
   onMoveItem: (
@@ -36,6 +37,7 @@ const BuildsTab = ({
   onDeleteSection,
   onRenameSection,
   onResizeSection,
+  onMoveSection,
   onSetActiveSection,
   onRemoveItem,
   onMoveItem,
@@ -44,6 +46,16 @@ const BuildsTab = ({
 }: Props) => {
   const [renamingBuild, setRenamingBuild] = useState(false)
   const [buildNameDraft, setBuildNameDraft] = useState(buildName)
+
+  const rows = useMemo(() => {
+    const byRow = new Map<number, { section: BuildSectionData; index: number }[]>()
+    sections.forEach((section, index) => {
+      const entries = byRow.get(section.row) ?? []
+      entries.push({ section, index })
+      byRow.set(section.row, entries)
+    })
+    return Array.from(byRow.entries())
+  }, [sections])
 
   function submitBuildRename(
     event: SubmitEvent<HTMLFormElement> | FocusEvent<HTMLInputElement>,
@@ -123,20 +135,26 @@ const BuildsTab = ({
         }
       >
         <div className="builds-tab__sections">
-          {sections.map((section) => (
-            <BuildSection
-              key={section.id}
-              section={section}
-              isActive={section.id === activeSectionId}
-              isEditMode={isEditMode}
-              itemsById={itemsById}
-              onSetActive={onSetActiveSection}
-              onDelete={onDeleteSection}
-              onRename={onRenameSection}
-              onResize={onResizeSection}
-              onRemoveItem={onRemoveItem}
-              onMoveItem={onMoveItem}
-            />
+          {rows.map(([row, entries]) => (
+            <div className="builds-tab__row" key={row}>
+              {entries.map(({ section, index }) => (
+                <BuildSection
+                  key={section.id}
+                  section={section}
+                  index={index}
+                  isActive={section.id === activeSectionId}
+                  isEditMode={isEditMode}
+                  itemsById={itemsById}
+                  onSetActive={onSetActiveSection}
+                  onDelete={onDeleteSection}
+                  onRename={onRenameSection}
+                  onResize={onResizeSection}
+                  onMoveSection={onMoveSection}
+                  onRemoveItem={onRemoveItem}
+                  onMoveItem={onMoveItem}
+                />
+              ))}
+            </div>
           ))}
         </div>
       </div>
